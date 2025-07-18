@@ -1,3 +1,86 @@
+@import url('@fontsource/roboto/400.css');
+@import url('@fontsource/jost/500.css');
+@import url('@fontsource/roboto/500.css');
+@import url('@fontsource/open-sans/600.css');
+
+body {
+  min-width: 1440px;
+  min-height: 2404px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
 * {
-  box-sizing: border-box;    
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Шрифтовые решения */
+  --typeface-headings: 'Jost', sans-serif; /* Доминирующий шрифт для заголовков и акцентов */
+  --typeface-body: 'Roboto', sans-serif; /* Базовый шрифт для основного контента */
+  --typeface-cards: 'Open Sans', sans-serif; /* Шрифтовая гарнитура для карточек пользователей */
+
+  /* Цветовая палитра текста */
+  --text-dominant: #253017; /* Основной текст интерфейса */
+  --text-secondary: #69735d; /* Второстепенные подписи и аннотации */
+  --text-inactive: #9ca197; /* Неактивные элементы интерфейса */
+
+  /* Интерактивные элементы */
+  --state-disabled: #e4e8df; /* Состояние отключенного элемента */
+  --surface-main: #fff; /* Фон компонентов и карточек */
+
+  /* Акцентные состояния */
+  --action-pressed: #508826; /* Состояние нажатия */
+  --accent-primary: #abd27a; /* Главный акцентный цвет */
+  --action-hover: #deebc5; /* Состояние наведения */
+
+  /* Фоновые решения */
+  --bg-primary: #f9faf7; /* Основной фон страницы */
+
+  /* Системные цвета */
+  --status-alert: #e0796e; /* Предупреждения и уведомления */
+  --status-error: #bf3920; /* Ошибки и критичные состояния */
+
+  /* Категориальные маркеры */
+  --category-business: #eee7f7; /* Бизнес-направления */
+  --category-arts: #f7e7f2; /* Творческие дисциплины */
+  --category-languages: #ebe5c5; /* Лингвистические навыки */
+  --category-education: #e7f2f6; /* Образовательные программы */
+  --category-household: #f7ebe5; /* Домашние умения */
+  --category-wellness: #e9f7e7; /* Здоровый образ жизни */
+  --category-additional: #e8ecf7; /* Специализированные навыки */
+}
+
+h1 {
+  font-family: var(--typeface-headings);
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 40px;
+}
+
+h2 {
+  font-family: var(--typeface-headings);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+h3 {
+  font-family: var(--typeface-headings), serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+h4 {
+  font-family: var(--typeface-body), serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
 }
