@@ -1,4 +1,5 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://skillswap.free.beeceptor.com';
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || 'https://skillswap.free.beeceptor.com';
 
 export interface User {
   id: string;
@@ -9,8 +10,8 @@ export interface User {
   gender: string;
   city: string;
   aboutMe: string;
-  teachingSkills: any[];
-  learningSkills: any[];
+  teachingSkills: unknown[];
+  learningSkills: unknown[];
   likes: string;
 }
 
@@ -31,13 +32,10 @@ class ApiClient {
 
   async get<T>(endpoint: string): Promise<T> {
     const response = await fetch(`${this.baseURL}${endpoint}`);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
     return response.json();
   }
 
-  async post<T>(endpoint: string, data: any): Promise<T> {
+  async post<T>(endpoint: string, data: unknown): Promise<T> {
     const response = await fetch(`${this.baseURL}${endpoint}`, {
       method: 'POST',
       headers: {
@@ -45,9 +43,6 @@ class ApiClient {
       },
       body: JSON.stringify(data),
     });
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
     return response.json();
   }
 }
@@ -57,8 +52,10 @@ export const apiClient = new ApiClient();
 // Типизированные методы для удобства
 export const usersApi = {
   getAll: (): Promise<User[]> => apiClient.get<User[]>('/api/users'),
-  getById: (id: string): Promise<User> => apiClient.get<User>(`/api/users/${id}`),
-  create: (user: Partial<User>): Promise<User> => apiClient.post<User>('/api/users', user),
+  getById: (id: string): Promise<User> =>
+    apiClient.get<User>(`/api/users/${id}`),
+  create: (user: Partial<User>): Promise<User> =>
+    apiClient.post<User>('/api/users', user),
 };
 
 export const skillsApi = {
