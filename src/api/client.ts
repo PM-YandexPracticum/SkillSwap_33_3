@@ -1,21 +1,22 @@
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || 'https://skillswap.free.beeceptor.com';
+import type { LearningSkill, TeachingSkill } from '../shared/lib/types';
 
-export interface User {
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+export interface UserResponse {
   id: string;
   email: string;
   avatar: string;
   name: string;
   birthDate: string;
-  gender: string;
+  'gender ': string;
   city: string;
   aboutMe: string;
-  teachingSkills: unknown[];
-  learningSkills: unknown[];
-  likes: string;
+  teachingSkills: TeachingSkill[];
+  learningSkills: LearningSkill[];
+  likes: number;
 }
 
-export interface Skill {
+export interface SkillResponse {
   name: string;
   subcategories: {
     name: string;
@@ -51,13 +52,15 @@ export const apiClient = new ApiClient();
 
 // Типизированные методы для удобства
 export const usersApi = {
-  getAll: (): Promise<User[]> => apiClient.get<User[]>('/api/users'),
-  getById: (id: string): Promise<User> =>
-    apiClient.get<User>(`/api/users/${id}`),
-  create: (user: Partial<User>): Promise<User> =>
-    apiClient.post<User>('/api/users', user),
+  getAll: (): Promise<UserResponse[]> =>
+    apiClient.get<UserResponse[]>('/api/users'),
+  getById: (id: string): Promise<UserResponse> =>
+    apiClient.get<UserResponse>(`/api/users/${id}`),
+  create: (user: Partial<UserResponse>): Promise<UserResponse> =>
+    apiClient.post<UserResponse>('/api/users', user),
 };
 
 export const skillsApi = {
-  getAll: (): Promise<Skill[]> => apiClient.get<Skill[]>('/api/skills'),
+  getAll: (): Promise<SkillResponse[]> =>
+    apiClient.get<SkillResponse[]>('/api/skills'),
 };
