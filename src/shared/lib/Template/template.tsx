@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 
 interface TemplateProps {
   variant?: 'primary' | 'secondary';
@@ -23,6 +23,3 @@ export const Template: FC<TemplateProps> = ({
     </div>
   );
 };
-
-// Экспорт для использования в stories
-export { Template as Component };
