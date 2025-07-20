@@ -1,0 +1,64 @@
+.button {
+  width: 100%;
+  max-width: 248px;
+  height: 48px;
+  border: none;
+  border-radius: 12px;
+  padding: 0 12px;
+  color: var(--text-dominant);
+  font-family: var(--typeface-body);
+  font-weight: 400;
+  font-size: 16px;
+  font-style: normal;
+  line-height: 24px;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.button-primary {
+  background-color: var(--accent-primary);
+}
+
+.button-primary:hover {
+  background-color: var(--action-hover);
+}
+
+.button-primary:active {
+  color: var(--surface-main);
+  background-color: var(--action-pressed);
+}
+
+.button-primary:disabled {
+  color: var(--text-secondary);
+  background-color: var(--state-disabled);
+  cursor: initial;
+}
+
+.button-secondary {
+  background-color: var(--surface-main);
+  border: 1px solid var(--accent-primary);
+}
+
+.button-secondary:hover {
+  color: var(--text-secondary);
+  border-color: var(--action-hover);
+}
+
+.button-secondary:active {
+  border-color: 1px solid var(--action-pressed);
+  color: var(--text-dominant);
+}
+
+.button-secondary:disabled {
+  color: var(--text-inactive);
+  border-color: var(--state-disabled);
+  cursor: initial;
+}
+
+.button-tertiary {
+  background-color: var(--surface-main);
+}
+
+.button-tertiary:disabled {
+  color: var(--text-inactive);
+}
