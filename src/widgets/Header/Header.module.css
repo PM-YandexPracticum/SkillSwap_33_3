@@ -1,0 +1,115 @@
+.header-wrapper {
+    width: 100%;
+    background-color: var(--bg-primary);
+    padding: 36px 36px 20px;
+}
+
+.header-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.header-logo {
+    display: flex;
+    gap: 12px;
+    text-decoration: none;
+}
+
+.header-logo div{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-family: var(--typeface-headings);
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+    color: var(--text-dominant);
+}
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.header-nav {
+    display: flex;
+    white-space: nowrap;
+    width: 222px;
+    font-family: var(--typeface-body);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    gap: 33px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    color: var(--text-dominant);
+    text-decoration: none;
+    transition: color 0.2s;
+    gap: 4px;
+}
+
+.nav-link:hover {
+    color: var(--action-hover);
+}
+
+.chevron-down svg{
+    width: 16px;
+    height: 7.94px;
+}
+
+.header-search {
+    width: 527px;
+    height: 48px;
+}
+
+.search-container {
+    position: relative;
+    width: 100%;
+}
+
+.search-input {
+    width: 527px;
+    padding: 12px 12px 12px 49px;
+    border: none;
+    border-radius: 12px;
+    outline: none;
+    color: var(--text-dominant);
+    background-color: var(--surface-main);
+    font-family: var(--typeface-body);
+    font-weight: 400;
+    line-height: 24px;
+    font-size: 16px;
+}
+
+.search-container::before {
+    content: '';
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background-color: var(--text-secondary);
+    mask-image: url('../../assets/svg/icons/search.svg');
+    mask-repeat: no-repeat;
+    mask-position: center;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.moonContainer {
+    display: flex;
+    align-items: center;
+}
+
+.header-auth {
+    display: flex;
+    gap: 11px;
+}
