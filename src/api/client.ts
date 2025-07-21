@@ -8,7 +8,7 @@ export interface UserResponse {
   avatar: string;
   name: string;
   birthDate: string;
-  'gender ': string;
+  gender: string;
   city: string;
   aboutMe: string;
   teachingSkills: TeachingSkill[];

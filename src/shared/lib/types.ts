@@ -16,7 +16,7 @@ export interface IUser {
   avatar: string;
   name: string;
   birthDate: string;
-  'gender ': string; // с пробелом как в JSON
+  gender: string;
   city: string;
   aboutMe: string;
   teachingSkills: TeachingSkill[];
