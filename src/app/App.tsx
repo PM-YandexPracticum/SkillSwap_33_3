@@ -1,19 +1,5 @@
-import { BrowserRouter } from 'react-router-dom';
-import { Footer } from '../shared/ui/Footer';
-
-const AppContent = () => {
-  return (
-    <div>
-      <p>123</p>
-      <Footer />
-    </div>
-  );
-};
-
-const App = () => (
-  <BrowserRouter>
-    <AppContent />
-  </BrowserRouter>
-);
+function App() {
+  return <div>123</div>;
+}
 
 export default App;
