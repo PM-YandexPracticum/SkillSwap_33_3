@@ -3,7 +3,7 @@
   height: 48px;
   border: none;
   border-radius: 12px;
-  padding: 0 12px;
+  padding: 12px 24px;
   color: var(--text-dominant);
   font-family: var(--typeface-body);
   font-weight: 400;
