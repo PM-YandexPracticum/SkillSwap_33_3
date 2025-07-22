@@ -11,6 +11,7 @@ const meta = {
   },
   argTypes: {
     onClick: { action: 'clicked' },
+    onChange: { action: 'changed' },
   },
 } satisfies Meta<typeof Checkbox>;
 
@@ -23,31 +24,24 @@ const storyWrapper: React.CSSProperties = {
   borderRadius: '8px',
   display: 'flex',
   flexDirection: 'column',
-  gap: '5px',
-};
-
-const labelStyle: React.CSSProperties = {
-  display: 'flex',
-  alignItems: 'center',
-  gap: '5px',
+  gap: '8px',
 };
 
 export const Default: Story = {
-  args: {},
+  args: {
+    name: 'example',
+  },
   render: (args) => (
     <div style={storyWrapper}>
-      <label style={labelStyle}>
-        <Checkbox {...args} />
+      <Checkbox {...args} value="one">
         Option One
-      </label>
-      <label style={labelStyle}>
-        <Checkbox {...args} />
+      </Checkbox>
+      <Checkbox {...args} value="two" defaultChecked>
         Option Two
-      </label>
-      <label style={labelStyle}>
-        <Checkbox {...args} />
+      </Checkbox>
+      <Checkbox {...args} value="three" defaultChecked>
         Option Three
-      </label>
+      </Checkbox>
     </div>
   ),
 };
