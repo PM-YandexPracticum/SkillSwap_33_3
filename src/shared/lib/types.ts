@@ -5,7 +5,7 @@ export interface LearningSkill {
 
 export interface TeachingSkill {
   category: string;
-  subcategories: string;
+  subcategory: string;
   skillName: string;
   id: number;
 }
@@ -32,7 +32,7 @@ export interface IUser {
 
 export interface Filters {
   mode: 'all' | 'learn' | 'teach';
-  subcategories: string[];
+  subcategory: string[];
   gender: 'unknown' | 'male' | 'female';
   cities: string[];
 }
