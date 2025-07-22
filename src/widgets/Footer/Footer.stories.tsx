@@ -17,7 +17,9 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: () => (
     <BrowserRouter>
-      <Footer />
+      <div style={{ width: '1440px', margin: '0 auto' }}>
+        <Footer />
+      </div>
     </BrowserRouter>
   ),
 };

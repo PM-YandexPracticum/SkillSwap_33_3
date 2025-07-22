@@ -1,5 +1,6 @@
 .footer {
   padding: 32px 36px;
+  background-color: #fff;
 }
 
 .logo_link {
@@ -27,8 +28,8 @@
 
 .links {
   display: grid;
-  grid-template-columns: repeat(3, 324px);
-  gap: 48px;
+  grid-template-columns: repeat(3, minmax(200px, 324px));
+  gap: 24px;
   justify-content: end;
   margin-bottom: 32px;
   font-family: var(--typeface-body);
@@ -37,7 +38,6 @@
 }
 
 .column {
-  list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
@@ -45,10 +45,15 @@
   gap: 12px;
 }
 
+.column:first-child {
+  padding-left: 25px;
+}
+
 .links_item {
   text-decoration: none;
   color: var(--text-dominant);
   transition: color 0.3s ease;
+  line-height: 1.5;
 }
 
 .links_item:hover {
