@@ -30,14 +30,14 @@
 .checkbox:checked::after {
   content: "";
   position: absolute;
-  top: 20%;
-  left: 35%;
+  top: 50%;
+  left: 50%;
   width: 3px;
   height: 8px;
   border: solid var(--surface-main);
   border-width: 0 2px 2px 0;
   border-radius: 1px;
-  transform: rotate(45deg);
+  transform: translate(-50%, -50%) rotate(45deg);
 }
 
 .label {
