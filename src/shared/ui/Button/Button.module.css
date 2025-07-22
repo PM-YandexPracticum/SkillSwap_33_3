@@ -61,3 +61,11 @@
 .button-tertiary:disabled {
   color: var(--text-inactive);
 }
+
+.button-transparent {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  padding: 0;
+  gap: 4px;
+}
