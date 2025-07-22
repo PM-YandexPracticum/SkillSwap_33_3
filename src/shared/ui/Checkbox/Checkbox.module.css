@@ -30,8 +30,8 @@
 .checkbox:checked::after {
   content: "";
   position: absolute;
-  top: 4px;
-  left: 7px;
+  top: 20%;
+  left: 35%;
   width: 3px;
   height: 8px;
   border: solid var(--surface-main);
