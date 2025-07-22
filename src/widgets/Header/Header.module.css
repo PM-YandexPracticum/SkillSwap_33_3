@@ -47,9 +47,14 @@
 }
 
 .nav-link {
+    border: none;
     display: flex;
     align-items: center;
     color: var(--text-dominant);
+    font-family: var(--typeface-body);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
     text-decoration: none;
     transition: color 0.2s;
     gap: 4px;

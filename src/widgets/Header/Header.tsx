@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '@/shared/ui/Button';
+import { Button } from '../../shared/ui/Button';
 import styles from './Header.module.css';
 import logoUrl from '../../assets/svg/logo.svg';
 import chevronDownIcon from '../../assets/svg/icons/chevron-down.svg';
@@ -24,14 +24,21 @@ export const Header = () => {
             О проекте
           </Link>
           <div className={styles['dropdown']}>
-            <Link to="/skills" className={styles['nav-link']}>
+            <Button
+              variant="transparent"
+              onClick={() => {
+                /* Логика открытия меню */
+              }}
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
               Все навыки
               <img
                 src={chevronDownIcon}
                 alt="Стрелка вниз для выпадающего меню"
                 className={styles['chevron-down']}
               />
-            </Link>
+            </Button>
           </div>
         </nav>
 
