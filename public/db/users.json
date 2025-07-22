@@ -4,7 +4,7 @@
     "avatar": "/src/assets/img/avatars/avatar-ivan.jpg",
     "name": "Иван",
     "birthDate": "1991-01-01",
-    "gender ": "male",
+    "gender": "male",
     "city": "Санкт-Петербург",
     "aboutMe": "Привет! Люблю ритм, кофе по утрам и людей, которые не боятся пробовать новое",
     "teachingSkills": [
@@ -43,7 +43,7 @@
     "avatar": "/src/assets/img/avatars/avatar-anna.jpg",
     "name": "Анна",
     "birthDate": "1999-01-01",
-    "gender ": "female",
+    "gender": "female",
     "city": "Казань",
     "aboutMe": "Обожаю видеть, как загораются глаза учеников при освоении нового. Кофеин и позитив — мои лучшие друзья в работе!",
     "teachingSkills": [
@@ -78,7 +78,7 @@
     "avatar": "/src/assets/img/avatars/avatar-maksim.jpg",
     "name": "Максим",
     "birthDate": "2002-01-01",
-    "gender ": "male",
+    "gender": "male",
     "city": "Москва",
     "aboutMe": "Учу не только навыкам, но и творческому подходу к решению задач. Верю, что каждый может найти свой путь к успеху.",
     "teachingSkills": [
@@ -115,7 +115,7 @@
     "avatar": "/src/assets/img/avatars/avatar-ilona.jpg",
     "name": "Илона",
     "birthDate": "1992-01-01",
-    "gender ": "female",
+    "gender": "female",
     "city": "Екатеринбург",
     "aboutMe": "Приветствую! Вдохновляю людей на перемены и помогаю раскрыть их потенциал. В работе ценю честность и открытость, а в жизни — путешествия и новые впечатления.",
     "teachingSkills": [
@@ -144,7 +144,7 @@
     "avatar": "/src/assets/img/avatars/avatar-mihail.jpg",
     "name": "Михаил",
     "birthDate": "1996-01-01",
-    "gender ": "male",
+    "gender": "male",
     "city": "Новосибирск",
     "aboutMe": "Создаю образовательные программы, которые меняют жизнь к лучшему. Люблю сложные задачи и горжусь успехами своих учеников. Мой девиз: «Учиться можно с удовольствием!»",
     "teachingSkills": [
@@ -179,7 +179,7 @@
     "avatar": "/src/assets/img/avatars/avatar-maria.jpg",
     "name": "Мария",
     "birthDate": "2003-01-01",
-    "gender ": "female",
+    "gender": "female",
     "city": "Краснодар",
     "aboutMe": "Превращаю сложные концепции в понятные истории. Учу не бояться ошибок и смело идти вперёд. В свободное время занимаюсь йогой и читаю философские книги.",
     "teachingSkills": [
@@ -212,7 +212,7 @@
     "avatar": "/src/assets/img/avatars/avatar-victoria.jpg",
     "name": "Виктория",
     "birthDate": "1995-01-01",
-    "gender ": "female",
+    "gender": "female",
     "city": "Кемерово",
     "aboutMe": "Помогаю людям находить свой путь в профессии. Верю в силу маленьких шагов и больших мечтаний. Обожаю работать с амбициозными личностями!",
     "teachingSkills": [
@@ -247,7 +247,7 @@
     "avatar": "/src/assets/img/avatars/avatar-elizaveta.jpg",
     "name": "Елизавета",
     "birthDate": "2000-01-01",
-    "gender ": "female",
+    "gender": "female",
     "city": "Владивосток",
     "aboutMe": "Вдохновляюсь успехами других и делюсь этим вдохновением с учениками. Учу не только знаниям, но и умению применять их на практике. Кофе и музыка — мои верные спутники.",
     "teachingSkills": [
@@ -280,7 +280,7 @@
     "avatar": "/src/assets/img/avatars/avatar-victoria-2.jpg",
     "name": "Виктория",
     "birthDate": "1994-01-01",
-    "gender ": "female",
+    "gender": "female",
     "city": "Сочи",
     "aboutMe": "Делюсь опытом и знаниями, накопленными за годы практики. Верю, что каждый может достичь своих целей, если приложить достаточно усилий. Люблю вызовы и новые проекты.",
     "teachingSkills": [
@@ -315,7 +315,7 @@
     "avatar": "/src/assets/img/avatars/avatar-elena.jpg",
     "name": "Елена",
     "birthDate": "1997-01-01",
-    "gender ": "female",
+    "gender": "female",
     "city": "Красноярск",
     "aboutMe": "Помогаю людям раскрывать свои таланты и достигать новых высот. Люблю работать с целеустремлёнными личностями и видеть их прогресс. Энергия и драйв — моё второе имя!",
     "teachingSkills": [
@@ -348,7 +348,7 @@
     "avatar": "/src/assets/img/avatars/avatar-konstantin.jpg",
     "name": "Константин",
     "birthDate": "1989-01-01",
-    "gender ": "male",
+    "gender": "male",
     "city": "Иркутск",
     "aboutMe": "Вдохновляю на изменения и помогаю их осуществить. Учу не только теории, но и практике применения знаний. В работе ценю честность, открытость и взаимное уважение.",
     "teachingSkills": [
@@ -377,7 +377,7 @@
     "avatar": "/src/assets/img/avatars/avatar-sofia.jpg",
     "name": "София",
     "birthDate": "2001-01-01",
-    "gender ": "female",
+    "gender": "female",
     "city": "Абакан",
     "aboutMe": "Открываю новые горизонты вместе с учениками. Учу не бояться вызовов и превращать препятствия в возможности. В работе руководствуюсь принципом: «Нет ничего невозможного!»",
     "teachingSkills": [
@@ -416,7 +416,7 @@
     "avatar": "/src/assets/img/avatars/avatar-ekaterina.jpg",
     "name": "Екатерина",
     "birthDate": "1992-01-01",
-    "gender ": "female",
+    "gender": "female",
     "city": "Пермь",
     "aboutMe": "Развиваю таланты и помогаю их реализовать. Люблю видеть, как идеи превращаются в реальные достижения. Энергия и энтузиазм — мои лучшие помощники.",
     "teachingSkills": [
@@ -449,7 +449,7 @@
     "avatar": "/src/assets/img/avatars/avatar-darya.jpg",
     "name": "Дарья",
     "birthDate": "1999-01-01",
-    "gender ": "female",
+    "gender": "female",
     "city": "Ярославль",
     "aboutMe": "Создаю пространство для роста и развития. Учу находить баланс между амбициями и реальностью. В работе ценю искренность и готовность к изменениям.",
     "teachingSkills": [
@@ -478,7 +478,7 @@
     "avatar": "/src/assets/img/avatars/avatar-alla.jpg",
     "name": "Алла",
     "birthDate": "2003-01-01",
-    "gender ": "female",
+    "gender": "female",
     "city": "Архангельск",
     "aboutMe": "Превращаю обучение в увлекательное путешествие. Учу не только знаниям, но и умению их применять. Люблю сложные задачи и нестандартные решения.",
     "teachingSkills": [
