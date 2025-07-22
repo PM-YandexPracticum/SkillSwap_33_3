@@ -63,3 +63,15 @@ export const Tertiary: Story = {
     </div>
   ),
 };
+
+export const Transparent: Story = {
+  args: {
+    variant: 'transparent',
+    children: 'Transparent Button',
+  },
+  render: (args) => (
+    <div style={storyWrapper}>
+      <Button {...args} />
+    </div>
+  ),
+};
