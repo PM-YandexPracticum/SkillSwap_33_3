@@ -6,17 +6,17 @@ import type {
 } from '../../shared/lib/types';
 
 export class User implements IUser {
-  id: string;
-  email: string;
-  avatar: string;
-  name: string;
-  birthDate: string;
-  gender: string;
-  city: string;
-  aboutMe: string;
-  teachingSkills: TeachingSkill[];
-  learningSkills: LearningSkill[];
-  likes: number;
+  id!: string;
+  email!: string;
+  avatar!: string;
+  name!: string;
+  birthDate!: string;
+  gender!: string;
+  city!: string;
+  aboutMe!: string;
+  teachingSkills!: TeachingSkill[];
+  learningSkills!: LearningSkill[];
+  likes!: number;
 
   constructor(userData: {
     id: string;
