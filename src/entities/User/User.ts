@@ -52,22 +52,11 @@ export class User implements IUser {
     const today = dayjs();
     const birthDate = dayjs(this.birthDate);
 
-    // Вычисляем разность в годах
-    let age = today.year() - birthDate.year();
-
-    // Проверяем, прошёл ли день рождения в этом году
-    const hasHadBirthdayThisYear =
-      today.month() > birthDate.month() ||
-      (today.month() === birthDate.month() && today.date() > birthDate.date());
-
-    // Если день рождения ещё не прошёл, уменьшаем возраст на 1
-    if (!hasHadBirthdayThisYear) {
-      age--;
-    }
+    // Используем правильный способ - метод .diff() для вычисления разности в годах
+    let age = today.diff(birthDate, 'year');
 
     // Если сегодня день рождения, считается за следующий год
-    const isBirthdayToday =
-      today.month() === birthDate.month() && today.date() === birthDate.date();
+    const isBirthdayToday = today.isSame(birthDate.year(today.year()), 'day');
 
     if (isBirthdayToday) {
       age++;
