@@ -1,3 +1,10 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+  cursor: pointer;
+}
+
 .checkbox {
   position: relative;
   width: 20px;
@@ -31,4 +38,10 @@
   border-width: 0 2px 2px 0;
   border-radius: 1px;
   transform: rotate(45deg);
+}
+
+.label {
+  font-family: var(--typeface-body);
+  font-weight: 400;
+  font-size: 16px;
 }
