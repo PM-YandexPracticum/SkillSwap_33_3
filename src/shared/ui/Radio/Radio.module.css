@@ -1,0 +1,30 @@
+.radio {
+  appearance: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #000;
+  position: relative;
+  transition: 0.2s;
+}
+
+.radio::after {
+  content: "";
+  position: absolute;
+  transition: 0.2s;
+  top: 4px;
+  left: 4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: transparent;
+}
+
+.radio:checked {
+  border: 1px solid var(--action-pressed);
+}
+
+.radio:checked::after {
+  content: "";
+  background-color: var(--action-pressed);
+}
