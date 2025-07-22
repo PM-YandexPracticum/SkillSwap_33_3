@@ -10,7 +10,7 @@ export class User implements IUser {
   email!: string;
   avatar!: string;
   name!: string;
-  birthDate!: string;
+  birthDate!: dayjs.Dayjs;
   gender!: string;
   city!: string;
   aboutMe!: string;
@@ -35,7 +35,7 @@ export class User implements IUser {
     this.email = userData.email;
     this.avatar = userData.avatar;
     this.name = userData.name;
-    this.birthDate = userData.birthDate;
+    this.birthDate = dayjs(userData.birthDate);
     this.gender = userData.gender;
     this.city = userData.city;
     this.aboutMe = userData.aboutMe;
@@ -50,7 +50,8 @@ export class User implements IUser {
    */
   get age(): number {
     const today = dayjs();
-    const birthDate = dayjs(this.birthDate);
+    // this.birthDate уже является dayjs объектом, не нужно преобразование
+    const birthDate = this.birthDate;
 
     // Используем правильный способ - метод .diff() для вычисления разности в годах
     let age = today.diff(birthDate, 'year');
