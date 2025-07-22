@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Radio } from './Radio';
+import { RadioButton } from './RadioButton';
 
 const meta = {
-  title: 'UI/Radio',
-  component: Radio,
+  title: 'UI/RadioButton',
+  component: RadioButton,
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',
@@ -12,7 +12,7 @@ const meta = {
   argTypes: {
     onClick: { action: 'clicked' },
   },
-} satisfies Meta<typeof Radio>;
+} satisfies Meta<typeof RadioButton>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -39,15 +39,15 @@ export const Default: Story = {
   render: (args) => (
     <div style={storyWrapper}>
       <label style={labelStyle}>
-        <Radio {...args} />
+        <RadioButton {...args} />
         Option One
       </label>
       <label style={labelStyle}>
-        <Radio {...args} />
+        <RadioButton {...args} />
         Option Two
       </label>
       <label style={labelStyle}>
-        <Radio {...args} />
+        <RadioButton {...args} />
         Option Three
       </label>
     </div>
