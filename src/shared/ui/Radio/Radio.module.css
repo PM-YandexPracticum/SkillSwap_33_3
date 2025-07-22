@@ -1,27 +1,33 @@
 .radio {
-  appearance: none;
-  border-radius: 50%;
+  position: relative;
   width: 20px;
   height: 20px;
-  border: 1px solid #000;
-  position: relative;
-  transition: 0.2s;
+  border: 1.5px solid #000;
+  border-radius: 50%;
+  transition: 0.2s border;
+  cursor: pointer;
+  appearance: none;
+  outline: none;
+}
+
+.radio:focus-visible {
+  outline: 1px solid #000;
 }
 
 .radio::after {
   content: "";
   position: absolute;
-  transition: 0.2s;
   top: 4px;
   left: 4px;
   width: 10px;
   height: 10px;
   border-radius: 50%;
   background-color: transparent;
+  transition: 0.2s background;
 }
 
 .radio:checked {
-  border: 1px solid var(--action-pressed);
+  border-color: var(--action-pressed);
 }
 
 .radio:checked::after {
