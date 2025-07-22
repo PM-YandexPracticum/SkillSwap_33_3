@@ -23,13 +23,7 @@ const storyWrapper: React.CSSProperties = {
   borderRadius: '8px',
   display: 'flex',
   flexDirection: 'column',
-  gap: '5px',
-};
-
-const labelStyle: React.CSSProperties = {
-  display: 'flex',
-  alignItems: 'center',
-  gap: '5px',
+  gap: '8px',
 };
 
 export const Default: Story = {
@@ -38,18 +32,15 @@ export const Default: Story = {
   },
   render: (args) => (
     <div style={storyWrapper}>
-      <label style={labelStyle}>
-        <RadioButton {...args} />
+      <RadioButton {...args} value="one" defaultChecked>
         Option One
-      </label>
-      <label style={labelStyle}>
-        <RadioButton {...args} />
+      </RadioButton>
+      <RadioButton {...args} value="two">
         Option Two
-      </label>
-      <label style={labelStyle}>
-        <RadioButton {...args} />
+      </RadioButton>
+      <RadioButton {...args} value="three">
         Option Three
-      </label>
+      </RadioButton>
     </div>
   ),
 };

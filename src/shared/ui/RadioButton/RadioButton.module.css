@@ -1,13 +1,20 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+  cursor: pointer;
+}
+
 .radio {
   position: relative;
   width: 20px;
   height: 20px;
   border: 1.5px solid #000;
   border-radius: 50%;
+  outline: none;
   transition: 0.2s border;
   cursor: pointer;
   appearance: none;
-  outline: none;
 }
 
 .radio:focus-visible {
@@ -17,13 +24,14 @@
 .radio::after {
   content: "";
   position: absolute;
-  top: 4px;
-  left: 4px;
+  top: 50%;
+  left: 50%;
   width: 10px;
   height: 10px;
   border-radius: 50%;
   background-color: transparent;
   transition: 0.2s background;
+  transform: translate(-50%, -50%);
 }
 
 .radio:checked {
@@ -33,4 +41,10 @@
 .radio:checked::after {
   content: "";
   background-color: var(--action-pressed);
+}
+
+.label {
+  font-family: var(--typeface-body);
+  font-weight: 400;
+  font-size: 16px;
 }
