@@ -3,7 +3,7 @@
   height: 48px;
   border: none;
   border-radius: 12px;
-  padding: 0 12px;
+  padding: 12px 24px;
   color: var(--text-dominant);
   font-family: var(--typeface-body);
   font-weight: 400;
@@ -60,4 +60,12 @@
 
 .button-tertiary:disabled {
   color: var(--text-inactive);
+}
+
+.button-transparent {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  padding: 0;
+  gap: 4px;
 }
