@@ -13,12 +13,10 @@ import HealthIcon from '../../assets/svg/SkillsMenu/health-lifestyle.svg';
 // Типы для структуры данных
 type Subcategory = {
   name: string;
-  link?: string;
 };
 
 type Category = {
   name: string;
-  link?: string;
   subcategories: Subcategory[];
 };
 
@@ -45,7 +43,7 @@ export const SkillsMenu: React.FC = () => {
     <nav className={styles.menu}>
       {skillsData.map((category) => (
         <div key={category.name} className={styles.category}>
-          <Link to={category.link || '/'} className={styles.categoryLink}>
+          <Link to="/" className={styles.categoryLink}>
             <img
               src={categoryIcons[category.name] || BusinessIcon}
               alt={category.name}
@@ -55,11 +53,7 @@ export const SkillsMenu: React.FC = () => {
           </Link>
           <div className={styles.subcategories}>
             {category.subcategories.map((sub) => (
-              <Link
-                to={sub.link || '/'}
-                key={sub.name}
-                className={styles.subcategoryLink}
-              >
+              <Link to="/" key={sub.name} className={styles.subcategoryLink}>
                 {sub.name}
               </Link>
             ))}
