@@ -1,4 +1,4 @@
-import { SkillsMenu } from './SkillsMenu';
+import SkillsMenu from './SkillsMenu';
 import { DropdownBase } from '../../shared/ui/DropdownBase/DropdownBase';
 import { BrowserRouter } from 'react-router-dom';
 

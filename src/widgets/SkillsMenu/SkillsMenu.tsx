@@ -20,6 +20,10 @@ type Category = {
   subcategories: Subcategory[];
 };
 
+interface SkillsMenuProps {
+  skillsData?: Category[];
+}
+
 const categoryIcons: Record<string, string> = {
   'Бизнес и карьера': BusinessIcon,
   'Творчество и искусство': CreativeIcon,
@@ -29,15 +33,21 @@ const categoryIcons: Record<string, string> = {
   'Здоровье и лайфстайл': HealthIcon,
 };
 
-export const SkillsMenu: React.FC = () => {
-  const [skillsData, setSkillsData] = useState<Category[]>([]);
+export const SkillsMenu: React.FC<SkillsMenuProps> = ({
+  skillsData: propSkillsData,
+}) => {
+  const [fetchedSkillsData, setFetchedSkillsData] = useState<Category[]>([]);
 
   useEffect(() => {
-    fetch('/db/skills.json')
-      .then((response) => response.json())
-      .then((data) => setSkillsData(data))
-      .catch((error) => console.error('Error loading skills data:', error));
-  }, []);
+    if (!propSkillsData) {
+      fetch('/db/skills.json')
+        .then((response) => response.json())
+        .then((data) => setFetchedSkillsData(data))
+        .catch((error) => console.error('Error loading skills data:', error));
+    }
+  }, [propSkillsData]);
+
+  const skillsData = propSkillsData || fetchedSkillsData;
 
   return (
     <nav className={styles.menu}>
