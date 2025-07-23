@@ -53,20 +53,22 @@ export const SkillsMenu: React.FC<SkillsMenuProps> = ({
     <nav className={styles.menu}>
       {skillsData.map((category) => (
         <div key={category.name} className={styles.category}>
-          <Link to="/" className={styles.categoryLink}>
-            <img
-              src={categoryIcons[category.name] || BusinessIcon}
-              alt={category.name}
-              className={styles.icon}
-            />
-            <span className={styles.categoryTitle}>{category.name}</span>
-          </Link>
-          <div className={styles.subcategories}>
-            {category.subcategories.map((sub) => (
-              <Link to="/" key={sub.name} className={styles.subcategoryLink}>
-                {sub.name}
-              </Link>
-            ))}
+          <img
+            src={categoryIcons[category.name] || BusinessIcon}
+            alt={category.name}
+            className={styles.icon}
+          />
+          <div className={styles.categoryContent}>
+            <Link to="/" className={styles.categoryLink}>
+              <span className={styles.categoryTitle}>{category.name}</span>
+            </Link>
+            <div className={styles.subcategories}>
+              {category.subcategories.map((sub) => (
+                <Link to="/" key={sub.name} className={styles.subcategoryLink}>
+                  {sub.name}
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       ))}

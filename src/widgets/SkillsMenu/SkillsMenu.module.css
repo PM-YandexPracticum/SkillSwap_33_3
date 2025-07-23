@@ -1,23 +1,22 @@
 .menu {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-  padding: 16px;
-  max-width: 600px;
+  gap: 0 20px;
+  padding: 16px 25px;
+  max-width: 1200px;
 }
 
 .category {
   padding: 16px 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 40px 436px;
+  gap: 12px;
+  align-items: start;
   min-height: 200px;
 }
 
 .categoryLink {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  display: block;
   text-decoration: none;
   color: var(--text-dominant);
   width: 100%;
@@ -25,16 +24,21 @@
 }
 
 .icon {
-  width: 24px;
-  height: 24px;
-  margin-bottom: 8px;
+  width: 40px;
+  height: 40px;
+}
+
+.categoryContent {
+  width: 436px;
+  display: flex;
+  flex-direction: column;
 }
 
 .categoryTitle {
   font-family: var(--typeface-headings);
-  font-size: 14px;
+  font-size: 24px;
   font-weight: 600;
-  line-height: 18px;
+  line-height: 28px;
   color: var(--text-dominant);
   margin-bottom: 8px;
 }
@@ -50,10 +54,10 @@
   text-decoration: none;
   color: var(--text-secondary);
   font-family: var(--typeface-body);
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 400;
-  line-height: 16px;
-  padding: 2px 0;
+  line-height: 24px;
+  padding: 4px 0;
   transition: color 0.2s ease;
 }
 
