@@ -92,7 +92,7 @@ const FilterRadio = ({
 
 export const CompleteFilter = () => (
   <div style={storyWrapper}>
-    <FilterSection type="main-filter">
+    <FilterSection>
       <FilterRadio name="filter-type" value="all" size="medium" defaultChecked>
         Всё
       </FilterRadio>
@@ -140,12 +140,7 @@ export const CompleteFilter = () => (
       </FilterRadio>
     </FilterSection>
 
-    <FilterSection
-      title="Город"
-      buttonTitle="Все города"
-      maxVisible={5}
-      noMargin={true}
-    >
+    <FilterSection title="Город" buttonTitle="Все города" maxVisible={5}>
       <FilterCheckbox name="city" value="moscow" size="large">
         Москва
       </FilterCheckbox>

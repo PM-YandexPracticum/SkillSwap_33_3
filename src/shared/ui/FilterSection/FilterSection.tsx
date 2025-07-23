@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import clsx from 'clsx';
 import { Button } from '../Button';
 import styles from './FilterSection.module.css';
 import chevronDownIcon from '../../../assets/svg/icons/chevron-down.svg';
@@ -9,8 +10,6 @@ interface FilterSectionProps {
   maxVisible?: number;
   children: React.ReactNode;
   isExpandedByDefault?: boolean;
-  type?: 'default' | 'main-filter';
-  noMargin?: boolean;
 }
 
 export const FilterSection: React.FC<FilterSectionProps> = ({
@@ -19,8 +18,6 @@ export const FilterSection: React.FC<FilterSectionProps> = ({
   maxVisible = Infinity,
   children,
   isExpandedByDefault = false,
-  type = 'default',
-  noMargin = false,
 }) => {
   const [isExpanded, setIsExpanded] = useState(isExpandedByDefault);
   const childrenArray = React.Children.toArray(children);
@@ -33,38 +30,29 @@ export const FilterSection: React.FC<FilterSectionProps> = ({
     setIsExpanded(!isExpanded);
   };
 
-  const sectionClasses = `${styles.section} ${noMargin ? styles.noMargin : ''}`;
-  const chevronClasses = `${styles.chevron} ${isExpanded ? styles.rotated : ''}`;
-
-  if (type === 'main-filter') {
-    return (
-      <div className={styles.mainSection}>
-        <h2 className={styles.mainTitle}>Фильтры</h2>
-        <div className={styles.content}>{children}</div>
-      </div>
-    );
-  }
-
   return (
-    <div>
-      {title && <h3 className={styles.title}>{title}</h3>}
-      <div className={sectionClasses}>
-        <div className={styles.content}>{visibleChildren}</div>
-        {hasHiddenItems && (
-          <Button
-            variant="transparent"
+    <div className={styles.section}>
+      {title && (
+        <div className={styles.header}>
+          <h3 className={styles.title}>{title}</h3>
+        </div>
+      )}
+      <div className={styles.content}>{visibleChildren}</div>
+      {hasHiddenItems && (
+        <Button
+          variant="transparent"
+          onClick={toggleExpand}
+          className={styles.button}
+        >
+          {isExpanded ? 'Свернуть' : buttonTitle}
+          <img
+            src={chevronDownIcon}
+            alt="Стрелка вниз"
+            className={clsx(styles.chevronIcon, isExpanded && styles.rotated)}
             onClick={toggleExpand}
-            className={styles.button}
-          >
-            {isExpanded ? 'Свернуть' : buttonTitle}
-            <img
-              src={chevronDownIcon}
-              alt="Стрелка вниз для выпадающего меню"
-              className={chevronClasses}
-            />
-          </Button>
-        )}
-      </div>
+          />
+        </Button>
+      )}
     </div>
   );
 };
