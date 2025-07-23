@@ -1,38 +1,49 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Checkbox } from '../Checkbox';
 import styles from './NestedCheckboxGroup.module.css';
-import type { NestedCheckboxGroupProps } from './types';
+import ArrowDownIcon from '../../assets/svg/chevron-down.svg';
+import ArrowUpIcon from '../../assets/svg/chevron-up.svg';
 
-export const NestedCheckboxGroup: React.FC<NestedCheckboxGroupProps> = ({
+interface NestedCheckboxGroupProps {
+  title: string;
+  children: React.ReactNode;
+  defaultExpanded?: boolean;
+  className?: string;
+}
+
+export const NestedCheckboxGroup = ({
   title,
   children,
   defaultExpanded = false,
   className,
-}) => {
+}: NestedCheckboxGroupProps) => {
   const [expanded, setExpanded] = useState(defaultExpanded);
-  const [hovered, setHovered] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
-  const toggleExpand = () => {
-    setExpanded(!expanded);
-  };
+  const toggleExpand = () => setExpanded(!expanded);
 
   return (
-    <div
-      className={`${styles.group} ${className || ''}`}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      <div className={styles.header} onClick={toggleExpand}>
+    <div className={`${styles.group} ${className || ''}`}>
+      <div
+        className={styles.header}
+        onClick={toggleExpand}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         <Checkbox className={styles.checkbox} />
-
         <span className={styles.title}>{title}</span>
 
-        <span className={styles.arrow}>
-          {expanded ? '↑' : hovered ? '↓' : null}
-        </span>
+        <div className={styles.arrowWrapper}>
+          {expanded ? (
+            <ArrowUpIcon className={styles.arrow} />
+          ) : isHovered ? (
+            <ArrowDownIcon className={styles.arrow} />
+          ) : null}
+        </div>
       </div>
 
       {expanded && <div className={styles.children}>{children}</div>}
     </div>
   );
 };
+export type { NestedCheckboxGroupProps };

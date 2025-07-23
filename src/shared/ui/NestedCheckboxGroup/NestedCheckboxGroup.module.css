@@ -1,52 +1,58 @@
 .group {
   width: 100%;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
 }
 
 .header {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   padding: 8px 0;
   cursor: pointer;
   user-select: none;
-  transition: background-color 0.2s ease;
-}
-
-.header:hover {
-  background-color: var(--action-hover);
 }
 
 .checkbox {
   flex-shrink: 0;
+  width: 20px;
+  height: 20px;
 }
 
 .title {
   flex-grow: 1;
   font-family: var(--typeface-body);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   color: var(--text-dominant);
 }
 
+.arrowWrapper {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .arrow {
-  width: 20px;
-  text-align: center;
-  font-size: 14px;
+  width: 16px;
+  height: 16px;
   color: var(--text-secondary);
   transition: transform 0.2s ease;
 }
 
 .children {
-  padding-left: 24px;
-  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px 0 8px 32px;
   animation: fade-in 0.2s ease-out;
 }
 
 @keyframes fade-in {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-8px);
   }
 
   to {

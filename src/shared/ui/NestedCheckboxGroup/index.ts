@@ -1,2 +1,4 @@
-export { NestedCheckboxGroup } from './NestedCheckboxGroup';
-export type { NestedCheckboxGroupProps } from './types';
+export {
+  NestedCheckboxGroup,
+  type NestedCheckboxGroupProps,
+} from './NestedCheckboxGroup';
