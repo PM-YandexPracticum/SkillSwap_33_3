@@ -1,8 +1,6 @@
 .section {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    margin-bottom: 32px;
 }
 
 .filterGroup {
@@ -37,6 +35,7 @@
     line-height: 24px;
     border: none;
     cursor: pointer;
+    margin-top: 12px;
 }
 
 .button:hover {
@@ -46,25 +45,4 @@
 
 .rotated {
     transform: rotate(180deg);
-}
-
-.checkboxContainer, .radioContainer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.checkboxMedium, .radioMedium {
-    height: 24px;
-}
-
-.checkboxLarge, .radioLarge {
-    height: 32px;
-}
-
-.checkboxLabel, .radioLabel {
-    font-size: 16px;
-    display: flex;
-    align-items: center;
 }

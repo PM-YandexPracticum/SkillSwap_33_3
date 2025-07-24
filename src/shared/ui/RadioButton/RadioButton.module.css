@@ -3,6 +3,7 @@
   align-items: center;
   column-gap: 10px;
   cursor: pointer;
+  height: 24px;
 }
 
 .radio {

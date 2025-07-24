@@ -3,6 +3,7 @@
   align-items: center;
   column-gap: 10px;
   cursor: pointer;
+  height: 32px;
 }
 
 .checkbox {
@@ -41,6 +42,9 @@
 }
 
 .label {
+  display: flex;
+  align-items: center;
+  gap: 98px;
   font-family: var(--typeface-body);
   font-weight: 400;
   font-size: 16px;
