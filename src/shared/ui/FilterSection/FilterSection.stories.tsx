@@ -18,6 +18,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const storyWrapper = {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '32px',
   padding: '20px 20px 20px 23px',
   backgroundColor: 'var(--surface-main)',
   borderRadius: '12px',
