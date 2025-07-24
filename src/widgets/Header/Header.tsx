@@ -1,14 +1,47 @@
-import React from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '../../shared/ui/Button';
+import { DropdownBase } from '../../shared/ui/DropdownBase';
+import { SkillsMenu } from '../SkillsMenu';
 import styles from './Header.module.css';
 import logoUrl from '../../assets/svg/logo.svg';
 import chevronDownIcon from '../../assets/svg/icons/chevron-down.svg';
 import moonIcon from '../../assets/svg/icons/moon.svg';
 
 export const Header = () => {
+  const [isSkillsMenuOpen, setIsSkillsMenuOpen] = useState(false);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const skillsButtonRef = useRef<HTMLButtonElement>(null);
+
+  const handleSkillsMenuToggle = useCallback(() => {
+    setIsSkillsMenuOpen((prev) => !prev);
+  }, []);
+
+  const handleSkillsMenuClose = useCallback(() => {
+    setIsSkillsMenuOpen(false);
+  }, []);
+
+  // Обработка клика вне компонента
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        headerRef.current &&
+        !headerRef.current.contains(event.target as Node)
+      ) {
+        setIsSkillsMenuOpen(false);
+      }
+    };
+
+    if (isSkillsMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }
+  }, [isSkillsMenuOpen]);
+
   return (
-    <header className={styles['header-wrapper']}>
+    <header className={styles['header-wrapper']} ref={headerRef}>
       <div className={styles['header-container']}>
         <Link to="/" className={styles['header-logo']}>
           <img
@@ -25,12 +58,11 @@ export const Header = () => {
           </Link>
           <div className={styles['dropdown']}>
             <Button
+              ref={skillsButtonRef}
               variant="transparent"
-              onClick={() => {
-                /* Логика открытия меню */
-              }}
+              onClick={handleSkillsMenuToggle}
               aria-haspopup="true"
-              aria-expanded="false"
+              aria-expanded={isSkillsMenuOpen}
             >
               Все навыки
               <img
@@ -39,6 +71,14 @@ export const Header = () => {
                 className={styles['chevron-down']}
               />
             </Button>
+
+            <DropdownBase
+              isOpen={isSkillsMenuOpen}
+              onClose={handleSkillsMenuClose}
+              triggerRef={skillsButtonRef}
+            >
+              <SkillsMenu />
+            </DropdownBase>
           </div>
         </nav>
 

@@ -5,11 +5,14 @@ import styles from './DropdownBase.module.css';
 type DropdownBaseProps = {
   onClose: () => void;
   children: React.ReactNode;
+  isOpen?: boolean;
+  triggerRef?: React.RefObject<HTMLElement | null>;
 };
 
 export const DropdownBase: React.FC<DropdownBaseProps> = ({
   onClose,
   children,
+  isOpen = true,
 }) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -17,12 +20,17 @@ export const DropdownBase: React.FC<DropdownBaseProps> = ({
   useClickOutside(dropdownRef, onClose);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      setVisible(true);
-    }, 10);
+    if (isOpen) {
+      const timeout = setTimeout(() => {
+        setVisible(true);
+      }, 10);
+      return () => clearTimeout(timeout);
+    } else {
+      setVisible(false);
+    }
+  }, [isOpen]);
 
-    return () => clearTimeout(timeout);
-  }, []);
+  if (!isOpen) return null;
 
   return (
     <div ref={dropdownRef} className={styles.dropdown} data-visible={visible}>

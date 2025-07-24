@@ -8,21 +8,21 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children?: React.ReactNode;
 }
 
-export const Button: React.FC<ButtonProps> = ({
-  variant = 'primary',
-  children,
-  ...props
-}: ButtonProps) => {
-  const className = clsx(styles.button, {
-    [styles['button-primary']]: variant === 'primary',
-    [styles['button-secondary']]: variant === 'secondary',
-    [styles['button-tertiary']]: variant === 'tertiary',
-    [styles['button-transparent']]: variant === 'transparent',
-  });
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ variant = 'primary', children, ...props }, ref) => {
+    const className = clsx(styles.button, {
+      [styles['button-primary']]: variant === 'primary',
+      [styles['button-secondary']]: variant === 'secondary',
+      [styles['button-tertiary']]: variant === 'tertiary',
+      [styles['button-transparent']]: variant === 'transparent',
+    });
 
-  return (
-    <button className={className} {...props}>
-      {children}
-    </button>
-  );
-};
+    return (
+      <button ref={ref} className={className} {...props}>
+        {children}
+      </button>
+    );
+  }
+);
+
+Button.displayName = 'Button';
