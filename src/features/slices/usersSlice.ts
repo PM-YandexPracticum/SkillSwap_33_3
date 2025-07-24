@@ -71,10 +71,15 @@ export const selectUsersByFilters = createSelector(
         filters.cities.length === 0 || filters.cities.includes(user.city);
 
       let matchesMode = true;
+
       if (filters.mode === 'learn') {
         matchesMode = user.getLearningSkills(filters.subcategories).length > 0;
       } else if (filters.mode === 'teach') {
         matchesMode = user.getTeachingSkills(filters.subcategories).length > 0;
+      } else if (filters.mode === 'all') {
+        matchesMode =
+          user.getLearningSkills(filters.subcategories).length > 0 ||
+          user.getTeachingSkills(filters.subcategories).length > 0;
       }
 
       return matchesGender && matchesCity && matchesMode;

@@ -104,7 +104,7 @@ export class User implements IUser {
     }
 
     return this.learningSkills.filter((skill) =>
-      filters.includes(skill.category)
+      filters.includes(skill.subcategory)
     );
   }
 
@@ -117,7 +117,7 @@ export class User implements IUser {
     }
 
     return this.teachingSkills.filter((skill) =>
-      filters.includes(skill.category)
+      filters.includes(skill.subcategory)
     );
   }
 }
