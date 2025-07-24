@@ -28,8 +28,7 @@ export const NestedCheckboxGroup = ({
 
   const handleCheckboxClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    const newMode = mode === 'none' ? 'all' : 'none';
-    onChange(title, newMode);
+    onChange(title, mode);
   };
 
   return (
@@ -39,7 +38,6 @@ export const NestedCheckboxGroup = ({
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {}
         <div className={styles.checkboxArea} onClick={handleCheckboxClick}>
           <input
             type="checkbox"
@@ -55,16 +53,13 @@ export const NestedCheckboxGroup = ({
           <span className={styles.checkboxVisual} />
         </div>
 
-        {}
         <span className={styles.titleArea} onClick={toggleExpand}>
           <span className={styles.title}>{title}</span>
-
-          {/* Стрелка */}
           <div className={styles.arrowWrapper}>
             {expanded ? (
-              <ArrowUpIcon className={styles.arrow} />
+              <img src={ArrowUpIcon} className={styles.arrow} alt="Collapse" />
             ) : isHovered ? (
-              <ArrowDownIcon className={styles.arrow} />
+              <img src={ArrowDownIcon} className={styles.arrow} alt="Expand" />
             ) : null}
           </div>
         </span>

@@ -86,3 +86,30 @@ export const InitiallyExpanded: Story = {
     ),
   ],
 };
+
+export const ArtCategory: Story = {
+  args: {
+    ...Default.args,
+    mode: 'some',
+    title: 'Творчество и искусство',
+    children: (
+      <>
+        <Checkbox>Рисование и иллюстрация</Checkbox>
+        <Checkbox>Фотография</Checkbox>
+        <Checkbox>Видеомонтаж</Checkbox>
+        <Checkbox checked>Музыка и звук</Checkbox>
+        <Checkbox>Актёрское мастерство</Checkbox>
+        <Checkbox>Креативное письмо</Checkbox>
+        <Checkbox>Арт-терапия</Checkbox>
+        <Checkbox>Декор и DIY</Checkbox>
+      </>
+    ),
+  },
+  decorators: [
+    (Story) => (
+      <div style={{ width: '280px', padding: '12px' }}>
+        <Story />
+      </div>
+    ),
+  ],
+};
