@@ -4,8 +4,12 @@ import {
   type PayloadAction,
 } from '@reduxjs/toolkit';
 
+// TODO: Убрать мок api скиллов, заменить на реальный сервер в проде
+// import { skillsApi } from '../../api/client';
+import mockSkills from '../../../public/db/skills.json';
+
 import type { RootState } from '../../app/store';
-import { skillsApi, type SkillResponse } from '../../api/client';
+import type { SkillResponse } from '../../api/client';
 
 interface SkillsState {
   list: SkillResponse[];
@@ -19,8 +23,13 @@ const initialState: SkillsState = {
   error: null,
 };
 
+// TODO: Убрать мок api скиллов, заменить на реальный сервер в проде
+// export const fetchSkills = createAsyncThunk('skills/fetchSkills', async () => {
+//   return await skillsApi.getAll();
+// });
 export const fetchSkills = createAsyncThunk('skills/fetchSkills', async () => {
-  return await skillsApi.getAll();
+  await new Promise((resolve) => setTimeout(resolve, 300)); // Задержка 0.3 секунды
+  return mockSkills;
 });
 
 export const skillsSlice = createSlice({
