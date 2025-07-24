@@ -42,7 +42,18 @@ export const SkillsMenu: React.FC<SkillsMenuProps> = ({
     if (!propSkillsData) {
       fetch('/db/skills.json')
         .then((response) => response.json())
-        .then((data) => setFetchedSkillsData(data))
+        .then((data) => {
+          const rearrangeData = data.reduce(
+            (acc: Category[][], item: Category, index: number) => {
+              if (index % 2 === 0) acc[0].push(item);
+              else acc[1].push(item);
+
+              return acc;
+            },
+            [[], []]
+          );
+          setFetchedSkillsData(rearrangeData[0].concat(rearrangeData[1]));
+        })
         .catch((error) => console.error('Error loading skills data:', error));
     }
   }, [propSkillsData]);
@@ -75,5 +86,3 @@ export const SkillsMenu: React.FC<SkillsMenuProps> = ({
     </nav>
   );
 };
-
-export default SkillsMenu;

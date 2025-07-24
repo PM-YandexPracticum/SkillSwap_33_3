@@ -1,16 +1,24 @@
-import SkillsMenu from './SkillsMenu';
+import { SkillsMenu } from './SkillsMenu';
 import { DropdownBase } from '../../shared/ui/DropdownBase/DropdownBase';
 import { BrowserRouter } from 'react-router-dom';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
-export default {
+const meta: Meta<typeof SkillsMenu> = {
   title: 'widgets/SkillsMenu',
   component: SkillsMenu,
 };
+export default meta;
 
-export const Default = () => (
-  <BrowserRouter>
-    <DropdownBase onClose={() => {}}>
-      <SkillsMenu />
-    </DropdownBase>
-  </BrowserRouter>
-);
+type Story = StoryObj<typeof SkillsMenu>;
+
+export const Menu: Story = {
+  render: () => (
+    <BrowserRouter>
+      <div style={{ position: 'relative' }}>
+        <DropdownBase onClose={() => {}}>
+          <SkillsMenu></SkillsMenu>
+        </DropdownBase>
+      </div>
+    </BrowserRouter>
+  ),
+};
