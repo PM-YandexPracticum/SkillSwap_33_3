@@ -4,6 +4,8 @@ import { Checkbox } from '../../shared/ui/Checkbox';
 import { RadioButton } from '../../shared/ui/RadioButton';
 import styles from './FilterSidebar.module.css';
 import type { Filters } from '../../shared/lib/types';
+import chevronDownIcon from '../../assets/svg/icons/chevron-down.svg';
+import clsx from 'clsx';
 
 const defaultFilters: Filters = {
   mode: 'all',
@@ -14,9 +16,14 @@ const defaultFilters: Filters = {
 
 export const FilterSidebar: React.FC = () => {
   const [filters, setFilters] = useState<Filters>(defaultFilters);
+  const [isBusinessExpanded, setIsBusinessExpanded] = useState(false);
 
   const handleReset = () => {
     setFilters(defaultFilters);
+  };
+
+  const toggleBusinessExpand = () => {
+    setIsBusinessExpanded(!isBusinessExpanded);
   };
 
   const handleModeChange = (value: string) => {
@@ -102,6 +109,18 @@ export const FilterSidebar: React.FC = () => {
             >
               Бизнес и карьера
             </Checkbox>
+            <img
+              src={chevronDownIcon}
+              alt="Стрелка вниз"
+              className={clsx(
+                styles.chevronIcon,
+                isBusinessExpanded && styles.rotated
+              )}
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleBusinessExpand();
+              }}
+            />
           </div>
           <div className={styles.checkboxWrapper}>
             <Checkbox
