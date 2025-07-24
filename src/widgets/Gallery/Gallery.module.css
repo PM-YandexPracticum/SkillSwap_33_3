@@ -79,8 +79,7 @@
 .moreOverlay {
     position: absolute;
     inset: 0;
-    background: rgb(255 255 255 / 10%);
-    backdrop-filter: blur(2px);
+    background: rgb(255 255 255 / 50%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -93,7 +92,7 @@
     font-size: 16px;
     line-height: 150%;
     letter-spacing: -0.01em;
-    color: var(--text);
+    color: var(--text-dominant);
 }
 
 .empty {

@@ -1,5 +1,6 @@
 import type { StoryFn } from '@storybook/react-vite';
 import { Gallery } from './Gallery';
+import '../../index.css';
 
 import img1 from '../../assets/img/skills/drums-1.jpg';
 import img2 from '../../assets/img/skills/drums-2.jpg';
