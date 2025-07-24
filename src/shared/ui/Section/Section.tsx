@@ -9,7 +9,7 @@ import styles from './Section.module.css';
 interface SectionProps {
   title: string;
   buttonTitle: string;
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   children?: React.ReactNode;
 }
 
@@ -18,7 +18,7 @@ export const Section: React.FC<SectionProps> = ({
   buttonTitle,
   onClick,
   children,
-}: SectionProps) => {
+}) => {
   return (
     <section className={styles['section-wrapper']}>
       <div className={styles['title-wrapper']}>
