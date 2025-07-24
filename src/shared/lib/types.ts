@@ -7,7 +7,7 @@ export interface LearningSkill {
 
 export interface TeachingSkill {
   category: string;
-  subcategories: string;
+  subcategory: string;
   skillName: string;
   id: number;
 }

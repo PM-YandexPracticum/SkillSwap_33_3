@@ -10,13 +10,13 @@
     "teachingSkills": [
       {
         "category": "Творчество и искусство",
-        "subcategories": "Музыка и звук",
+        "subcategory": "Музыка и звук",
         "skillName": "Игра на барабанах",
         "id": 1
       },
       {
         "category": "Здоровье и лайфстайл",
-        "subcategories": "Физические тренировки",
+        "subcategory": "Физические тренировки",
         "skillName": "Кроссфит",
         "id": 2
       }
