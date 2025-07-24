@@ -1,7 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
 import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Section } from './Section';
+import { Button } from '../Button';
+
+import ChevronRightIcon from '../../../assets/svg/icons/chevron-right.svg?react';
 
 const meta = {
   title: 'UI/Section',
@@ -9,9 +12,6 @@ const meta = {
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',
-  },
-  argTypes: {
-    onClick: { action: 'clicked' },
   },
 } satisfies Meta<typeof Section>;
 
@@ -26,7 +26,7 @@ const storyWrapper: React.CSSProperties = {
 
 const cardsData = ['#000', '#999', '#000', '#999', '#000'];
 
-const Cards = () => (
+const Cards: React.FC = () => (
   <>
     {cardsData.map((color, i) => (
       <div
@@ -40,7 +40,20 @@ const Cards = () => (
 export const Default: Story = {
   args: {
     title: 'Example Title',
-    buttonTitle: 'Button Title',
+    button: (
+      <Button
+        style={{
+          width: 'fit-content',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+        }}
+        variant="tertiary"
+      >
+        Example Button
+        <ChevronRightIcon />
+      </Button>
+    ),
   },
   render: (args) => (
     <div style={storyWrapper}>
