@@ -19,7 +19,9 @@
     "husky-script": "npm run fixAll && git add ."
   },
   "dependencies": {
+    "@fontsource/inter": "^5.2.6",
     "@fontsource/jost": "^5.2.6",
+    "@fontsource/mulish": "^5.2.6",
     "@fontsource/open-sans": "^5.2.6",
     "@fontsource/roboto": "^5.2.6",
     "@reduxjs/toolkit": "^2.8.2",

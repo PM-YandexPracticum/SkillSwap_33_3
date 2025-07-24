@@ -2,6 +2,9 @@
 @import url('@fontsource/jost/500.css');
 @import url('@fontsource/roboto/500.css');
 @import url('@fontsource/open-sans/600.css');
+@import url('@fontsource/inter/400.css');
+@import url('@fontsource/mulish/400.css');
+
 
 body {
   min-width: 1440px;
@@ -25,6 +28,10 @@ body {
   --typeface-headings: 'Jost', sans-serif; /* Доминирующий шрифт для заголовков и акцентов */
   --typeface-body: 'Roboto', sans-serif; /* Базовый шрифт для основного контента */
   --typeface-cards: 'Open Sans', sans-serif; /* Шрифтовая гарнитура для карточек пользователей */
+
+  /* Дополнительный шрифты из макета */
+  --font3: 'Inter', sans-serif;
+  --font4: 'Mulish', sans-serif;
 
   /* Цветовая палитра текста */
   --text-dominant: #253017; /* Основной текст интерфейса */
