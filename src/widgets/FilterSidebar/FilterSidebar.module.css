@@ -48,27 +48,6 @@
     text-decoration: underline;
 }
 
-.section + .section {
-    margin-top: 24px;
-}
-
-.checkboxWrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 24px;
-}
-
-.cityCheckboxWrapper {
-    height: 32px;
-    display: flex;
-    align-items: center;
-}
-
-.wrapperSection {
-    padding-bottom: 16px;
-}
-
 .resetButton::after {
     content: '';
     position: absolute;
