@@ -38,3 +38,8 @@ export interface Filters {
   gender: 'unknown' | 'male' | 'female';
   cities: string[];
 }
+
+export interface TSkillInfo extends TeachingSkill {
+  description: string;
+  images: string[];
+}
