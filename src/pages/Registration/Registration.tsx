@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Registration.module.css';
 import logoIcon from '../../assets/svg/logo.svg';
+import { Button } from '../../shared/ui/Button';
 
 interface RegistrationProps {
   children: React.ReactNode;
@@ -34,13 +35,14 @@ export const Registration: React.FC<RegistrationProps> = ({
           <img src={logoIcon} alt="SkillSwap" className={styles.logoIcon} />
           <span className={styles.logoText}>SkillSwap</span>
         </Link>
-        <button
-          className={styles.closeButton}
+        <Button
+          variant="tertiary"
           onClick={handleClose}
           type="button"
+          className={styles.closeButton}
         >
           Закрыть ✕
-        </button>
+        </Button>
       </header>
 
       {/* Индикатор прогресса */}
