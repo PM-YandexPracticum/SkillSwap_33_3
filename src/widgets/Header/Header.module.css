@@ -68,6 +68,12 @@
     position: relative;
 }
 
+/* Позиционирование SkillsMenu dropdown от левого края страницы */
+.skillsMenuDropdown {
+    left: -300px; /* Умеренное смещение влево */
+    width: 1200px;
+}
+
 .chevron-down svg{
     width: 16px;
     height: 7.94px;

@@ -1,15 +1,14 @@
 .menu {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 40px;
-  flex-flow: column wrap;
   padding: 60px;
-  max-width: 1200px;
-  max-height: 1040px;
+  width: 1200px;
 }
 
 .category {
   display: grid;
-  grid-template-columns: 40px 436px;
+  grid-template-columns: 40px 1fr;
   gap: 12px;
   align-items: start;
   min-height: 200px;
@@ -29,7 +28,6 @@
 }
 
 .categoryContent {
-  width: 436px;
   display: flex;
   flex-direction: column;
 }

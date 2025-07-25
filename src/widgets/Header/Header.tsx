@@ -124,6 +124,7 @@ export const Header = () => {
               triggerRef={skillsButtonRef}
               onMouseEnter={handleDropdownMouseEnter}
               onMouseLeave={handleDropdownMouseLeave}
+              className={styles.skillsMenuDropdown}
             >
               <SkillsMenu />
             </DropdownBase>
