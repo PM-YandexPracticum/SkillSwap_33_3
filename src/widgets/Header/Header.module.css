@@ -64,6 +64,10 @@
     color: var(--action-hover);
 }
 
+.dropdown {
+    position: relative;
+}
+
 .chevron-down svg{
     width: 16px;
     height: 7.94px;

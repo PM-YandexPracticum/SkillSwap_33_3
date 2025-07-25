@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Header } from './Header';
 import { MemoryRouter } from 'react-router-dom';
@@ -14,6 +13,7 @@ const meta: Meta<typeof Header> = {
             maxWidth: '1440px',
             margin: '0 auto',
             backgroundColor: '#f9faf7',
+            minHeight: '100vh',
           }}
         >
           <Story />

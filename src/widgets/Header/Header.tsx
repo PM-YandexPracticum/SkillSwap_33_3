@@ -12,14 +12,47 @@ export const Header = () => {
   const [isSkillsMenuOpen, setIsSkillsMenuOpen] = useState(false);
   const headerRef = useRef<HTMLDivElement>(null);
   const skillsButtonRef = useRef<HTMLButtonElement>(null);
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleSkillsMenuOpen = useCallback(() => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = null;
+    }
+    setIsSkillsMenuOpen(true);
+  }, []);
+
+  const handleSkillsMenuClose = useCallback(() => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+    // Задержка перед закрытием для плавного перехода между элементами
+    hoverTimeoutRef.current = setTimeout(() => {
+      setIsSkillsMenuOpen(false);
+    }, 150);
+  }, []);
 
   const handleSkillsMenuToggle = useCallback(() => {
     setIsSkillsMenuOpen((prev) => !prev);
   }, []);
 
-  const handleSkillsMenuClose = useCallback(() => {
-    setIsSkillsMenuOpen(false);
-  }, []);
+  // Обработчики hover для кнопки
+  const handleButtonMouseEnter = useCallback(() => {
+    handleSkillsMenuOpen();
+  }, [handleSkillsMenuOpen]);
+
+  const handleButtonMouseLeave = useCallback(() => {
+    handleSkillsMenuClose();
+  }, [handleSkillsMenuClose]);
+
+  // Обработчики hover для dropdown
+  const handleDropdownMouseEnter = useCallback(() => {
+    handleSkillsMenuOpen();
+  }, [handleSkillsMenuOpen]);
+
+  const handleDropdownMouseLeave = useCallback(() => {
+    handleSkillsMenuClose();
+  }, [handleSkillsMenuClose]);
 
   // Обработка клика вне компонента
   useEffect(() => {
@@ -40,6 +73,15 @@ export const Header = () => {
     }
   }, [isSkillsMenuOpen]);
 
+  // Cleanup timeout при размонтировании
+  useEffect(() => {
+    return () => {
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+      }
+    };
+  }, []);
+
   return (
     <header className={styles['header-wrapper']} ref={headerRef}>
       <div className={styles['header-container']}>
@@ -56,7 +98,11 @@ export const Header = () => {
           <Link to="/about" className={styles['nav-link']}>
             О проекте
           </Link>
-          <div className={styles['dropdown']}>
+          <div
+            className={styles['dropdown']}
+            onMouseEnter={handleButtonMouseEnter}
+            onMouseLeave={handleButtonMouseLeave}
+          >
             <Button
               ref={skillsButtonRef}
               variant="transparent"
@@ -76,6 +122,8 @@ export const Header = () => {
               isOpen={isSkillsMenuOpen}
               onClose={handleSkillsMenuClose}
               triggerRef={skillsButtonRef}
+              onMouseEnter={handleDropdownMouseEnter}
+              onMouseLeave={handleDropdownMouseLeave}
             >
               <SkillsMenu />
             </DropdownBase>

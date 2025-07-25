@@ -7,12 +7,16 @@ type DropdownBaseProps = {
   children: React.ReactNode;
   isOpen?: boolean;
   triggerRef?: React.RefObject<HTMLElement | null>;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 };
 
 export const DropdownBase: React.FC<DropdownBaseProps> = ({
   onClose,
   children,
   isOpen = true,
+  onMouseEnter,
+  onMouseLeave,
 }) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -33,7 +37,13 @@ export const DropdownBase: React.FC<DropdownBaseProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div ref={dropdownRef} className={styles.dropdown} data-visible={visible}>
+    <div
+      ref={dropdownRef}
+      className={styles.dropdown}
+      data-visible={visible}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       {children}
     </div>
   );
