@@ -45,10 +45,10 @@ const Step1Form = () => (
           gap: '12px',
           width: '100%',
           padding: '12px 16px',
-          border: '1px solid #e4e8df',
+          border: '1px solid var(--state-disabled)',
           borderRadius: '8px',
-          background: 'white',
-          color: '#253017',
+          background: 'var(--surface-main)',
+          color: 'var(--text-dominant)',
           fontFamily: 'var(--typeface-body)',
           fontSize: '16px',
           fontWeight: '400',
@@ -68,10 +68,10 @@ const Step1Form = () => (
           gap: '12px',
           width: '100%',
           padding: '12px 16px',
-          border: '1px solid #e4e8df',
+          border: '1px solid var(--state-disabled)',
           borderRadius: '8px',
-          background: 'white',
-          color: '#253017',
+          background: 'var(--surface-main)',
+          color: 'var(--text-dominant)',
           fontFamily: 'var(--typeface-body)',
           fontSize: '16px',
           fontWeight: '400',
@@ -95,7 +95,7 @@ const Step1Form = () => (
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <label
           style={{
-            color: '#253017',
+            color: 'var(--text-dominant)',
             fontFamily: 'var(--typeface-body)',
             fontSize: '14px',
             fontWeight: '500',
@@ -110,7 +110,7 @@ const Step1Form = () => (
           style={{
             width: '100%',
             padding: '12px 16px',
-            border: '1px solid #e4e8df',
+            border: '1px solid var(--state-disabled)',
             borderRadius: '8px',
             fontFamily: 'var(--typeface-body)',
             fontSize: '16px',
@@ -122,7 +122,7 @@ const Step1Form = () => (
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <label
           style={{
-            color: '#253017',
+            color: 'var(--text-dominant)',
             fontFamily: 'var(--typeface-body)',
             fontSize: '14px',
             fontWeight: '500',
@@ -139,7 +139,7 @@ const Step1Form = () => (
               width: '100%',
               padding: '12px 16px',
               paddingRight: '48px',
-              border: '1px solid #e4e8df',
+              border: '1px solid var(--state-disabled)',
               borderRadius: '8px',
               fontFamily: 'var(--typeface-body)',
               fontSize: '16px',
@@ -165,7 +165,7 @@ const Step1Form = () => (
         <p
           style={{
             marginTop: '4px',
-            color: '#9ca197',
+            color: 'var(--text-inactive)',
             fontFamily: 'var(--typeface-body)',
             fontSize: '12px',
             lineHeight: '16px',
