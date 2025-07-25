@@ -179,12 +179,12 @@ const Step1Form = () => {
           </div>
           <p
             style={{
-              marginTop: '4px',
-              color: 'var(--text-inactive)',
+              color: 'var(--text-dominant)',
               fontFamily: 'var(--typeface-body)',
               fontSize: '12px',
               lineHeight: '16px',
               margin: '4px 0 0',
+              opacity: 0.75,
             }}
           >
             Пароль должен содержать не менее 8 знаков
