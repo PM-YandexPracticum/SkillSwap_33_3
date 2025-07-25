@@ -35,12 +35,7 @@ export const Registration: React.FC<RegistrationProps> = ({
           <img src={logoIcon} alt="SkillSwap" className={styles.logoIcon} />
           <span className={styles.logoText}>SkillSwap</span>
         </Link>
-        <Button
-          variant="tertiary"
-          onClick={handleClose}
-          type="button"
-          className={styles.closeButton}
-        >
+        <Button variant="tertiary" onClick={handleClose} type="button">
           Закрыть ✕
         </Button>
       </header>

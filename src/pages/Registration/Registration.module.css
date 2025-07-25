@@ -12,8 +12,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px 24px;
-  border-bottom: 1px solid var(--state-disabled);
-  background-color: var(--surface-main);
+  background-color: var(--bg-primary);
 }
 
 .logo {
@@ -36,18 +35,13 @@
   line-height: 22px;
 }
 
-.closeButton {
-  width: auto;
-  min-width: auto;
-  padding: 8px 12px;
-  font-size: 14px;
-}
+
 
 /* Секция прогресса */
 .progressSection {
   text-align: center;
   padding: 24px;
-  background-color: var(--surface-main);
+  background-color: var(--bg-primary);
 }
 
 .stepText {
