@@ -14,6 +14,10 @@
   min-height: 200px;
 }
 
+.categoryHealthLifestyle {
+  margin-top: -37px; /* Поднимаем блок "Здоровье и лайфстайл" на 2px */
+}
+
 .categoryLink {
   display: block;
   text-decoration: none;

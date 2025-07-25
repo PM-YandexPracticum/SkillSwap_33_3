@@ -54,7 +54,14 @@ export const SkillsMenu: React.FC<SkillsMenuProps> = ({
   return (
     <nav className={styles.menu}>
       {skillsData.map((category) => (
-        <div key={category.name} className={styles.category}>
+        <div
+          key={category.name}
+          className={`${styles.category} ${
+            category.name === 'Здоровье и лайфстайл'
+              ? styles.categoryHealthLifestyle
+              : ''
+          }`}
+        >
           <img
             src={categoryIcons[category.name] || BusinessIcon}
             alt={category.name}
