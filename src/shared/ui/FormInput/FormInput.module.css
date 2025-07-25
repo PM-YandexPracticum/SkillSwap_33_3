@@ -1,0 +1,37 @@
+.label {
+   display: flex;
+   flex-direction: column;
+   gap: 4px;
+   width: 100%;
+}
+
+.title {
+    font-family: var(--typeface-body) ;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    color: var(--text-dominant);
+}
+
+.input {
+    font-family: var(--typeface-body) ;
+    padding: 12px 20px;
+    border: 1px solid var(--text-secondary);
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.input.error {
+    border-color: var(--status-error);
+}
+
+.errorMessage {
+    font-family: var(--typeface-body) ;
+    color: var(--status-error);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    margin-top: 4px;
+}
