@@ -81,8 +81,11 @@
 /* Секция прогресса */
 .progressSection {
   text-align: center;
-  padding: 0 24px;
   background-color: var(--bg-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .stepText {
