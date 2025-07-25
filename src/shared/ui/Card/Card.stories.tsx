@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Card } from './Card';
-import { User } from '../../../entities';
+import type { UserResponse } from '../../../api/client';
 
 const meta: Meta<typeof Card> = {
   title: 'UI/Card',
@@ -20,9 +20,9 @@ export default meta;
 
 type Story = StoryObj<typeof Card>;
 
-const user = new User({
+const user: UserResponse = {
   email: 'ivan@yandex.ru',
-  avatar: '/avatar-ivan.jpg',
+  avatar: `/src/assets/img/avatars/avatar-ivan.jpg`,
   name: 'Иван',
   birthDate: '1991-01-01',
   gender: 'male',
@@ -59,7 +59,7 @@ const user = new User({
   ],
   likes: 31,
   id: '1',
-});
+};
 
 export const Default: Story = {
   args: {

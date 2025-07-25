@@ -55,7 +55,6 @@
   font-size: 1.25rem;
   line-height: 120%;
   letter-spacing: -0.01em;
-  
 }
 
 .cityAge {
@@ -69,13 +68,11 @@
 
 .skillsSection {
   margin-top: 12px;
-  
 }
 
 .skillsSection:nth-last-of-type(1) {
   margin-bottom: 20px;
 }
-
 
 .sectionTitle {
   font-family: var(--typeface-body);
@@ -85,40 +82,12 @@
   letter-spacing: 0.02em;
 }
 
-.detailsButton {
-  width: 100%;
-  border: none;
-  border-radius: 12px;
-  padding-block: 12px;
-  color: inherit;
-  font-size: 1rem;
-  background: var(--accent-primary);
-  transition: background-color 0.2s ease;
-  cursor: pointer;
-}
-
-.proposeButton {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid var(--accent-primary);
-  background-color: var(--surface-main);
-}
-
-.proposeButton:hover {
-  border-color: var(--accent-primary);
-  background-color: inherit;
-  cursor: auto;
-}
-
 .skillsRow {
   display: flex;
   align-items: center;
   gap: 4px;
   margin-top: 8px;
 }
-
 
 .skillPill {
  display: inline-block;
@@ -138,7 +107,6 @@
 .skillPill:nth-child(2) {
   overflow: hidden; 
   text-overflow: ellipsis; 
- 
 }
 
 .morePill {
@@ -152,7 +120,6 @@
   line-height: 1rem;
   letter-spacing: 0.02em;
   background-color: var(--category-additional);
-  
 }
 
 .business {
