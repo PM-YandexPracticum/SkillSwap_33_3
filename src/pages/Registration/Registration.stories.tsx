@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import React, { useState } from 'react';
 import { Registration } from './Registration';
 import { WelcomeSection } from './WelcomeSection';
 import { Button } from '../../shared/ui/Button';
@@ -6,6 +7,8 @@ import { BrowserRouter } from 'react-router-dom';
 import styles from './Registration.module.css';
 import GoogleIcon from '../../assets/svg/icons/Google.svg?react';
 import AppleIcon from '../../assets/svg/icons/Apple.svg?react';
+import EyeIcon from '../../assets/svg/icons/eye.svg?react';
+import EyeSlashIcon from '../../assets/svg/icons/eye-slash.svg?react';
 
 const meta: Meta<typeof Registration> = {
   title: 'Pages/Registration',
@@ -26,119 +29,93 @@ export default meta;
 type Story = StoryObj<typeof Registration>;
 
 // Пример формы первого шага (как на макете)
-const Step1Form = () => (
-  <div style={{ maxWidth: '400px', margin: '0 auto' }}>
-    {/* OAuth кнопки */}
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '16px',
-        marginBottom: '32px',
-      }}
-    >
-      <button
+const Step1Form = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  return (
+    <div style={{ maxWidth: '400px', margin: '0 auto' }}>
+      {/* OAuth кнопки */}
+      <div
         style={{
           display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '12px',
-          width: '100%',
-          padding: '12px 16px',
-          border: '1px solid var(--state-disabled)',
-          borderRadius: '8px',
-          background: 'var(--surface-main)',
-          color: 'var(--text-dominant)',
-          fontFamily: 'var(--typeface-body)',
-          fontSize: '16px',
-          fontWeight: '400',
-          cursor: 'pointer',
+          flexDirection: 'column',
+          gap: '16px',
+          marginBottom: '32px',
         }}
-        type="button"
       >
-        <GoogleIcon width="24" height="24" />
-        <span>Продолжить с Google</span>
-      </button>
-
-      <button
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '12px',
-          width: '100%',
-          padding: '12px 16px',
-          border: '1px solid var(--state-disabled)',
-          borderRadius: '8px',
-          background: 'var(--surface-main)',
-          color: 'var(--text-dominant)',
-          fontFamily: 'var(--typeface-body)',
-          fontSize: '16px',
-          fontWeight: '400',
-          cursor: 'pointer',
-        }}
-        type="button"
-      >
-        <AppleIcon width="24" height="24" />
-        <span>Продолжить с Apple</span>
-      </button>
-    </div>
-
-    {/* Разделитель */}
-    <div className={styles.divider}>
-      <div className={styles.dividerLine} />
-      <span className={styles.dividerText}>или</span>
-    </div>
-
-    {/* Форма email/password */}
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <label
+        <button
           style={{
-            color: 'var(--text-dominant)',
-            fontFamily: 'var(--typeface-body)',
-            fontSize: '14px',
-            fontWeight: '500',
-            marginBottom: '8px',
-          }}
-        >
-          Email
-        </label>
-        <input
-          type="email"
-          placeholder="Введите email"
-          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '12px',
             width: '100%',
             padding: '12px 16px',
             border: '1px solid var(--state-disabled)',
             borderRadius: '8px',
-            fontFamily: 'var(--typeface-body)',
-            fontSize: '16px',
-            boxSizing: 'border-box',
-          }}
-        />
-      </div>
-
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <label
-          style={{
+            background: 'var(--surface-main)',
             color: 'var(--text-dominant)',
             fontFamily: 'var(--typeface-body)',
-            fontSize: '14px',
-            fontWeight: '500',
-            marginBottom: '8px',
+            fontSize: '16px',
+            fontWeight: '400',
+            cursor: 'pointer',
           }}
+          type="button"
         >
-          Пароль
-        </label>
-        <div style={{ position: 'relative' }}>
+          <GoogleIcon width="24" height="24" />
+          <span>Продолжить с Google</span>
+        </button>
+
+        <button
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '12px',
+            width: '100%',
+            padding: '12px 16px',
+            border: '1px solid var(--state-disabled)',
+            borderRadius: '8px',
+            background: 'var(--surface-main)',
+            color: 'var(--text-dominant)',
+            fontFamily: 'var(--typeface-body)',
+            fontSize: '16px',
+            fontWeight: '400',
+            cursor: 'pointer',
+          }}
+          type="button"
+        >
+          <AppleIcon width="24" height="24" />
+          <span>Продолжить с Apple</span>
+        </button>
+      </div>
+
+      {/* Разделитель */}
+      <div className={styles.divider}>
+        <div className={styles.dividerLine} />
+        <span className={styles.dividerText}>или</span>
+      </div>
+
+      {/* Форма email/password */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <label
+            style={{
+              color: 'var(--text-dominant)',
+              fontFamily: 'var(--typeface-body)',
+              fontSize: '14px',
+              fontWeight: '500',
+              marginBottom: '8px',
+            }}
+          >
+            Email
+          </label>
           <input
-            type="password"
-            placeholder="Придумайте надежный пароль"
+            type="email"
+            placeholder="Введите email"
             style={{
               width: '100%',
               padding: '12px 16px',
-              paddingRight: '48px',
               border: '1px solid var(--state-disabled)',
               borderRadius: '8px',
               fontFamily: 'var(--typeface-body)',
@@ -146,42 +123,77 @@ const Step1Form = () => (
               boxSizing: 'border-box',
             }}
           />
-          <button
-            type="button"
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <label
             style={{
-              position: 'absolute',
-              right: '12px',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              fontSize: '16px',
+              color: 'var(--text-dominant)',
+              fontFamily: 'var(--typeface-body)',
+              fontSize: '14px',
+              fontWeight: '500',
+              marginBottom: '8px',
             }}
           >
-            👁
-          </button>
+            Пароль
+          </label>
+          <div style={{ position: 'relative' }}>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Придумайте надежный пароль"
+              style={{
+                width: '100%',
+                padding: '12px 16px',
+                paddingRight: '48px',
+                border: '1px solid var(--state-disabled)',
+                borderRadius: '8px',
+                fontFamily: 'var(--typeface-body)',
+                fontSize: '16px',
+                boxSizing: 'border-box',
+              }}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              style={{
+                position: 'absolute',
+                right: '12px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: '16px',
+              }}
+            >
+              {showPassword ? (
+                <EyeIcon width="20" height="20" />
+              ) : (
+                <EyeSlashIcon width="20" height="20" />
+              )}
+            </button>
+          </div>
+          <p
+            style={{
+              marginTop: '4px',
+              color: 'var(--text-inactive)',
+              fontFamily: 'var(--typeface-body)',
+              fontSize: '12px',
+              lineHeight: '16px',
+              margin: '4px 0 0',
+            }}
+          >
+            Пароль должен содержать не менее 8 знаков
+          </p>
         </div>
-        <p
-          style={{
-            marginTop: '4px',
-            color: 'var(--text-inactive)',
-            fontFamily: 'var(--typeface-body)',
-            fontSize: '12px',
-            lineHeight: '16px',
-            margin: '4px 0 0',
-          }}
-        >
-          Пароль должен содержать не менее 8 знаков
-        </p>
-      </div>
 
-      <Button variant="primary" style={{ width: '100%', marginTop: '12px' }}>
-        Далее
-      </Button>
+        <Button variant="primary" style={{ width: '100%', marginTop: '12px' }}>
+          Далее
+        </Button>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export const Step1: Story = {
   args: {
