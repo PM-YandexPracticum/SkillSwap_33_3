@@ -106,6 +106,7 @@ const Step1Form = () => {
               fontSize: '14px',
               fontWeight: '500',
               marginBottom: '8px',
+              opacity: 0.75,
             }}
           >
             Email
@@ -133,6 +134,7 @@ const Step1Form = () => {
               fontSize: '14px',
               fontWeight: '500',
               marginBottom: '8px',
+              opacity: 0.75,
             }}
           >
             Пароль
