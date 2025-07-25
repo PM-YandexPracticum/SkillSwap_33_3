@@ -1,0 +1,20 @@
+.section-wrapper {
+  width: 100%;
+  max-width: 1020px;
+  margin: 0 auto;
+}
+
+.title-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.card-wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  gap: 24px;
+}

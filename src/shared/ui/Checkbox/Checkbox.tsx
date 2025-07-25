@@ -1,11 +1,15 @@
 import React from 'react';
-
 import styles from './Checkbox.module.css';
 
-type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement>;
+interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  children?: React.ReactNode;
+}
 
-export const Checkbox: React.FC<CheckboxProps> = ({
-  ...props
-}: CheckboxProps) => {
-  return <input type="checkbox" className={styles.checkbox} {...props} />;
+export const Checkbox: React.FC<CheckboxProps> = ({ children, ...props }) => {
+  return (
+    <label className={styles.wrapper}>
+      <input type="checkbox" className={styles.checkbox} {...props} />
+      {children && <span className={styles.label}>{children}</span>}
+    </label>
+  );
 };

@@ -1,0 +1,21 @@
+.dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    background: var(--card, #fff);
+    border: 1px solid var(--caption, #69735d);
+    border-radius: 12px;
+    min-width: 200px;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 8%);
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 1000;
+}
+
+.dropdown[data-visible="true"] {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}

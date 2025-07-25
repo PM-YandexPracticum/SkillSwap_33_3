@@ -1,0 +1,62 @@
+.filterSidebar {
+    padding: 20px;
+    background-color: var(--surface-main);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+    width: 324px;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.title {
+    font-family: var(--typeface-headings);
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 28px;
+    color: var(--text-dominant);
+    margin: 0;
+}
+
+.resetButton {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-right: 25px;
+    font-family: var(--typeface-body);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--action-pressed);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.resetButton:hover {
+    color: var(--action-hover);
+    text-decoration: underline;
+}
+
+.resetButton::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    mask-image: url('../../assets/svg/icons/cross.svg');
+    mask-repeat: no-repeat;
+    background-color: currentColor;
+}

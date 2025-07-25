@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 export interface LearningSkill {
   category: string;
   subcategory: string;
@@ -15,7 +17,7 @@ export interface IUser {
   email: string;
   avatar: string;
   name: string;
-  birthDate: string;
+  birthDate: dayjs.Dayjs;
   gender: string;
   city: string;
   aboutMe: string;

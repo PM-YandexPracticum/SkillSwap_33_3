@@ -19,11 +19,14 @@
     "husky-script": "npm run fixAll && git add ."
   },
   "dependencies": {
+    "@fontsource/inter": "^5.2.6",
     "@fontsource/jost": "^5.2.6",
+    "@fontsource/mulish": "^5.2.6",
     "@fontsource/open-sans": "^5.2.6",
     "@fontsource/roboto": "^5.2.6",
     "@reduxjs/toolkit": "^2.8.2",
     "clsx": "^2.1.1",
+    "dayjs": "^1.11.13",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-redux": "^9.2.0",
@@ -63,7 +66,8 @@
     "ts-node": "^10.9.2",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.35.1",
-    "vite": "^7.0.4"
+    "vite": "^7.0.4",
+    "vite-plugin-svgr": "^4.3.0"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [

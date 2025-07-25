@@ -10,29 +10,29 @@
 }
 
 .business {
-  background-color: #EEE7F7;
+  background-color: var(--category-business);
 }
 
 .art {
-  background-color: #F7E7F2;
+  background-color: var(--category-arts);
 }
 
 .languages {
-  background-color: #EBE5C5;
+  background-color: var(--category-languages);
 }
 
 .education {
-  background-color: #E7F2F6;
+  background-color: var(--category-education);
 }
 
 .home {
-  background-color: #F7EBE5;
+  background-color: var(--category-household);
 }
 
 .health {
-  background-color: #E9F7E7;
+  background-color: var(--category-wellness);
 }
 
 .unknown {
-  background-color: #E8ECF7;
+  background-color: var(--category-additional);
 }
