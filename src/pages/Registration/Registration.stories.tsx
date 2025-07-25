@@ -114,6 +114,7 @@ const Step1Form = () => {
           <input
             type="email"
             placeholder="Введите email"
+            className={styles.emailInput}
             style={{
               width: '100%',
               padding: '12px 16px',
@@ -143,6 +144,7 @@ const Step1Form = () => {
             <input
               type={showPassword ? 'text' : 'password'}
               placeholder="Придумайте надежный пароль"
+              className={styles.passwordInput}
               style={{
                 width: '100%',
                 padding: '12px 16px',

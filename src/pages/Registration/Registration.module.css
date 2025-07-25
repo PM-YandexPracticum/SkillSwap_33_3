@@ -67,6 +67,13 @@
   font-size: 14px;
 }
 
+/* Стили для placeholder'ов полей ввода */
+.emailInput::placeholder,
+.passwordInput::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.75;
+}
+
 
 
 /* Секция прогресса */
