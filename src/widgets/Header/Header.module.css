@@ -1,7 +1,7 @@
 .header-wrapper {
     width: 100%;
     background-color: var(--bg-primary);
-    padding: 36px 36px 20px;
+    padding: 40px 36px 20px;
 }
 
 .header-container {
@@ -43,7 +43,9 @@
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
-    gap: 33px;
+    gap: 27px;
+    margin-left: 9px; /* Сдвигаем на 9 пикселя вправо */
+    margin-right: 2px;
 }
 
 .nav-link {
@@ -70,8 +72,7 @@
 
 /* Позиционирование SkillsMenu dropdown от левого края страницы */
 .skillsMenuDropdown {
-    left: -300px; /* Умеренное смещение влево */
-    width: 1200px;
+    left: -294px; /* смещение влево */
 }
 
 .chevron-down svg{
@@ -82,6 +83,7 @@
 .header-search {
     width: 527px;
     height: 48px;
+    margin-right: 2px;
 }
 
 .search-container {
