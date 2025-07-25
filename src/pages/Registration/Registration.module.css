@@ -24,13 +24,13 @@
 }
 
 .logoIcon {
-  width: 24px;
-  height: 24px;
+  width: 40px;
+  height: 40px;
 }
 
 .logoText {
   font-family: var(--typeface-headings);
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 500;
   line-height: 22px;
 }
@@ -51,28 +51,31 @@
 }
 
 .stepText {
-  color: var(--text-secondary);
-  font-family: var(--typeface-body);
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 20px;
+  color: #253017;
+  font-family: var(--typeface-headings);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 32px;
   margin: 0 0 8px;
 }
 
 .progressBar {
-  width: 128px;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.progressStep {
+  width: 60px;
   height: 4px;
   background-color: var(--state-disabled);
   border-radius: 2px;
-  margin: 0 auto;
-  overflow: hidden;
+  transition: background-color 0.3s ease;
 }
 
-.progressFill {
-  height: 100%;
+.progressStep.active {
   background-color: var(--accent-primary);
-  border-radius: 2px;
-  transition: width 0.3s ease;
 }
 
 /* Основное содержимое */

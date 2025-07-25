@@ -19,8 +19,6 @@ export const Registration: React.FC<RegistrationProps> = ({
   rightSideImage,
   onCloseClick,
 }) => {
-  const progressPercentage = (stepNumber / totalSteps) * 100;
-
   const handleClose = () => {
     if (onCloseClick) {
       onCloseClick();
@@ -48,10 +46,14 @@ export const Registration: React.FC<RegistrationProps> = ({
           Шаг {stepNumber} из {totalSteps}
         </p>
         <div className={styles.progressBar}>
-          <div
-            className={styles.progressFill}
-            style={{ width: `${progressPercentage}%` }}
-          />
+          {Array.from({ length: totalSteps }, (_, index) => (
+            <div
+              key={index}
+              className={`${styles.progressStep} ${
+                index < stepNumber ? styles.active : ''
+              }`}
+            />
+          ))}
         </div>
       </div>
 
