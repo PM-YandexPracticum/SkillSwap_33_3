@@ -3,6 +3,7 @@ import { Registration } from './Registration';
 import { WelcomeSection } from './WelcomeSection';
 import { Button } from '../../shared/ui/Button';
 import { BrowserRouter } from 'react-router-dom';
+import styles from './Registration.module.css';
 
 const meta: Meta<typeof Registration> = {
   title: 'Pages/Registration',
@@ -101,34 +102,9 @@ const Step1Form = () => (
     </div>
 
     {/* Разделитель */}
-    <div
-      style={{
-        textAlign: 'center',
-        margin: '32px 0',
-        position: 'relative',
-      }}
-    >
-      <div
-        style={{
-          position: 'absolute',
-          top: '50%',
-          left: '0',
-          right: '0',
-          height: '1px',
-          backgroundColor: '#e4e8df',
-        }}
-      />
-      <span
-        style={{
-          background: 'white',
-          padding: '0 16px',
-          color: '#69735d',
-          fontFamily: 'var(--typeface-body)',
-          fontSize: '14px',
-        }}
-      >
-        или
-      </span>
+    <div className={styles.divider}>
+      <div className={styles.dividerLine} />
+      <span className={styles.dividerText}>или</span>
     </div>
 
     {/* Форма email/password */}

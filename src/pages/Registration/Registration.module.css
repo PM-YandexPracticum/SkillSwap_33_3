@@ -41,6 +41,32 @@
   display: inline-block;
 }
 
+/* Разделитель с текстом "или" */
+.divider {
+  text-align: center;
+  margin: 32px 0;
+  position: relative;
+}
+
+.dividerLine {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: var(--state-disabled);
+}
+
+.dividerText {
+  position: relative;
+  z-index: 1;
+  background: var(--surface-main);
+  padding: 0 16px;
+  color: var(--text-secondary);
+  font-family: var(--typeface-body);
+  font-size: 14px;
+}
+
 
 
 /* Секция прогресса */
@@ -89,7 +115,7 @@
 
 .contentGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 556px 556px;
   gap: 24px;
   align-items: stretch;
   max-width: 1200px;
@@ -101,7 +127,7 @@
   margin: 0 auto;
   width: 100%;
   background-color: var(--surface-main);
-  padding: 32px;
+  padding: 121.5px 60px;
   border-radius: 12px;
 }
 
