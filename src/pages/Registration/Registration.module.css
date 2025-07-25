@@ -90,8 +90,8 @@
 .contentGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 64px;
-  align-items: center;
+  gap: 24px;
+  align-items: stretch;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -100,6 +100,9 @@
   max-width: 486px;
   margin: 0 auto;
   width: 100%;
+  background-color: var(--surface-main);
+  padding: 32px;
+  border-radius: 12px;
 }
 
 .imageSection {
@@ -107,6 +110,10 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+  background-color: var(--surface-main);
+  padding: 32px;
+  border-radius: 12px;
+  height: 100%;
 }
 
 /* Адаптивный дизайн */
