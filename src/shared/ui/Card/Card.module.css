@@ -1,18 +1,18 @@
 .card {
   display: flex;
   flex-direction: column;
-  gap: 20px;
   width: 324px;
   border-radius: 12px;
   padding: 20px;
   color: var(--text-dominant);
   background-color: var(--surface-main);
+  
 }
 
 .info {
   display: flex;
   gap: 12px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .avatar {
@@ -32,7 +32,15 @@
   align-self: flex-end;
   width: 24px;
   height: 24px;
+  stroke: var(--text-dominant);
   cursor: pointer;
+}
+
+.likeActive {
+  width: 24px;
+  height: 24px;
+  fill:var(--accent-primary);
+  stroke: var(--accent-primary);
 }
 
 .clockIcon {
@@ -43,7 +51,7 @@
 .name {
   margin-top: 5px;
   font-family: var(--typeface-cards);
-  font-weight: 900;
+  font-weight: 600;
   font-size: 1.25rem;
   line-height: 120%;
   letter-spacing: -0.01em;
@@ -52,28 +60,36 @@
 
 .cityAge {
   margin: 0;
-  padding-top: 2px;
+  padding-top: 4px;
+  font-family: var(--typeface-body);
+  font-weight: 400;
   font-size: 0.75rem;
   letter-spacing: 0.02em;
 }
 
 .skillsSection {
-  margin-top: 13px;
+  margin-top: 12px;
+  
 }
+
+.skillsSection:nth-last-of-type(1) {
+  margin-bottom: 20px;
+}
+
 
 .sectionTitle {
   font-family: var(--typeface-body);
   font-weight: 500;
   font-size: 1rem;
-  line-height: 158%;
+  line-height: 1.5em;
+  letter-spacing: 0.02em;
 }
 
 .detailsButton {
   width: 100%;
-  margin-top: 21px;
   border: none;
   border-radius: 12px;
-  padding-block: 15px;
+  padding-block: 12px;
   color: inherit;
   font-size: 1rem;
   background: var(--accent-primary);
@@ -103,15 +119,40 @@
   margin-top: 8px;
 }
 
-.skillPill,
+
+.skillPill {
+ display: inline-block;
+  width: 100%; 
+  border-radius: 20px;
+  padding: 8px 12px; 
+  color: var(--text-dominant);
+  font-family: var(--typeface-body);
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.02em;
+  background-color: var(--category-additional);
+  white-space: nowrap; 
+}
+
+.skillPill:nth-child(2) {
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+ 
+}
+
 .morePill {
   display: inline-block;
   border-radius: 20px;
-  padding: 6px 12px;
+  padding: 8px 12px;
+  color: var(--text-dominant);
+  font-family: var(--typeface-body);
   font-weight: 400;
   font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.02em;
   background-color: var(--category-additional);
-  white-space: nowrap;
+  
 }
 
 .business {

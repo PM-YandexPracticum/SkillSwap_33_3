@@ -34,7 +34,7 @@ export interface IUser {
 
 export interface Filters {
   mode: 'all' | 'learn' | 'teach';
-  subcategory: string[];
+  subcategories: string[];
   gender: 'unknown' | 'male' | 'female';
   cities: string[];
 }
