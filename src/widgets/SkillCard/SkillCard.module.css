@@ -1,0 +1,65 @@
+.card {
+    width: 1020px;
+    height: 444px;
+    padding: 32px 50px;
+    border: 2px solid var(--surface-main);
+    border-radius: 12px;
+    background: var(--surface-main);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    height: 24px;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.icon svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+}
+
+.body {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 399px;
+    height: 324px;
+}
+
+.button {
+    border-radius: 12px;
+    padding: 12px 24px;
+    width: 399px;
+    height: 52px;
+    background: var(--accent-primary);
+    font-family: var(--typeface-body);
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--text-dominant);
+    border: none;
+    cursor: pointer;
+}
