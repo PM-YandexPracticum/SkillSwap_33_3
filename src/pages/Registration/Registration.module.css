@@ -51,7 +51,7 @@
 }
 
 .stepText {
-  color: #253017;
+  color: var(--text-dominant);
   font-family: var(--typeface-headings);
   font-size: 24px;
   font-weight: 500;
