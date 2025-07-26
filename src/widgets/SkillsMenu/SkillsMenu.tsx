@@ -43,16 +43,7 @@ export const SkillsMenu: React.FC<SkillsMenuProps> = ({
       fetch('/db/skills.json')
         .then((response) => response.json())
         .then((data) => {
-          const rearrangeData = data.reduce(
-            (acc: Category[][], item: Category, index: number) => {
-              if (index % 2 === 0) acc[0].push(item);
-              else acc[1].push(item);
-
-              return acc;
-            },
-            [[], []]
-          );
-          setFetchedSkillsData(rearrangeData[0].concat(rearrangeData[1]));
+          setFetchedSkillsData(data);
         })
         .catch((error) => console.error('Error loading skills data:', error));
     }
@@ -63,7 +54,14 @@ export const SkillsMenu: React.FC<SkillsMenuProps> = ({
   return (
     <nav className={styles.menu}>
       {skillsData.map((category) => (
-        <div key={category.name} className={styles.category}>
+        <div
+          key={category.name}
+          className={`${styles.category} ${
+            category.name === 'Здоровье и лайфстайл'
+              ? styles.categoryHealthLifestyle
+              : ''
+          }`}
+        >
           <img
             src={categoryIcons[category.name] || BusinessIcon}
             alt={category.name}
