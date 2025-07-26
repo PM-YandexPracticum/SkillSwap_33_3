@@ -5,7 +5,6 @@ import {
   type PayloadAction,
 } from '@reduxjs/toolkit';
 
-import dayjs from 'dayjs';
 // TODO: Убрать мок api юзеров, заменить на реальный сервер в проде
 // import { usersApi } from '../../api/client';
 import mockUsers from '../../../public/db/users.json';
@@ -103,36 +102,3 @@ export const selectUsersFiltered = createSelector(
     });
   }
 );
-
-export const selectUserAgeById = (userId: string) =>
-  createSelector(selectUsers, (users) => {
-    const user = users.find((u) => u.id === userId);
-    if (!user || !user.birthDate) return null;
-
-    const today = dayjs();
-    const birthDate = dayjs(user.birthDate);
-
-    let age = today.diff(birthDate, 'year');
-    const isBirthdayToday = today.isSame(birthDate.year(today.year()), 'day');
-
-    if (isBirthdayToday) age++;
-
-    return age;
-  });
-
-export const selectUserAgeStringById = (userId: string) =>
-  createSelector(selectUserAgeById(userId), (age) => {
-    if (age === null) return '';
-
-    const getAgeWord = (age: number): string => {
-      const lastDigit = age % 10;
-      const lastTwoDigits = age % 100;
-
-      if (lastTwoDigits >= 11 && lastTwoDigits <= 14) return 'лет';
-      if (lastDigit === 1) return 'год';
-      if (lastDigit >= 2 && lastDigit <= 4) return 'года';
-      return 'лет';
-    };
-
-    return `${age} ${getAgeWord(age)}`;
-  });
