@@ -41,7 +41,7 @@ export const ageString = (data: string): string => {
   return `${age} ${getAgeWord(age)}`;
 };
 
-export function reorderArrayByRows<T>(arr: T[], rows = 3) {
+export function reorderArrayByRows<T>(arr: T[], rows: number) {
   const columns = Math.ceil(arr.length / rows);
   const reordered = [];
 

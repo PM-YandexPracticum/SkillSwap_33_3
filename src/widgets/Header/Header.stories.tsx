@@ -4,6 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store, useDispatch } from '../../app/store';
 import { fetchSkills } from '../../features/slices/skillsSlice';
+import { useEffect } from 'react';
 
 const meta: Meta<typeof Header> = {
   title: 'Widgets/Header',
@@ -16,7 +17,10 @@ type Story = StoryObj<typeof Header>;
 
 const WrapperComponent = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch();
-  dispatch(fetchSkills());
+
+  useEffect(() => {
+    dispatch(fetchSkills());
+  }, [dispatch]);
 
   return (
     <div

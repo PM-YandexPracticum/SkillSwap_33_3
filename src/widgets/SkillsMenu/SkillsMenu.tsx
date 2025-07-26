@@ -24,7 +24,12 @@ const categoryIcons: Record<string, string> = {
 };
 
 export const SkillsMenu: React.FC<SkillsMenuProps> = ({ skillsData }) => {
-  if (!skillsData) return <></>;
+  if (!skillsData || !skillsData[0])
+    return (
+      <div style={{ padding: 60, fontFamily: 'Jost', fontSize: 24 }}>
+        Навыки не найдены :'(
+      </div>
+    );
 
   return (
     <nav className={styles.menu}>

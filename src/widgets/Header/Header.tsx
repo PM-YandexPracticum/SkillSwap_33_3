@@ -18,7 +18,8 @@ export const Header = () => {
   const skillsButtonRef = useRef<HTMLButtonElement>(null);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const skills = reorderArrayByRows<Category>(useSelector(selectAllSkills));
+  const skillsRaw = useSelector(selectAllSkills);
+  const reorderedSkills = reorderArrayByRows<Category>(skillsRaw, 3);
 
   const handleSkillsMenuOpen = useCallback(() => {
     if (hoverTimeoutRef.current) {
@@ -132,7 +133,7 @@ export const Header = () => {
               onMouseLeave={handleDropdownMouseLeave}
               className={styles.skillsMenuDropdown}
             >
-              <SkillsMenu skillsData={skills} />
+              <SkillsMenu skillsData={reorderedSkills} />
             </DropdownBase>
           </div>
         </nav>
