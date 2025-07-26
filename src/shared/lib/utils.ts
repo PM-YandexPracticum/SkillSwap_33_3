@@ -40,3 +40,19 @@ export const ageString = (data: string): string => {
 
   return `${age} ${getAgeWord(age)}`;
 };
+
+export function reorderArrayByRows<T>(arr: T[], rows = 3) {
+  const columns = Math.ceil(arr.length / rows);
+  const reordered = [];
+
+  for (let column = 0; column < columns; column++) {
+    for (let row = 0; row < rows; row++) {
+      const index = columns * row + column;
+      if (index < arr.length) {
+        reordered.push(arr[index]);
+      }
+    }
+  }
+  console.log(reordered);
+  return reordered;
+}

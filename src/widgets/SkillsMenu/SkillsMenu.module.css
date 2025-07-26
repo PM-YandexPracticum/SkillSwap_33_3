@@ -1,9 +1,10 @@
 .menu {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-flow: column wrap;
+  width: max-content;
+  max-height: 1100px;
   gap: 40px;
-  padding: 60px;
-  width: 1130px;
+  padding: 60px;  
 }
 
 .category {
@@ -12,10 +13,7 @@
   gap: 12px;
   align-items: start;
   min-height: 200px;
-}
-
-.categoryHealthLifestyle {
-  margin-top: -37px; /* Поднимаем блок "Здоровье и лайфстайл" на 2px */
+  min-width: 488px;
 }
 
 .categoryLink {
