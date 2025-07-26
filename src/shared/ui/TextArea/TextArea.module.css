@@ -27,8 +27,7 @@
     font-family: var(--typeface-body);
     min-height: 96px;
     height: 96px;
-    width: 100%;
-    max-width: 436px;
+    width: 436px;
     resize: vertical;
     box-sizing: border-box;
 }
