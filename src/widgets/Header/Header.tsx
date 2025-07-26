@@ -106,7 +106,6 @@ export const Header = () => {
             О проекте
           </Link>
           <div
-            className={styles['dropdown']}
             onMouseEnter={handleButtonMouseEnter}
             onMouseLeave={handleButtonMouseLeave}
           >
