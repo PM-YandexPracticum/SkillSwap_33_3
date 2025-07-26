@@ -28,7 +28,7 @@
     min-height: 96px;
     height: 96px;
     width: 436px;
-    resize: vertical;
+    resize: none;
     box-sizing: border-box;
 }
 
