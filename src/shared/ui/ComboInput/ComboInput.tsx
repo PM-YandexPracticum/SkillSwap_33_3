@@ -3,6 +3,9 @@ import React, { useState, useRef, useEffect } from 'react';
 
 import styles from './ComboInput.module.css';
 
+import ChevronDown from '../../../assets/svg/icons/chevron-down.svg?react';
+import Cross from '../../../assets/svg/icons/cross.svg?react';
+
 interface Option {
   label: string;
   value: string;
@@ -28,6 +31,7 @@ export const ComboInput: React.FC<ComboInput> = ({
   const [highlightedIndex, setHighlightedIndex] = useState<number>(-1);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const filteredOptions = options.filter((opt) =>
     opt.label.toLowerCase().includes(query.toLowerCase())
@@ -111,22 +115,48 @@ export const ComboInput: React.FC<ComboInput> = ({
     <div ref={wrapperRef} className={styles.wrapper}>
       <label>
         {label}
-        <input
-          type="text"
-          placeholder={placeholder}
-          value={query}
-          onChange={(e) => {
-            setQuery(e.target.value);
-            setIsOpen(true);
-            setHighlightedIndex(-1);
-          }}
-          onFocus={() => setIsOpen(true)}
-          onKeyDown={onInputKeyDown}
-          className={clsx(styles.input, {
-            [styles.input_open]: isOpen,
-          })}
-          autoComplete="off"
-        />
+        <div className={styles.inputWrapper}>
+          <input
+            ref={inputRef}
+            type="text"
+            placeholder={placeholder}
+            value={query}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              setIsOpen(true);
+              setHighlightedIndex(-1);
+            }}
+            onFocus={() => setIsOpen(true)}
+            onKeyDown={onInputKeyDown}
+            className={clsx(styles.input, {
+              [styles.input_open]: isOpen,
+            })}
+            autoComplete="off"
+          />
+          {isOpen ? (
+            <button
+              className={styles.input__button}
+              type="button"
+              onClick={() => {
+                setQuery('');
+                setHighlightedIndex(-1);
+                inputRef.current?.focus();
+              }}
+            >
+              <Cross />
+            </button>
+          ) : (
+            <button
+              className={styles.input__button}
+              type="button"
+              onClick={() => {
+                setIsOpen(true);
+              }}
+            >
+              <ChevronDown />
+            </button>
+          )}
+        </div>
       </label>
       <ul
         className={clsx(styles.list, {
