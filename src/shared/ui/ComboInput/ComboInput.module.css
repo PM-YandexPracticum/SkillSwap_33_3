@@ -1,0 +1,83 @@
+.wrapper {
+  position: relative;
+  width: 436px;
+  color: var(--text-dominant);
+  font-family: var(--typeface-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.input {
+  margin-top: 4px;
+  width: 100%;
+  height: 48px;
+  border: 1px solid var(--text-secondary);
+  border-radius: 12px;
+  padding: 12px 20px;
+  outline: none;
+  font-size: 16px;
+  transition: 0.2s all ease;
+}
+
+.input_open {
+  border-bottom-color: var(--text-inactive);
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.list {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  border: 1px solid var(--text-secondary);
+  border-top: none;
+  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 12px;
+  background-color: var(--surface-main);
+  opacity: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  max-height: calc(3 * 48px);
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background-color: var(--state-disabled);
+  border-radius: 4px;
+}
+
+.list_visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.list__item,
+.list__item_inactive {
+  display: block;
+  border-radius: 12px;
+  padding: 12px 20px;
+  background-color: transparent;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.list__item:hover {
+  background-color: var(--action-hover);
+}
+
+.list__item_highlighted {
+  background-color: var(--action-hover);
+}
