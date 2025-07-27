@@ -74,6 +74,10 @@
   cursor: pointer;
 }
 
+.list__item_inactive {
+  cursor: initial;
+}
+
 .list__item:hover {
   background-color: var(--action-hover);
 }
