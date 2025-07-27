@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './WelcomeSection.module.css';
-import lightBulbIcon from '../../assets/svg/light-bulb.svg';
+import lightBulbIcon from '../../../../assets/svg/light-bulb.svg';
 
 interface WelcomeSectionProps {
   title: string;

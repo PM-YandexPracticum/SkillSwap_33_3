@@ -43,41 +43,6 @@
   display: inline-block;
 }
 
-/* Разделитель с текстом "или" */
-.divider {
-  text-align: center;
-  margin: 32px 0;
-  position: relative;
-}
-
-.dividerLine {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background-color: var(--state-disabled);
-}
-
-.dividerText {
-  position: relative;
-  z-index: 1;
-  background: var(--surface-main);
-  padding: 0 16px;
-  color: var(--text-secondary);
-  font-family: var(--typeface-body);
-  font-size: 14px;
-}
-
-/* Стили для placeholder'ов полей ввода */
-.emailInput::placeholder,
-.passwordInput::placeholder {
-  color: var(--text-secondary);
-  opacity: 0.75;
-}
-
-
-
 /* Секция прогресса */
 .progressSection {
   text-align: center;

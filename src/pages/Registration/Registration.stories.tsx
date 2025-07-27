@@ -1,10 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import React, { useState } from 'react';
 import { Registration } from './Registration';
-import { WelcomeSection } from './WelcomeSection';
+import { WelcomeSection } from '../../features/registration/ui/WelcomeSection';
 import { Button } from '../../shared/ui/Button';
 import { BrowserRouter } from 'react-router-dom';
-import styles from './Registration.module.css';
 import GoogleIcon from '../../assets/svg/icons/Google.svg?react';
 import AppleIcon from '../../assets/svg/icons/Apple.svg?react';
 import EyeIcon from '../../assets/svg/icons/eye.svg?react';
@@ -91,9 +90,36 @@ const Step1Form = () => {
       </div>
 
       {/* Разделитель */}
-      <div className={styles.divider}>
-        <div className={styles.dividerLine} />
-        <span className={styles.dividerText}>или</span>
+      <div
+        style={{
+          textAlign: 'center',
+          margin: '32px 0',
+          position: 'relative',
+        }}
+      >
+        <div
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: 0,
+            right: 0,
+            height: '1px',
+            backgroundColor: 'var(--state-disabled)',
+          }}
+        />
+        <span
+          style={{
+            position: 'relative',
+            zIndex: 1,
+            background: 'var(--surface-main)',
+            padding: '0 16px',
+            color: 'var(--text-secondary)',
+            fontFamily: 'var(--typeface-body)',
+            fontSize: '14px',
+          }}
+        >
+          или
+        </span>
       </div>
 
       {/* Форма email/password */}
@@ -114,7 +140,6 @@ const Step1Form = () => {
           <input
             type="email"
             placeholder="Введите email"
-            className={styles.emailInput}
             style={{
               width: '100%',
               padding: '12px 16px',
@@ -144,7 +169,6 @@ const Step1Form = () => {
             <input
               type={showPassword ? 'text' : 'password'}
               placeholder="Придумайте надежный пароль"
-              className={styles.passwordInput}
               style={{
                 width: '100%',
                 padding: '12px 16px',
