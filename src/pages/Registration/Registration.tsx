@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styles from './Registration.module.css';
 import logoIcon from '../../assets/svg/logo.svg';
 import { Button } from '../../shared/ui/Button';
+import CrossIcon from '../../assets/svg/icons/cross.svg?react';
 
 interface RegistrationProps {
   children: React.ReactNode;
@@ -35,7 +36,10 @@ export const Registration: React.FC<RegistrationProps> = ({
         </Link>
         <div className={styles.closeButtonContainer}>
           <Button variant="tertiary" onClick={handleClose} type="button">
-            Закрыть ✕
+            <span className={styles.closeButtonText}>
+              Закрыть
+              <CrossIcon width="24" height="24" />
+            </span>
           </Button>
         </div>
       </header>
