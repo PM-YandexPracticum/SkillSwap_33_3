@@ -9,7 +9,9 @@ const meta: Meta<typeof Registration> = {
   decorators: [
     (Story) => (
       <BrowserRouter>
-        <Story />
+        <div style={{ width: '1440px', height: '1024px', overflow: 'hidden' }}>
+          <Story />
+        </div>
       </BrowserRouter>
     ),
   ],
