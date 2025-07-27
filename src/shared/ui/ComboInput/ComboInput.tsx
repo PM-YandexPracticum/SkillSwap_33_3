@@ -11,7 +11,7 @@ interface Option {
   value: string;
 }
 
-interface ComboInput {
+interface ComboInputProps {
   label?: string;
   defaultValue?: string;
   options: Option[];
@@ -19,7 +19,7 @@ interface ComboInput {
   onChange?: (value: string) => void;
 }
 
-export const ComboInput: React.FC<ComboInput> = ({
+export const ComboInput: React.FC<ComboInputProps> = ({
   label,
   defaultValue,
   options,
@@ -28,7 +28,7 @@ export const ComboInput: React.FC<ComboInput> = ({
 }) => {
   const [query, setQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
-  const [highlightedIndex, setHighlightedIndex] = useState<number>(-1);
+  const [highlightedIndex, setHighlightedIndex] = useState(-1);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -39,12 +39,70 @@ export const ComboInput: React.FC<ComboInput> = ({
 
   const limitedOptions = filteredOptions.slice(0, 30);
 
+  const handleInputChange = (value: string) => {
+    setQuery(value);
+    setIsOpen(true);
+    setHighlightedIndex(-1);
+  };
+
   const handleSelect = (option: Option) => {
     setQuery(option.label);
     setIsOpen(false);
     setHighlightedIndex(-1);
     onChange?.(option.value);
   };
+
+  const handleClear = () => {
+    setQuery('');
+    setHighlightedIndex(-1);
+    inputRef.current?.focus();
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (!isOpen) return;
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setHighlightedIndex((prev) => (prev + 1) % limitedOptions.length);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setHighlightedIndex((prev) =>
+        prev <= 0 ? limitedOptions.length - 1 : prev - 1
+      );
+    } else if (e.key === 'Enter' && highlightedIndex >= 0) {
+      e.preventDefault();
+      handleSelect(limitedOptions[highlightedIndex]);
+    } else if (e.key === 'Escape') {
+      setIsOpen(false);
+      setHighlightedIndex(-1);
+    }
+  };
+
+  const scrollToHighlighted = () => {
+    const list = wrapperRef.current?.querySelector('ul');
+    const item = list?.children[highlightedIndex] as HTMLElement | undefined;
+    if (item && list) {
+      const itemTop = item.offsetTop;
+      const itemBottom = itemTop + item.offsetHeight;
+      const listTop = list.scrollTop;
+      const listHeight = list.clientHeight;
+
+      if (itemTop < listTop) list.scrollTop = itemTop;
+      else if (itemBottom > listTop + listHeight)
+        list.scrollTop = itemBottom - listHeight;
+    }
+  };
+
+  useEffect(() => {
+    if (highlightedIndex !== -1) scrollToHighlighted();
+  }, [highlightedIndex]);
+
+  useEffect(() => {
+    if (defaultValue) {
+      const defaultOpt = options.find((opt) => opt.value === defaultValue);
+      if (defaultOpt) setQuery(defaultOpt.label);
+    }
+  }, [defaultValue, options]);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -60,57 +118,6 @@ export const ComboInput: React.FC<ComboInput> = ({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  useEffect(() => {
-    if (defaultValue) {
-      const defaultOption = options.find((opt) => opt.value === defaultValue);
-      if (defaultOption) {
-        setQuery(defaultOption.label);
-      }
-    }
-  }, [defaultValue, options]);
-
-  const onInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (!isOpen) return;
-
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      setHighlightedIndex((prev) =>
-        prev < limitedOptions.length - 1 ? prev + 1 : 0
-      );
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      setHighlightedIndex((prev) =>
-        prev > 0 ? prev - 1 : limitedOptions.length - 1
-      );
-    } else if (e.key === 'Enter') {
-      e.preventDefault();
-      if (highlightedIndex >= 0 && highlightedIndex < limitedOptions.length) {
-        handleSelect(limitedOptions[highlightedIndex]);
-      }
-    } else if (e.key === 'Escape') {
-      setIsOpen(false);
-      setHighlightedIndex(-1);
-    }
-  };
-
-  useEffect(() => {
-    if (highlightedIndex === -1) return;
-    const list = wrapperRef.current?.querySelector('ul');
-    const item = list?.children[highlightedIndex] as HTMLElement | undefined;
-    if (item && list) {
-      const itemTop = item.offsetTop;
-      const itemBottom = itemTop + item.offsetHeight;
-      const listScrollTop = list.scrollTop;
-      const listHeight = list.clientHeight;
-
-      if (itemTop < listScrollTop) {
-        list.scrollTop = itemTop;
-      } else if (itemBottom > listScrollTop + listHeight) {
-        list.scrollTop = itemBottom - listHeight;
-      }
-    }
-  }, [highlightedIndex]);
-
   return (
     <div ref={wrapperRef} className={styles.wrapper}>
       <label>
@@ -121,43 +128,24 @@ export const ComboInput: React.FC<ComboInput> = ({
             type="text"
             placeholder={placeholder}
             value={query}
-            onChange={(e) => {
-              setQuery(e.target.value);
-              setIsOpen(true);
-              setHighlightedIndex(-1);
-            }}
+            onChange={(e) => handleInputChange(e.target.value)}
             onFocus={() => setIsOpen(true)}
-            onKeyDown={onInputKeyDown}
+            onKeyDown={handleKeyDown}
             className={clsx(styles.input, {
               [styles.input_open]: isOpen,
             })}
             autoComplete="off"
           />
-          {isOpen ? (
-            <button
-              className={styles.input__button}
-              type="button"
-              onClick={() => {
-                setQuery('');
-                setHighlightedIndex(-1);
-                inputRef.current?.focus();
-              }}
-            >
-              <Cross />
-            </button>
-          ) : (
-            <button
-              className={styles.input__button}
-              type="button"
-              onClick={() => {
-                setIsOpen(true);
-              }}
-            >
-              <ChevronDown />
-            </button>
-          )}
+          <button
+            type="button"
+            className={styles.input__button}
+            onClick={isOpen ? handleClear : () => setIsOpen(true)}
+          >
+            {isOpen ? <Cross /> : <ChevronDown />}
+          </button>
         </div>
       </label>
+
       <ul
         className={clsx(styles.list, {
           [styles.list_visible]: isOpen,
@@ -168,10 +156,10 @@ export const ComboInput: React.FC<ComboInput> = ({
             <li
               key={opt.value}
               onClick={() => handleSelect(opt)}
+              onMouseEnter={() => setHighlightedIndex(i)}
               className={clsx(styles.list__item, {
                 [styles.list__item_highlighted]: i === highlightedIndex,
               })}
-              onMouseEnter={() => setHighlightedIndex(i)}
             >
               {opt.label}
             </li>
