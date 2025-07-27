@@ -11,7 +11,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 40px 24px 0;
+  padding: 40px 36px 0;
   background-color: var(--bg-primary);
   height: 84px;
   box-sizing: border-box;
@@ -33,13 +33,13 @@
 .logoText {
   font-family: var(--typeface-headings);
   font-size: 24px;
-  font-weight: 500;
-  line-height: 22px;
+  font-weight: 600;
+  line-height: 32px;
 }
 
 /* Контейнер для кнопки закрытия */
 .closeButtonContainer {
-  width: auto;
+  min-width: 147px;
   display: inline-block;
 }
 
@@ -96,7 +96,7 @@
   gap: 24px;
   align-items: stretch;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 0 128px;
 }
 
 .formSection {

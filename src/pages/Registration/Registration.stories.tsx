@@ -32,14 +32,14 @@ const Step1Form = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div style={{ maxWidth: '400px', margin: '0 auto' }}>
+    <div style={{ maxWidth: '436px', margin: '0' }}>
       {/* OAuth кнопки */}
       <div
         style={{
           display: 'flex',
           flexDirection: 'column',
           gap: '16px',
-          marginBottom: '32px',
+          marginBottom: '0',
         }}
       >
         <button
@@ -93,7 +93,7 @@ const Step1Form = () => {
       <div
         style={{
           textAlign: 'center',
-          margin: '32px 0',
+          margin: '25px 0',
           position: 'relative',
         }}
       >
@@ -129,8 +129,8 @@ const Step1Form = () => {
             style={{
               color: 'var(--text-dominant)',
               fontFamily: 'var(--typeface-body)',
-              fontSize: '14px',
-              fontWeight: '500',
+              fontSize: '16px',
+              fontWeight: '400',
               marginBottom: '8px',
               opacity: 0.75,
             }}
