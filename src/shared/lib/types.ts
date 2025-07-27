@@ -1,5 +1,14 @@
 import dayjs from 'dayjs';
 
+export type Subcategory = {
+  name: string;
+};
+
+export type Category = {
+  name: string;
+  subcategories: Subcategory[];
+};
+
 export interface LearningSkill {
   category: string;
   subcategory: string;

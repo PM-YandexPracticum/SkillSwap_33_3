@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './SkillsMenu.module.css';
 
@@ -9,16 +8,7 @@ import LanguagesIcon from '../../assets/svg/SkillsMenu/foreign-languages.svg';
 import EducationIcon from '../../assets/svg/SkillsMenu/education-development.svg';
 import HomeIcon from '../../assets/svg/SkillsMenu/home-comfort.svg';
 import HealthIcon from '../../assets/svg/SkillsMenu/health-lifestyle.svg';
-
-// Типы для структуры данных
-type Subcategory = {
-  name: string;
-};
-
-type Category = {
-  name: string;
-  subcategories: Subcategory[];
-};
+import type { Category } from '../../shared/lib/types';
 
 interface SkillsMenuProps {
   skillsData?: Category[];
@@ -33,23 +23,13 @@ const categoryIcons: Record<string, string> = {
   'Здоровье и лайфстайл': HealthIcon,
 };
 
-export const SkillsMenu: React.FC<SkillsMenuProps> = ({
-  skillsData: propSkillsData,
-}) => {
-  const [fetchedSkillsData, setFetchedSkillsData] = useState<Category[]>([]);
-
-  useEffect(() => {
-    if (!propSkillsData) {
-      fetch('/db/skills.json')
-        .then((response) => response.json())
-        .then((data) => {
-          setFetchedSkillsData(data);
-        })
-        .catch((error) => console.error('Error loading skills data:', error));
-    }
-  }, [propSkillsData]);
-
-  const skillsData = propSkillsData || fetchedSkillsData;
+export const SkillsMenu: React.FC<SkillsMenuProps> = ({ skillsData }) => {
+  if (!skillsData || !skillsData[0])
+    return (
+      <div style={{ padding: 60, fontFamily: 'Jost', fontSize: 24 }}>
+        Навыки не найдены :'(
+      </div>
+    );
 
   return (
     <nav className={styles.menu}>

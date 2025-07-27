@@ -11,6 +11,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 30px;
+    position: relative;
 }
 
 .header-logo {
@@ -66,13 +67,10 @@
     color: var(--action-hover);
 }
 
-.dropdown {
-    position: relative;
-}
-
 /* Позиционирование SkillsMenu dropdown от левого края страницы */
 .skillsMenuDropdown {
-    left: -294px; /* смещение влево */
+    top: 54px;
+    max-width: calc(100% + (100vw - 100%) / 2 - 36px)
 }
 
 .chevron-down svg{

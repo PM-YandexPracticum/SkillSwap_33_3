@@ -7,12 +7,19 @@ import styles from './Header.module.css';
 import logoUrl from '../../assets/svg/logo.svg';
 import chevronDownIcon from '../../assets/svg/icons/chevron-down.svg';
 import moonIcon from '../../assets/svg/icons/moon.svg';
+import { reorderArrayByRows } from '../../shared/lib/utils';
+import type { Category } from '../../shared/lib/types';
+import { useSelector } from '../../app/store';
+import { selectAllSkills } from '../../features/slices/skillsSlice';
 
 export const Header = () => {
   const [isSkillsMenuOpen, setIsSkillsMenuOpen] = useState(false);
   const headerRef = useRef<HTMLDivElement>(null);
   const skillsButtonRef = useRef<HTMLButtonElement>(null);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const skillsRaw = useSelector(selectAllSkills);
+  const reorderedSkills = reorderArrayByRows<Category>(skillsRaw, 3);
 
   const handleSkillsMenuOpen = useCallback(() => {
     if (hoverTimeoutRef.current) {
@@ -99,7 +106,6 @@ export const Header = () => {
             О проекте
           </Link>
           <div
-            className={styles['dropdown']}
             onMouseEnter={handleButtonMouseEnter}
             onMouseLeave={handleButtonMouseLeave}
           >
@@ -126,7 +132,7 @@ export const Header = () => {
               onMouseLeave={handleDropdownMouseLeave}
               className={styles.skillsMenuDropdown}
             >
-              <SkillsMenu />
+              <SkillsMenu skillsData={reorderedSkills} />
             </DropdownBase>
           </div>
         </nav>
