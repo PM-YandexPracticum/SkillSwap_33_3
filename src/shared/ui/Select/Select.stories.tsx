@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Select as Component } from './Select';
-import { useState } from 'react';
 import { Checkbox } from '../Checkbox';
 import styles from './Select.module.css';
 
@@ -16,7 +15,6 @@ const meta = {
     value: { control: 'text' },
     placeholder: { control: 'text' },
     disabled: { control: 'boolean' },
-    multiple: { control: 'boolean' },
   },
 } satisfies Meta<typeof Component>;
 
@@ -54,41 +52,6 @@ export const Default: Story = {
   ),
 };
 
-export const MultipleWithCheckboxes: Story = {
-  args: {
-    label: 'Категория навыка, которому хотите научиться',
-    placeholder: 'Выберите категории',
-    multiple: true,
-    children: (
-      <>
-        <Checkbox name="category" value="business">
-          Бизнес и карьера
-        </Checkbox>
-        <Checkbox name="category" value="creative">
-          Творчество и искусство
-        </Checkbox>
-        <Checkbox name="category" value="languages">
-          Иностранные языки
-        </Checkbox>
-        <Checkbox name="category" value="health">
-          Здоровье и лайфстайл
-        </Checkbox>
-        <Checkbox name="category" value="home">
-          Дом и уют
-        </Checkbox>
-      </>
-    ),
-  },
-  render: (args) => {
-    const [values, setValues] = useState<string[]>([]);
-    return (
-      <div style={storyWrapper}>
-        <Component {...args} value={values} onChange={setValues} />
-      </div>
-    );
-  },
-};
-
 export const SingleWithCheckboxes: Story = {
   args: {
     label: 'Подкатегория навыка, которому хотите научиться',
@@ -122,14 +85,11 @@ export const SingleWithCheckboxes: Story = {
       </>
     ),
   },
-  render: (args) => {
-    const [value, setValue] = useState<string>('');
-    return (
-      <div style={storyWrapper}>
-        <Component {...args} value={value} onChange={setValue} />
-      </div>
-    );
-  },
+  render: (args) => (
+    <div style={storyWrapper}>
+      <Component {...args} value="" /> {}
+    </div>
+  ),
 };
 
 export const GenderSelect: Story = {
@@ -150,12 +110,9 @@ export const GenderSelect: Story = {
       </>
     ),
   },
-  render: (args) => {
-    const [value, setValue] = useState<string>('');
-    return (
-      <div style={storyWrapper}>
-        <Component {...args} value={value} onChange={setValue} />
-      </div>
-    );
-  },
+  render: (args) => (
+    <div style={storyWrapper}>
+      <Component {...args} value="" /> {}
+    </div>
+  ),
 };
