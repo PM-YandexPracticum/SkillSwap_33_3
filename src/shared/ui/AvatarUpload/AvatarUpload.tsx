@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
 import styles from './AvatarUpload.module.css';
 import UserCircleSvg from '../../../assets/svg/icons/userCircle.svg?react';
 import AddSvg from '../../../assets/svg/icons/addSvg.svg?react';
+import clsx from 'clsx';
+import React from 'react';
 
 export interface AvatarUploadProps {
   value?: File | null;
@@ -14,24 +15,28 @@ const AvatarUpload: React.FC<AvatarUploadProps> = ({
   onChange,
   disabled,
 }) => {
-  const [imageUrl, setImageUrl] = useState('');
   const inputRef = React.useRef<HTMLInputElement>(null);
+  let imageUrl = '';
+  if (value) {
+    imageUrl = URL.createObjectURL(value);
+  }
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
       onChange(file);
-      setImageUrl(URL.createObjectURL(file));
     }
   };
 
   return (
     <div
-      className={`${styles.avatarUpload} ${disabled ? styles.disabled : ''}`}
+      className={clsx(styles.avatarUpload, {
+        [styles.disabled]: disabled,
+      })}
       onClick={() => inputRef.current?.click()}
     >
       <div className={styles.avatarContainer}>
-        {imageUrl || value ? (
+        {imageUrl ? (
           <img src={imageUrl} alt="Аватар" className={styles.avatarImage} />
         ) : (
           <UserCircleSvg className={styles.avatarImage} />
@@ -43,6 +48,7 @@ const AvatarUpload: React.FC<AvatarUploadProps> = ({
         accept="image/*"
         style={{ display: 'none' }}
         onChange={handleFileChange}
+        ref={inputRef}
         disabled={disabled}
       />
     </div>
