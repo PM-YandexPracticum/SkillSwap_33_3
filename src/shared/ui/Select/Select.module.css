@@ -1,0 +1,115 @@
+.selectContainer {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    font-family: var(--typeface-body);
+}
+
+.label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    color: var(--text-dominant);
+}
+
+.select {
+    position: relative;
+    height: 48px;
+    padding-left: 20px;
+    border: 1px solid var(--text-dominant);
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    background-color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.selectedValue {
+    color: var(--text-secondary);
+    flex-grow: 1;
+}
+
+.placeholder {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    color: var(--text-secondary);
+}
+
+.arrow {
+    transition: transform 0.2s;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.arrow.open {
+    transform: rotate(180deg);
+}
+
+.dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border: 1px solid var(--text-dominant);
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    margin-top: -1px;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, opacity 0.2s ease-out;
+    opacity: 0;
+    z-index: 10;
+    padding: 14px;
+}
+
+.dropdown.open {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 300px;
+    opacity: 1;
+    overflow-y: auto;
+}
+
+.option {
+    padding: 4px 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.selectContainer.active .select {
+    border-radius: 12px 12px 0 0;
+    border-bottom: 1px solid black;
+}
+
+.selectWrapper.active {
+    position: relative;
+    border-radius: 12px;
+}
+
+.selectWrapper.active::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--text-dominant);
+    border-radius: 12px;
+    pointer-events: none;
+    z-index: 11;
+}
+
