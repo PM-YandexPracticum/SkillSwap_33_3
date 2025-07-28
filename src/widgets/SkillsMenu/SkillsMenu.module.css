@@ -1,18 +1,19 @@
 .menu {
   display: flex;
-  gap: 40px;
   flex-flow: column wrap;
-  padding: 60px;
-  max-width: 1200px;
-  max-height: 1040px;
+  width: max-content;
+  max-height: 1100px;
+  gap: 40px;
+  padding: 60px;  
 }
 
 .category {
   display: grid;
-  grid-template-columns: 40px 436px;
+  grid-template-columns: 40px 1fr;
   gap: 12px;
   align-items: start;
   min-height: 200px;
+  min-width: 488px;
 }
 
 .categoryLink {
@@ -29,7 +30,6 @@
 }
 
 .categoryContent {
-  width: 436px;
   display: flex;
   flex-direction: column;
 }

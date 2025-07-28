@@ -1,5 +1,14 @@
 import dayjs from 'dayjs';
 
+export type Subcategory = {
+  name: string;
+};
+
+export type Category = {
+  name: string;
+  subcategories: Subcategory[];
+};
+
 export interface LearningSkill {
   category: string;
   subcategory: string;
@@ -37,4 +46,9 @@ export interface Filters {
   subcategories: string[];
   gender: 'unknown' | 'male' | 'female';
   cities: string[];
+}
+
+export interface TSkillInfo extends TeachingSkill {
+  description: string;
+  images: string[];
 }
