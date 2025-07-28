@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import styles from './NestedCheckboxGroup.module.css';
-import ArrowDownIcon from '../../../assets/svg/icons/chevron-down.svg';
-import ArrowUpIcon from '../../../assets/svg/icons/chevron-up.svg';
+import ChevronDownIcon from '../../../assets/svg/icons/chevron-down.svg?react';
+import CheckboxEmptyIcon from '../../../assets/svg/icons/checkbox-empty.svg?react';
+import CheckboxDoneIcon from '../../../assets/svg/icons/checkbox-done.svg?react';
+import CheckboxSomeIcon from '../../../assets/svg/icons/checkbox-remove.svg?react';
+import clsx from 'clsx';
 
 interface NestedCheckboxGroupProps {
   title: string;
@@ -19,7 +22,6 @@ export const NestedCheckboxGroup = ({
   onChange,
 }: NestedCheckboxGroupProps) => {
   const [expanded, setExpanded] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
 
   const toggleExpand = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -31,36 +33,46 @@ export const NestedCheckboxGroup = ({
     onChange(title, mode);
   };
 
+  const getCheckboxIcon = () => {
+    switch (mode) {
+      case 'all':
+        return (
+          <CheckboxDoneIcon
+            className={styles.checkboxIcon}
+            style={{ fill: 'var(--accent-primary)' }}
+          />
+        );
+      case 'some':
+        return (
+          <CheckboxSomeIcon
+            className={styles.checkboxIcon}
+            style={{ fill: 'var(--accent-primary)' }}
+          />
+        );
+      case 'none':
+        return <CheckboxEmptyIcon className={styles.checkboxIcon} />;
+      default:
+        return <CheckboxEmptyIcon className={styles.checkboxIcon} />;
+    }
+  };
+
   return (
     <div className={`${styles.group} ${className || ''}`}>
-      <div
-        className={styles.header}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <div className={styles.checkboxArea} onClick={handleCheckboxClick}>
-          <input
-            type="checkbox"
-            className={styles.triStateCheckbox}
-            checked={mode === 'all'}
-            ref={(el) => {
-              if (el) {
-                el.indeterminate = mode === 'some';
-              }
-            }}
-            onChange={() => {}}
-          />
-          <span className={styles.checkboxVisual} />
+      <div className={styles.header}>
+        <div
+          className={clsx(styles.checkboxArea)}
+          onClick={handleCheckboxClick}
+        >
+          {getCheckboxIcon()}
         </div>
 
         <span className={styles.titleArea} onClick={toggleExpand}>
           <span className={styles.title}>{title}</span>
           <div className={styles.arrowWrapper}>
-            {expanded ? (
-              <img src={ArrowUpIcon} className={styles.arrow} alt="Collapse" />
-            ) : isHovered ? (
-              <img src={ArrowDownIcon} className={styles.arrow} alt="Expand" />
-            ) : null}
+            <ChevronDownIcon
+              className={clsx(styles.chevronIcon, expanded && styles.rotated)}
+              onClick={toggleExpand}
+            />
           </div>
         </span>
       </div>

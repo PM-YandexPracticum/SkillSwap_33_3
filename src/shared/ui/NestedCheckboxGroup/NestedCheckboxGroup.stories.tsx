@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { NestedCheckboxGroup } from './NestedCheckboxGroup';
 import { Checkbox } from '../Checkbox';
+import '../../../index.css';
 
 const meta: Meta<typeof NestedCheckboxGroup> = {
   title: 'Components/NestedCheckboxGroup',

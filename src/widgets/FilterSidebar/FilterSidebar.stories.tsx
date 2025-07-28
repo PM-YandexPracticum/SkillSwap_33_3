@@ -1,5 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { FilterSidebar as Component } from './FilterSidebar';
+import type { Filters } from '../../shared/lib/types';
+import { Provider } from 'react-redux';
+import { store } from '../../app/store'; // Импорт Redux-стора
 
 const meta = {
   title: 'Components/FilterSidebar',
@@ -9,8 +12,32 @@ const meta = {
     layout: 'padded',
   },
   argTypes: {
-    // Можно добавить argTypes если у компонента есть пропсы
+    initialFilters: {
+      description:
+        'Начальные значения фильтров для отображения выбранных опций',
+      control: {
+        type: 'object',
+      },
+      table: {
+        type: { summary: 'Filters' },
+        defaultValue: {
+          summary: JSON.stringify({
+            mode: 'Всё',
+            subcategories: [],
+            gender: 'Не имеет значения',
+            cities: [],
+          }),
+        },
+      },
+    },
   },
+  decorators: [
+    (Story) => (
+      <Provider store={store}>
+        <Story />
+      </Provider>
+    ),
+  ],
 } satisfies Meta<typeof Component>;
 
 export default meta;
@@ -36,9 +63,9 @@ export const WithInitialFilters: Story = {
   render: () => {
     const initialFilters: Filters = {
       mode: 'learn',
-      subcategories: ['business', 'languages'],
+      subcategories: ['Управление командой', 'Английский'],
       gender: 'female',
-      cities: ['moscow'],
+      cities: ['Москва'],
     };
     return (
       <div style={storyWrapper}>

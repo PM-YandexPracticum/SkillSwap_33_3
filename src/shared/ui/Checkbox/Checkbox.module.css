@@ -48,4 +48,8 @@
   font-family: var(--typeface-body);
   font-weight: 400;
   font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 32px);
 }
