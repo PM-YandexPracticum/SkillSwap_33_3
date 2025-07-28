@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@/shared/ui/Button';
 import styles from './ErrorPage.module.css';
 
 interface ErrorPageProps {
@@ -16,6 +17,8 @@ export function ErrorPage({
   className,
   imageClassName,
 }: ErrorPageProps) {
+  const navigate = useNavigate();
+
   return (
     <div className={`${styles.notFoundContainer} ${className ?? ''}`}>
       <div className={styles.imageWrapper}>
@@ -30,15 +33,12 @@ export function ErrorPage({
       <p className={styles.text}>{description}</p>
 
       <div className={styles.buttons}>
-        <Link
-          to="/feedback"
-          className={`${styles.button} ${styles.buttonOutline}`}
-        >
+        <Button variant="secondary" onClick={() => navigate('/feedback')}>
           Сообщить об ошибке
-        </Link>
-        <Link to="/" className={`${styles.button} ${styles.buttonPrimary}`}>
+        </Button>
+        <Button variant="primary" onClick={() => navigate('/')}>
           На главную
-        </Link>
+        </Button>
       </div>
     </div>
   );

@@ -43,38 +43,8 @@
 }
 
 .buttons {
-  display: flex;
+  display: grid;
+  grid-template-columns: 218px 218px;
   gap: 24px;
-  flex-wrap: wrap;
   justify-content: center;
-}
-
-.button {
-  width: 218px;
-  font-family: var(--typeface-body);
-  font-size: 16px;
-  padding: 12px 26px;
-  border-radius: 12px;
-  transition: background-color 0.2s ease;
-  text-decoration: none;
-  cursor: pointer;
-  color: var(--text-dominant);
-}
-
-.buttonOutline {
-  border: 1px solid var(--accent-primary);
-  background: transparent;
-}
-
-.buttonOutline:hover {
-  background-color: #ecfdf5;
-}
-
-.buttonPrimary {
-  background-color: var(--accent-primary);
-  border: none;
-}
-
-.buttonPrimary:hover {
-  background-color: #16a34a;
 }
