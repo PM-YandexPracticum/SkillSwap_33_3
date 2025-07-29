@@ -131,7 +131,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
   const activeFiltersCount = countActiveFilters(filters);
 
   return (
-    <aside className={styles.filterSidebar}>
+    <div className={styles.filterSidebar}>
       <div className={styles.header}>
         <h2 className={styles.title}>
           Фильтры{activeFiltersCount > 0 ? ` (${activeFiltersCount})` : ''}
@@ -249,6 +249,6 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
           ))}
         </FilterSection>
       </div>
-    </aside>
+    </div>
   );
 };
