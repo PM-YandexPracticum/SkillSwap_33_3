@@ -51,10 +51,16 @@
   width: 24px;
   height: 24px;
   transition: transform 0.2s ease;
+  opacity: 0;
+}
+
+.header:hover .chevronIcon {
+  opacity: 1; /* Показываем при наведении */
 }
 
 .rotated {
   transform: rotate(180deg);
+  opacity: 1;
 }
 
 .children {

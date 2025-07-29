@@ -34,6 +34,17 @@ const getModeForCategory = (
   return 'some';
 };
 
+const countActiveFilters = (filters: Filters): number => {
+  let count = 0;
+
+  if (filters.mode !== 'all') count++;
+  if (filters.gender !== 'unknown') count++;
+  count += filters.subcategories.length;
+  count += filters.cities.length;
+
+  return count;
+};
+
 const cities = [
   'Москва',
   'Санкт-Петербург',
@@ -117,10 +128,14 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
       JSON.stringify(defaultFilters[key as keyof Filters])
   );
 
+  const activeFiltersCount = countActiveFilters(filters);
+
   return (
     <aside className={styles.filterSidebar}>
       <div className={styles.header}>
-        <h2 className={styles.title}>Фильтры</h2>
+        <h2 className={styles.title}>
+          Фильтры{activeFiltersCount > 0 ? ` (${activeFiltersCount})` : ''}
+        </h2>
         {hasFiltersChanged && (
           <button className={styles.resetButton} onClick={handleReset}>
             Сбросить
@@ -183,46 +198,6 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
               ))}
             </NestedCheckboxGroup>
           ))}
-          <Checkbox
-            name="skills"
-            value="creativity"
-            checked={filters.subcategories.includes('creativity')}
-            onChange={handleSubcategoryChange}
-          >
-            Творчество и искусство
-          </Checkbox>
-          <Checkbox
-            name="skills"
-            value="languages"
-            checked={filters.subcategories.includes('languages')}
-            onChange={handleSubcategoryChange}
-          >
-            Иностранные языки
-          </Checkbox>
-          <Checkbox
-            name="skills"
-            value="education"
-            checked={filters.subcategories.includes('education')}
-            onChange={handleSubcategoryChange}
-          >
-            Образование и развитие
-          </Checkbox>
-          <Checkbox
-            name="skills"
-            value="health"
-            checked={filters.subcategories.includes('health')}
-            onChange={handleSubcategoryChange}
-          >
-            Здоровье и лайфстайл
-          </Checkbox>
-          <Checkbox
-            name="skills"
-            value="home"
-            checked={filters.subcategories.includes('home')}
-            onChange={handleSubcategoryChange}
-          >
-            Дом и уют
-          </Checkbox>
           <Checkbox
             name="subcategories"
             value="programming"
