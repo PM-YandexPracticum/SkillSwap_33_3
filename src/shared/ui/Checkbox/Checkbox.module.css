@@ -3,7 +3,9 @@
   align-items: center;
   column-gap: 10px;
   cursor: pointer;
-  height: 24px;
+  height: 32px;
+  letter-spacing: 0.3px;
+  flex-wrap: nowrap;
   position: relative;
   padding-left: 34px;
 }
@@ -38,6 +40,7 @@
 .label {
   display: flex;
   align-items: center;
+  gap: 90px;
   font-family: var(--typeface-body);
   font-weight: 400;
   font-size: 16px;
