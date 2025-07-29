@@ -1,0 +1,98 @@
+/* Основной контейнер уведомлений */
+.notifications-container {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 12px;
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 99;
+}
+
+/* Карточка уведомления */
+.notification-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: #DEEBC5;
+  font-family: Jost, sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  color: #253017;
+  border-radius: 8px;
+  padding: 12px 25px;
+  width: 340px;
+  height: 72px;
+  overflow: hidden;
+}
+
+/* Контейнер для иконки и текста */
+.notification-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-grow: 1;
+  height: 100%;
+}
+
+/* Иконка лампочки */
+.notification-icon {
+  flex-shrink: 0;
+}
+
+/* Основной текст уведомления */
+.notification-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Контейнер для текста "Перейти" */
+.notification-go-container {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 74px;
+  height: 32px;
+  right: 8px;
+  bottom: 8px;
+  background: white;
+  border-radius: 20px;
+  padding: 2px 8px;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: all 0.2s ease;
+
+}
+
+/* Текст "Перейти" */
+.notification-go-text {
+  font-size: 12px;
+  font-weight: 400;
+  color: #253017;
+}
+
+/* Крестик закрытия */
+.notification-close {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  color: #6b7280;
+  width: 24px;
+  height: 24px;
+}
+
+/* Состояния при наведении */
+.notification-item:hover .notification-go-container {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.notification-close:hover {
+  color: #000;
+}
