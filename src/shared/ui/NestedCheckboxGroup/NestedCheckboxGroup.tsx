@@ -3,7 +3,7 @@ import styles from './NestedCheckboxGroup.module.css';
 import ChevronDownIcon from '../../../assets/svg/icons/chevron-down.svg?react';
 import CheckboxEmptyIcon from '../../../assets/svg/icons/checkbox-empty.svg?react';
 import CheckboxDoneIcon from '../../../assets/svg/icons/checkbox-done.svg?react';
-import CheckboxSomeIcon from '../../../assets/svg/icons/checkbox-remove.svg?react';
+import CheckboxSomeIcon from '../../../assets/svg/icons/subtract.svg?react';
 import clsx from 'clsx';
 
 interface NestedCheckboxGroupProps {
@@ -45,7 +45,7 @@ export const NestedCheckboxGroup = ({
       case 'some':
         return (
           <CheckboxSomeIcon
-            className={styles.checkboxIcon}
+            className={`${styles.checkboxIcon} ${styles.subtractIcon}`}
             style={{ fill: 'var(--accent-primary)' }}
           />
         );
