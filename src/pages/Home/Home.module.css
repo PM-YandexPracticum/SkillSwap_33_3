@@ -1,0 +1,44 @@
+.page {
+  display: flex;
+  gap: 24px;
+  padding: 32px 36px;
+}
+
+.sidebar {
+  width: 324px;
+  flex-shrink: 0;
+}
+
+.content {
+  flex: 1;
+}
+
+.section {
+  margin-bottom: 40px;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.buttonWrap {
+  display: inline-block;
+  width: auto;
+}
+
+.sectionTitle {
+  font-weight: 500;
+  color: var(--text-dominant);
+  font-family: var(--typeface-headings);
+  font-size: 32px;
+  line-height: 1.25;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(324px, 1fr));
+  gap: 24px;
+}
