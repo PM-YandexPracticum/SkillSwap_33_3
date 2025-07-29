@@ -4,6 +4,8 @@
   column-gap: 10px;
   cursor: pointer;
   height: 32px;
+  letter-spacing: 0.3px;
+  flex-wrap: nowrap;
 }
 
 .checkbox {
@@ -44,7 +46,7 @@
 .label {
   display: flex;
   align-items: center;
-  gap: 98px;
+  gap: 90px;
   font-family: var(--typeface-body);
   font-weight: 400;
   font-size: 16px;
