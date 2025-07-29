@@ -1,0 +1,69 @@
+.container {
+  width: 1368px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.label {
+  font-family: var(--typeface-headings);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 117%;
+  letter-spacing: -0.01em;
+  color: var(--text-dominant);
+  margin-bottom: 32px;
+}
+
+.sliderWrapper {
+  position: relative;
+}
+
+.slider {
+  overflow: hidden;
+}
+
+.items {
+  display: flex;
+  gap: 24px;
+}
+
+.button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 100px;
+  padding: 8px;
+  background: var(--state-disabled);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  transition: background-color 0.2s ease;
+  margin-bottom: 168px;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.buttonPrev {
+  left: -16px;
+}
+
+.buttonNext {
+  right: -16px;
+}
+
+.chevronIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.buttonPrev .chevronIcon {
+  transform: rotate(-180deg);
+}
