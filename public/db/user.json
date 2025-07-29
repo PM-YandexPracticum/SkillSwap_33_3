@@ -1,0 +1,35 @@
+{
+  "email": "Mariia@gmail.com",
+  "avatar": "/src/assets/img/avatars/avatar-maria-profile.jpg",
+  "name": "Мария",
+  "birthDate": "1995-10-28",
+  "gender": "female",
+  "city": "Москва",
+  "aboutMe": "Люблю учиться новому, особенно если это можно делать за чаем и в пижаме. Всегда готова пообщаться и обменяться чем‑то интересным!",
+  "teachingSkills": [
+    {
+      "category": "Технологии",
+      "subcategory": "Анализ данных",
+      "skillName": "Data Science",
+      "id": 13
+    },
+    {
+      "category": "Бизнес и карьера",
+      "subcategory": "Продажи и переговоры",
+      "skillName": "Техники убеждения",
+      "id": 14
+    }
+  ],
+  "learningSkills": [
+    {
+      "category": "Здоровье и лайфстайл",
+      "subcategory": "Ментальное здоровье"
+    },
+    {
+      "category": "Дом и уют",
+      "subcategory": "Уборка и организация"
+    }
+  ],
+  "likes": 0,
+  "id": "16"
+}
