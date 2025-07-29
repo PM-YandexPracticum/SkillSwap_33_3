@@ -23,7 +23,6 @@ type Story = StoryObj<typeof meta>;
 
 const storyWrapper = {
   width: '436px',
-  padding: '12px 20px',
   backgroundColor: '#f9f9f9',
   borderRadius: '12px',
 };
