@@ -10,7 +10,7 @@ export interface AvatarUploadProps {
   disabled?: boolean;
 }
 
-const AvatarUpload: React.FC<AvatarUploadProps> = ({
+export const AvatarUpload: React.FC<AvatarUploadProps> = ({
   value,
   onChange,
   disabled,
