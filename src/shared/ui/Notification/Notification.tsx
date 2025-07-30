@@ -1,11 +1,13 @@
 import React from 'react';
 import dayjs from 'dayjs';
+import 'dayjs/locale/ru';
 import calendar from 'dayjs/plugin/calendar';
 import IdeaIcon from '../../../assets/svg/icons/idea-new.svg?react';
 import { Button } from '../Button';
 import styles from './Notification.module.css';
 
 dayjs.extend(calendar);
+dayjs.locale('ru');
 
 interface NotificationProps {
   id: string;
