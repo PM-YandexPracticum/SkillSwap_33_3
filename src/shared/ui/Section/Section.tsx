@@ -19,7 +19,7 @@ export const Section: React.FC<SectionProps> = ({
     <section className={styles['section-wrapper']}>
       {hasHeader && (
         <div className={styles['title-wrapper']}>
-          {title && <h2 className={styles['section-title']}>{title}</h2>}
+          <h2 className={styles['section-title']}>{title}</h2>
           {button}
         </div>
       )}
