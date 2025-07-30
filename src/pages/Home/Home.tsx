@@ -26,34 +26,30 @@ export default function Home() {
     (u) => !popular.includes(u) && !newest.includes(u)
   );
 
-  const renderSection = (title: string, data: UserResponse[]) => (
-    <div className={styles.sectionWrap}>
-      <Section
-        title={<h2 className={styles.sectionTitle}>{title}</h2>}
-        button={
-          title !== 'Рекомендуем' && (
-            <div className={styles.buttonWrap}>
-              <Button variant="tertiary">
-                Смотреть все <ChevronRightIcon />
-              </Button>
-            </div>
-          )
-        }
-      >
-        <div className={styles.cardGrid}>
-          {data.map((user) => (
-            <Card
-              key={user.id}
-              user={user}
-              liked={false}
-              onLikeClick={() => {}}
-              onMoreClick={() => {}}
-              isProposed={false}
-            />
-          ))}
-        </div>
-      </Section>
-    </div>
+  const renderSection = (
+    title: string,
+    data: UserResponse[],
+    showMore: () => void
+  ) => (
+    <Section
+      title={title}
+      button={
+        <Button variant="tertiary" onClick={showMore}>
+          Смотреть все <ChevronRightIcon />
+        </Button>
+      }
+    >
+      {data.map((user) => (
+        <Card
+          key={user.id}
+          user={user}
+          liked={false}
+          onLikeClick={() => {}}
+          onMoreClick={() => {}}
+          isProposed={false}
+        />
+      ))}
+    </Section>
   );
 
   return (
@@ -63,9 +59,9 @@ export default function Home() {
           <FilterSidebar />
         </aside>
         <div className={styles.content}>
-          {renderSection('Популярное', popular)}
-          {renderSection('Новое', newest)}
-          {renderSection('Рекомендуем', recommended)}
+          {renderSection('Популярное', popular, () => {})}
+          {renderSection('Новое', newest, () => {})}
+          {renderSection('Рекомендуем', recommended, () => {})}
         </div>
       </div>
     </main>

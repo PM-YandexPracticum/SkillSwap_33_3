@@ -5,11 +5,15 @@
 }
 
 .title-wrapper {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 1fr max-content;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 32px;
+}
+
+.section-title {
+  font-size: 32px;
 }
 
 .card-wrapper {
