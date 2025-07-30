@@ -1,0 +1,58 @@
+.navigation {
+    font-family: var(--typeface-body);
+    color: var(--text-dominant);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    width: 244px;
+    height: 272px;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 8px;
+}
+
+.menu li a {
+    letter-spacing: 0.4px;
+    padding: 0;
+}
+
+.menu li {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    gap: 12px;
+    width: 244px;
+    height: 48px;
+    transition: all 0.3s ease;
+}
+
+.link {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    color: #333;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+}
+
+.menu li:has(.active) {
+    border-radius: 12px;
+    background-color: var(--action-hover);
+}
+
+.menu li:not(:has(.active)):hover {
+    border-radius: 12px;
+    background-color: var(--state-disabled);
+}
