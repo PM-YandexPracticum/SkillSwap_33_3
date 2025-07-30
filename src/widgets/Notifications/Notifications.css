@@ -12,18 +12,26 @@
 /* Карточка уведомления */
 .notification-item {
   position: relative;
-  display: flex;
-  align-items: center;
   background-color: #DEEBC5;
   font-family: Jost, sans-serif;
   font-weight: 500;
   font-size: 20px;
   color: #253017;
   border-radius: 8px;
-  padding: 12px 25px;
   width: 340px;
   height: 72px;
   overflow: hidden;
+}
+
+/* Основная ссылка (все уведомление) */
+.notification-link {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 12px 25px;
+  padding-right: 60px;
+  text-decoration: none;
+  color: inherit;
 }
 
 /* Контейнер для иконки и текста */
@@ -59,12 +67,9 @@
   bottom: 8px;
   background: white;
   border-radius: 20px;
-  padding: 2px 8px;
   opacity: 0;
   transform: translateY(5px);
   transition: all 0.2s ease;
-  text-decoration: none;
-  color: inherit;
 }
 
 /* Текст "Перейти" */
@@ -86,6 +91,7 @@
   color: #6b7280;
   width: 24px;
   height: 24px;
+  z-index: 2;
 }
 
 /* Состояния при наведении */
@@ -94,6 +100,13 @@
   transform: translateY(0);
 }
 
-.notification-close:hover {
-  color: #000;
+.notification-close svg {
+  width: 100%;
+  height: 100%;
+  stroke: #6b7280;
+  transition: stroke 0.2s ease;
+}
+
+.notification-close:hover svg {
+  stroke: #000;
 }

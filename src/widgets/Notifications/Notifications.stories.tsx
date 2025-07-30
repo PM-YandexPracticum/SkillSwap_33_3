@@ -1,6 +1,7 @@
 import type { Meta, StoryFn } from '@storybook/react-vite';
 import type { Notification } from './Notifications';
 import Notifications from './Notifications';
+import { BrowserRouter } from 'react-router-dom';
 
 export default {
   title: 'Widgets/Notifications',
@@ -13,16 +14,18 @@ interface StoryArgs {
 
 // Обертка с фиксированной высотой
 const StoryContainer = ({ children }: { children: React.ReactNode }) => (
-  <div
-    style={{
-      minHeight: '300px',
-      position: 'relative',
-      padding: '20px',
-      backgroundColor: '#f5f5f5',
-    }}
-  >
-    {children}
-  </div>
+  <BrowserRouter>
+    <div
+      style={{
+        minHeight: '300px',
+        position: 'relative',
+        padding: '20px',
+        backgroundColor: '#f5f5f5',
+      }}
+    >
+      {children}
+    </div>
+  </BrowserRouter>
 );
 
 const Template: StoryFn<StoryArgs> = (args) => (
