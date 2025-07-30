@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-
 import { ComboInput } from './ComboInput';
 
 const meta = {
@@ -34,10 +33,10 @@ const options = Array.from({ length: 100 }).map((_, i) => ({
 
 export const Default: Story = {
   args: {
-    label: 'Choose an option',
-    placeholder: 'Start typing...',
+    label: 'Город',
+    placeholder: 'Не указан',
     options,
-    defaultValue: 'option_13',
+    defaultValue: '',
   },
   render: (args) => (
     <div style={storyWrapper}>

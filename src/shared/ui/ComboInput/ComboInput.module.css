@@ -1,48 +1,93 @@
 .wrapper {
   position: relative;
-  width: 436px;
-  color: var(--text-dominant);
+  width: 100%;
+  max-width: 400px;
   font-family: var(--typeface-body);
+  color: var(--text-dominant);
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
 }
 
+.label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: var(--text-dominant);
+}
+
 .inputWrapper {
   position: relative;
   width: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .input {
   position: relative;
   width: 100%;
   height: 48px;
-  margin-top: 4px;
-  border: 1px solid var(--text-secondary);
+  padding: 12px 44px 12px 20px;
+  border: 1px solid var(--text-dominant);
   border-radius: 12px;
-  padding: 12px 20px;
   outline: none;
   font-size: 16px;
-  transition: 0.2s all ease;
+  line-height: 24px;
+  font-weight: 400;
+  transition: all 0.2s ease;
+  background-color: white;
+  color: var(--text-secondary);
+  cursor: text;
+  z-index: 10;
+}
+
+.input:focus {
+  border-color: var(--text-dominant);
 }
 
 .input_open {
-  border-bottom-color: var(--text-inactive);
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
+  border-radius: 12px 12px 0 0;
+  border-bottom: none;
+}
+
+.wrapper.active .input {
+  border-radius: 12px 12px 0 0;
+  z-index: 20;
+}
+
+.wrapper.active::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-bottom: 1px solid rgb(0 0 0 / 10%);
+  border-radius: 12px;
+  pointer-events: none;
+  z-index: 30;
 }
 
 .input__button {
   position: absolute;
-  top: 55%;
+  top: 50%;
   right: 24px;
-  z-index: 1;
+  transform: translateY(-50%);
   border: none;
-  outline: none;
+  background: transparent;
   color: var(--text-secondary);
-  background-color: transparent;
-  transform: translateY(-45%);
   cursor: pointer;
+  z-index: 40;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.arrow_open {
+  transform: rotate(180deg);
+  transition: transform 0.2s ease;
 }
 
 .list {
@@ -51,55 +96,54 @@
   right: 0;
   left: 0;
   box-sizing: border-box;
-  max-height: calc(3 * 48px);
-  border: 1px solid var(--text-secondary);
+  border: 1px solid var(--text-dominant);
   border-top: none;
-  border-bottom-right-radius: 12px;
-  border-bottom-left-radius: 12px;
+  border-radius: 0 0 12px 12px;
+  margin-top: 0;
+  max-height: 0;
+  overflow: hidden;
+  background-color: white;
   opacity: 0;
-  overflow-y: auto;
-  background-color: var(--surface-main);
-  transition: opacity 0.2s ease, transform 0.2s ease;
-  transform: translateY(-4px);
-  pointer-events: none;
+  z-index: -10;
+  padding: 8px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: all 0.3s ease-out;
 }
 
-.list::-webkit-scrollbar {
+.list_visible {
+  max-height: 300px;
+  opacity: 1;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.list_visible::-webkit-scrollbar {
   width: 4px;
 }
 
-.list::-webkit-scrollbar-track {
+.list_visible::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.list::-webkit-scrollbar-thumb {
+.list_visible::-webkit-scrollbar-thumb {
   border-radius: 4px;
   background-color: var(--state-disabled);
 }
 
-.list_visible {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
-.list__item,
-.list__item_inactive {
-  display: block;
-  border-radius: 12px;
-  padding: 12px 20px;
-  background-color: transparent;
+.option {
+  padding: 4px 0 4px 20px;
   cursor: pointer;
+  transition: background-color 0.2s;
 }
 
-.list__item_inactive {
-  cursor: initial;
-}
-
-.list__item:hover {
+.option:hover {
   background-color: var(--action-hover);
+  border-radius: 6px;
 }
 
-.list__item_highlighted {
-  background-color: var(--action-hover);
+.option_inactive {
+  cursor: default;
+  color: var(--text-inactive);
 }
