@@ -8,7 +8,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import { usersSlice } from '../features/slices/usersSlice';
 import { skillsSlice } from '../features/slices/skillsSlice';
-import { authSlice } from '@/features/slices/authSlice';
+import { authSlice } from '../features/slices/authSlice';
 
 export const rootReducer = combineReducers({
   [usersSlice.name]: usersSlice.reducer,
