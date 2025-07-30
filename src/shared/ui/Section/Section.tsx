@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './Section.module.css';
 
 interface SectionProps {
-  title?: string;
+  title?: React.ReactNode;
   button?: React.ReactNode;
   children?: React.ReactNode;
 }
@@ -19,7 +19,11 @@ export const Section: React.FC<SectionProps> = ({
     <section className={styles['section-wrapper']}>
       {hasHeader && (
         <div className={styles['title-wrapper']}>
-          {title && <h2 className={styles['section-title']}>{title}</h2>}
+          {typeof title === 'string' ? (
+            <h2 className={styles['section-title']}>{title}</h2>
+          ) : (
+            title
+          )}
           {button}
         </div>
       )}

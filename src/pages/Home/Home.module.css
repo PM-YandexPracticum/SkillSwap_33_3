@@ -1,7 +1,17 @@
 .page {
+  padding: 32px 36px;
+}
+
+.container {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
   display: flex;
   gap: 24px;
-  padding: 32px 36px;
+}
+
+.sectionWrap {
+  margin-bottom: 40px;
 }
 
 .sidebar {
@@ -41,4 +51,5 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(324px, 1fr));
   gap: 24px;
+  flex: 1 1 100%;
 }
