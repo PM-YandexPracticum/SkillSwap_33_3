@@ -1,7 +1,5 @@
 .dropdown {
     position: absolute;
-    top: 0;
-    left: 0;
     background: var(--card, #fff);
     border: 1px solid var(--caption, #69735d);
     border-radius: 12px;
