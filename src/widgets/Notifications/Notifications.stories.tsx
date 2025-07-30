@@ -11,11 +11,27 @@ interface StoryArgs {
   notifications: Notification[];
 }
 
+// Обертка с фиксированной высотой
+const StoryContainer = ({ children }: { children: React.ReactNode }) => (
+  <div
+    style={{
+      minHeight: '300px',
+      position: 'relative',
+      padding: '20px',
+      backgroundColor: '#f5f5f5',
+    }}
+  >
+    {children}
+  </div>
+);
+
 const Template: StoryFn<StoryArgs> = (args) => (
-  <Notifications
-    notifications={args.notifications}
-    onClose={(id) => console.log(`Closed notification ${id}`)}
-  />
+  <StoryContainer>
+    <Notifications
+      notifications={args.notifications}
+      onClose={(id) => console.log(`Closed notification ${id}`)}
+    />
+  </StoryContainer>
 );
 
 export const OlegExample = Template.bind({});

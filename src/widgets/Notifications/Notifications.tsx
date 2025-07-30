@@ -1,5 +1,8 @@
 import React from 'react';
 import './Notifications.css';
+import Lamp from '@assets/svg/icons/lamp.svg?react';
+import Cross from '@assets/svg/icons/cross.svg?react';
+// import { useNavigate } from 'react-router-dom';
 
 export type Notification = {
   id: string;
@@ -15,32 +18,37 @@ const Notifications: React.FC<NotificationProps> = ({
   notifications,
   onClose,
 }) => {
+  // const navigate = useNavigate();
+
   return (
     <div className="notifications-container">
       {notifications.map((note) => (
         <div key={note.id} className="notification-item">
           <div className="notification-content">
-            <svg
-              className="notification-icon"
-              width="22"
-              height="22"
-              viewBox="0 0 22 22"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M5.09 13.998C4.70066 13.118 4.49969 12.1663 4.5 11.204C4.5 7.49905 7.41 4.49805 11 4.49805C14.59 4.49805 17.5 7.50005 17.5 11.204C17.5003 12.1663 17.2993 13.118 16.91 13.998M11 0.998047V1.99805M21 10.998H20M2 10.998H1M18.07 3.92705L17.363 4.63405M4.637 4.63505L3.93 3.92805M13.517 18.305C14.527 17.978 14.933 17.053 15.047 16.123C15.081 15.845 14.852 15.614 14.572 15.614H7.477C7.40862 15.613 7.3408 15.6264 7.278 15.6535C7.21521 15.6806 7.15888 15.7207 7.11275 15.7712C7.06662 15.8216 7.03173 15.8813 7.0104 15.9463C6.98906 16.0113 6.98177 16.08 6.989 16.148C7.101 17.076 7.383 17.754 8.453 18.304M13.517 18.305L8.453 18.304M13.517 18.305C13.396 20.25 12.834 21.02 11.007 20.998C9.053 21.034 8.603 20.081 8.453 18.304"
-                stroke="#253017"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <Lamp />
             <span className="notification-text">{note.notification}</span>
           </div>
-          <div className="notification-go-container">
+          <a
+            href="/"
+            className="notification-go-container"
+            aria-label="Перейти на главную страницу"
+            onClick={(e) => e.stopPropagation()}
+          >
             <span className="notification-go-text">Перейти</span>
-          </div>
+          </a>
+          {/* Если будет использоваться Router */}
+          {/* <a
+            href="/"
+            className="notification-go-container"
+            aria-label="Перейти на главную страницу"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              navigate('/');
+            }}
+          >
+            <span className="notification-go-text">Перейти</span>
+          </a> */}
           <button
             className="notification-close"
             onClick={(e) => {
@@ -49,7 +57,7 @@ const Notifications: React.FC<NotificationProps> = ({
             }}
             aria-label="Закрыть уведомление"
           >
-            &times;
+            <Cross />
           </button>
         </div>
       ))}

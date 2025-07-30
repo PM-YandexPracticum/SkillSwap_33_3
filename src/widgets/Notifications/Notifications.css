@@ -1,7 +1,7 @@
 /* Основной контейнер уведомлений */
 .notifications-container {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   gap: 12px;
   position: fixed;
   bottom: 20px;
@@ -63,7 +63,8 @@
   opacity: 0;
   transform: translateY(5px);
   transition: all 0.2s ease;
-
+  text-decoration: none;
+  color: inherit;
 }
 
 /* Текст "Перейти" */
