@@ -70,7 +70,6 @@
 /* Позиционирование SkillsMenu dropdown от левого края страницы */
 .skillsMenuDropdown {
     top: 54px;
-    left: 0;
     max-width: calc(100% + (100vw - 100%) / 2 - 36px)
 }
 
