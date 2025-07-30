@@ -21,7 +21,7 @@ const Notifications: React.FC<NotificationProps> = ({
   return (
     <div className="notifications-container">
       {notifications.map((note) => (
-        <div className="notification-item">
+        <div key={note.id} className="notification-item">
           <Link
             to="/"
             className="notification-link"
