@@ -1,0 +1,46 @@
+.menu {
+    width: 436px;
+}
+
+.sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 28px;
+    margin-bottom: 32px;
+}
+
+.title {
+    font-family: var(--typeface-headings);
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 117%;
+    letter-spacing: -0.01em;
+    color: var(--text-dominant);
+}
+
+.action {
+    width: auto;
+    height: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: var(--typeface-body);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: 0.02em;
+    color: var(--action-pressed);
+}
+
+.action:hover {
+    color: var(--action-hover);
+    text-decoration: underline;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-block-end: 40px;
+}
