@@ -1,6 +1,10 @@
 import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from '@/app/store';
-import { fetchUsers, selectUsers } from '@/features/slices/usersSlice';
+import {
+  fetchUsers,
+  selectUsers,
+  selectUsersFiltered,
+} from '@/features/slices/usersSlice';
 import { Card } from '@/shared/ui/Card';
 import { FilterSidebar } from '@/widgets/FilterSidebar';
 import styles from './Home.module.css';
@@ -11,7 +15,6 @@ import ChevronRightIcon from '@/assets/svg/icons/chevron-right.svg?react';
 import { useUrlFilters } from './hooks/useUrlFilters';
 import { ActiveFilters } from './components/ActiveFilters';
 import {
-  filterUsers,
   sortUsers,
   hasActiveFiltersOrSort,
   getSortButtonText,
@@ -25,16 +28,16 @@ export default function Home() {
   // Используем новый хук для управления фильтрами и сортировкой через URL
   const { filters, sortMode, updateFilters, updateSortMode } = useUrlFilters();
 
+  // Используем селектор для получения отфильтрованных пользователей
+  const filteredUsers = useSelector((state) =>
+    selectUsersFiltered(state, filters)
+  );
+
   useEffect(() => {
     dispatch(fetchUsers());
   }, [dispatch]);
 
-  // Применяем фильтрацию и сортировку
-  const filteredUsers = useMemo(
-    () => filterUsers(users, filters),
-    [users, filters]
-  );
-
+  // Применяем только сортировку (фильтрация теперь через селектор)
   const sortedUsers = useMemo(
     () => sortUsers(filteredUsers, sortMode),
     [filteredUsers, sortMode]

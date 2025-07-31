@@ -2,69 +2,6 @@ import type { UserResponse } from '@/api/client';
 import type { Filters, SortMode } from '@/shared/lib/types';
 
 /**
- * Фильтрует пользователей по заданным критериям
- */
-export const filterUsers = (
-  users: UserResponse[],
-  filters: Filters
-): UserResponse[] => {
-  return users.filter((user) => {
-    // Фильтр по режиму (обучение/преподавание)
-    if (filters.mode !== 'all') {
-      if (
-        filters.mode === 'learn' &&
-        (!user.learningSkills || user.learningSkills.length === 0)
-      ) {
-        return false;
-      }
-      if (
-        filters.mode === 'teach' &&
-        (!user.teachingSkills || user.teachingSkills.length === 0)
-      ) {
-        return false;
-      }
-    }
-
-    // Фильтр по полу
-    if (filters.gender !== 'unknown') {
-      if (user.gender !== filters.gender) {
-        return false;
-      }
-    }
-
-    // Фильтр по городам
-    if (filters.cities.length > 0) {
-      const userCity = user.city?.toLowerCase().trim();
-      const selectedCities = filters.cities.map((city) =>
-        city.toLowerCase().trim()
-      );
-
-      if (!userCity || !selectedCities.includes(userCity)) {
-        return false;
-      }
-    }
-
-    // Фильтр по подкатегориям навыков
-    if (filters.subcategories.length > 0) {
-      const userSkills = [
-        ...(user.learningSkills || []),
-        ...(user.teachingSkills || []),
-      ];
-
-      const hasMatchingSkill = userSkills.some((skill) =>
-        filters.subcategories.includes(skill.subcategory)
-      );
-
-      if (!hasMatchingSkill) {
-        return false;
-      }
-    }
-
-    return true;
-  });
-};
-
-/**
  * Сортирует пользователей по выбранному режиму
  */
 export const sortUsers = (
