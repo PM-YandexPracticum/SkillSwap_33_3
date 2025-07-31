@@ -53,6 +53,11 @@ const cities = [
   'Екатеринбург',
   'Казань',
   'Сочи',
+  'Краснодар',
+  'Кемерово',
+  'Владивосток',
+  'Красноярск',
+  'Иркутск',
 ];
 
 export const FilterSidebar: React.FC<FilterSidebarProps> = ({

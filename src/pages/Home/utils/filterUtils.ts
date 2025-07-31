@@ -8,31 +8,59 @@ export const filterUsers = (
   users: UserResponse[],
   filters: Filters
 ): UserResponse[] => {
-  return users.filter(() => {
-    // Фильтр по режиму (все/обучение/преподавание)
-    // TODO: Реализовать когда будут данные о навыках пользователей
-    // if (filters.mode !== 'all') {
-    //   // Логика фильтрации по режиму
-    // }
+  return users.filter((user) => {
+    // Фильтр по режиму (обучение/преподавание)
+    if (filters.mode !== 'all') {
+      if (
+        filters.mode === 'learn' &&
+        (!user.learningSkills || user.learningSkills.length === 0)
+      ) {
+        return false;
+      }
+      if (
+        filters.mode === 'teach' &&
+        (!user.teachingSkills || user.teachingSkills.length === 0)
+      ) {
+        return false;
+      }
+    }
 
     // Фильтр по полу
     if (filters.gender !== 'unknown') {
-      // Предполагаем что поле gender есть в UserResponse
-      // Пока оставляем как есть, так как в типе UserResponse нет поля gender
+      if (user.gender !== filters.gender) {
+        return false;
+      }
     }
 
     // Фильтр по городам
     if (filters.cities.length > 0) {
-      // Предполагаем что поле city есть в UserResponse
-      // Пока оставляем как есть, так как в типе UserResponse нет поля city
+      const userCity = user.city?.toLowerCase().trim();
+      const selectedCities = filters.cities.map((city) =>
+        city.toLowerCase().trim()
+      );
+
+      if (!userCity || !selectedCities.includes(userCity)) {
+        return false;
+      }
     }
 
     // Фильтр по подкатегориям навыков
     if (filters.subcategories.length > 0) {
-      // TODO: Реализовать когда будут данные о навыках пользователей
+      const userSkills = [
+        ...(user.learningSkills || []),
+        ...(user.teachingSkills || []),
+      ];
+
+      const hasMatchingSkill = userSkills.some((skill) =>
+        filters.subcategories.includes(skill.subcategory)
+      );
+
+      if (!hasMatchingSkill) {
+        return false;
+      }
     }
 
-    return true; // Пока возвращаем всех пользователей
+    return true;
   });
 };
 
