@@ -1,25 +1,26 @@
 .label {
-   display: flex;
-   flex-direction: column;
-   gap: 4px;
-   width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
 }
 
 .title {
+    color: var(--text-dominant);
     font-family: var(--typeface-body) ;
+    font-weight: 400;
     font-size: 16px;
     line-height: 24px;
-    font-weight: 400;
-    color: var(--text-dominant);
 }
 
 .input {
-    font-family: var(--typeface-body) ;
-    padding: 12px 20px;
+    width: 100%;
     border: 1px solid var(--text-secondary);
     border-radius: 12px;
-    font-size: 16px;
+    padding: 12px 48px 12px 20px;
+    font-family: var(--typeface-body) ;
     font-weight: 400;
+    font-size: 16px;
     line-height: 24px;
 }
 
@@ -28,10 +29,21 @@
 }
 
 .errorMessage {
-    font-family: var(--typeface-body) ;
-    color: var(--status-error);
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 16px;
     margin-top: 4px;
+    color: var(--status-error);
+    font-family: var(--typeface-body) ;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.svg-wrapper {
+    position: relative;
+}
+
+.svg-wrapper > svg {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
 }
