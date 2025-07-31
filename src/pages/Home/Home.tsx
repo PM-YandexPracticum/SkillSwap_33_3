@@ -7,6 +7,7 @@ import styles from './Home.module.css';
 import { Button } from '@/shared/ui/Button';
 import { Section } from '@/shared/ui/Section';
 import SortIcon from '@/assets/svg/icons/sort.svg?react';
+import ChevronRightIcon from '@/assets/svg/icons/chevron-right.svg?react';
 import { useUrlFilters } from './hooks/useUrlFilters';
 import { ActiveFilters } from './components/ActiveFilters';
 import {
@@ -55,10 +56,6 @@ export default function Home() {
 
   const handleShowAllNew = () => {
     updateSortMode('new');
-  };
-
-  const handleShowAllRecommended = () => {
-    updateSortMode('recommended');
   };
 
   // Если есть активные фильтры или сортировка - показываем результаты фильтрации
@@ -110,9 +107,11 @@ export default function Home() {
         </aside>
         <div className={styles.content}>
           <Section
-            title="Сначала популярные"
+            title="Популярное"
             button={
-              <Button onClick={handleShowAllPopular}>Смотреть все</Button>
+              <Button variant="tertiary" onClick={handleShowAllPopular}>
+                Смотреть все <ChevronRightIcon />
+              </Button>
             }
           >
             {sortUsers(users, 'popular')
@@ -129,8 +128,12 @@ export default function Home() {
               ))}
           </Section>
           <Section
-            title="Сначала новые"
-            button={<Button onClick={handleShowAllNew}>Смотреть все</Button>}
+            title="Новое"
+            button={
+              <Button variant="tertiary" onClick={handleShowAllNew}>
+                Смотреть все <ChevronRightIcon />
+              </Button>
+            }
           >
             {sortUsers(users, 'new')
               .slice(0, 3)
@@ -145,12 +148,7 @@ export default function Home() {
                 />
               ))}
           </Section>
-          <Section
-            title="Сначала рекомендованные"
-            button={
-              <Button onClick={handleShowAllRecommended}>Смотреть все</Button>
-            }
-          >
+          <Section title="Рекомендуем">
             {sortUsers(users, 'recommended')
               .slice(0, 3)
               .map((user) => (
