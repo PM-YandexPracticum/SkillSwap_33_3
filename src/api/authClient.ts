@@ -1,14 +1,34 @@
 import { getCookie, setCookie, deleteCookie } from '../shared/lib/cookie';
-import type { UserResponse, RefreshTokenResponse } from '../shared/lib/types';
 
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
 const ACCESS_TOKEN_COOKIE = 'accessToken';
 const REFRESH_TOKEN_KEY = 'refreshToken';
 
-/**
- * Базовый класс для API клиента с аутентификацией
- */
+export interface UserAuthResponse {
+  id: string;
+  email: string;
+  name: string;
+  avatar?: string;
+  isEmailVerified: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface AuthTokens {
+  accessToken: string;
+  refreshToken: string;
+}
+
+export interface LoginResponse {
+  user: UserAuthResponse;
+  tokens: AuthTokens;
+}
+
+export interface RefreshTokenResponse {
+  accessToken: string;
+}
+
 class AuthApiClient {
   private baseURL: string;
 
@@ -16,48 +36,31 @@ class AuthApiClient {
     this.baseURL = baseURL;
   }
 
-  /**
-   * Получает accessToken из куки
-   */
   private getAccessToken(): string | null {
     return getCookie(ACCESS_TOKEN_COOKIE);
   }
 
-  /**
-   * Получает refreshToken из localStorage
-   */
   private getRefreshToken(): string | null {
     return localStorage.getItem(REFRESH_TOKEN_KEY);
   }
 
-  /**
-   * Сохраняет токены
-   */
   private saveTokens(accessToken: string, refreshToken?: string): void {
-    // Сохраняем accessToken в куки (7 дней)
     setCookie(ACCESS_TOKEN_COOKIE, accessToken, {
       expires: 7,
       secure: import.meta.env.PROD,
       sameSite: 'lax',
     });
 
-    // Сохраняем refreshToken в localStorage
     if (refreshToken) {
       localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
     }
   }
 
-  /**
-   * Удаляет токены
-   */
   private clearTokens(): void {
     deleteCookie(ACCESS_TOKEN_COOKIE);
     localStorage.removeItem(REFRESH_TOKEN_KEY);
   }
 
-  /**
-   * Обновляет accessToken с помощью refreshToken
-   */
   private async refreshAccessToken(): Promise<string | null> {
     const refreshToken = this.getRefreshToken();
 
@@ -166,10 +169,10 @@ class AuthApiClient {
   /**
    * Проверяет аутентификацию пользователя
    * Отправляет запрос на /api/auth с accessToken из куки
-   * @returns объект UserResponse в случае успеха
+   * @returns объект UserAuthResponse в случае успеха
    */
-  async checkAuth(): Promise<UserResponse> {
-    return this.authenticatedRequest<UserResponse>('/api/auth');
+  async checkAuth(): Promise<UserAuthResponse> {
+    return this.authenticatedRequest<UserAuthResponse>('/api/auth');
   }
 
   /**
