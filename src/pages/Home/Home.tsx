@@ -6,6 +6,7 @@ import { FilterSidebar } from '@/widgets/FilterSidebar';
 import styles from './Home.module.css';
 import { Button } from '@/shared/ui/Button';
 import { Section } from '@/shared/ui/Section';
+import SortIcon from '@/assets/svg/icons/sort.svg?react';
 import { useUrlFilters } from './hooks/useUrlFilters';
 import { ActiveFilters } from './components/ActiveFilters';
 import {
@@ -73,7 +74,12 @@ export default function Home() {
             <Section
               title={`Найдено ${sortedUsers.length} предложений`}
               button={
-                <Button onClick={handleSortToggle}>
+                <Button
+                  variant="tertiary"
+                  onClick={handleSortToggle}
+                  style={{ marginLeft: '24px' }}
+                >
+                  <SortIcon />
                   {getSortButtonText(sortMode)}
                 </Button>
               }

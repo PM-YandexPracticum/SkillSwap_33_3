@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from '@/shared/ui/Button';
 import type { Filters } from '@/shared/lib/types';
+import CrossIcon from '@/assets/svg/icons/cross.svg?react';
 import styles from './ActiveFilters.module.css';
 
 export interface ActiveFilter {
@@ -26,8 +27,8 @@ const generateActiveFilters = (
   // Фильтр по режиму
   if (filters.mode !== 'all') {
     const modeLabels = {
-      learn: 'Обучение',
-      teach: 'Преподавание',
+      learn: 'Хочу научиться',
+      teach: 'Могу научить',
     };
     activeFilters.push({
       key: 'mode',
@@ -101,14 +102,19 @@ export const ActiveFilters: React.FC<ActiveFiltersProps> = ({
   return (
     <div className={styles.activeFilters}>
       {activeFilters.map((filter) => (
-        <Button
-          key={filter.key}
-          variant="tertiary"
-          onClick={filter.onRemove}
-          className={styles.filterButton}
-        >
-          {filter.label} ×
-        </Button>
+        <div key={filter.key} style={{ display: 'inline-block' }}>
+          <Button
+            variant="tertiary"
+            onClick={filter.onRemove}
+            style={{
+              paddingLeft: '24px',
+              paddingRight: '24px',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {filter.label} <CrossIcon />
+          </Button>
+        </div>
       ))}
     </div>
   );
