@@ -3,14 +3,12 @@ import styles from './FormInput.module.css';
 
 interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
   title: string;
-  placeholder: string;
   error?: string;
   svg?: React.ReactNode;
 }
 
 export const FormInput: FC<FormInputProps> = ({
   title,
-  placeholder,
   className,
   error,
   svg,
@@ -23,7 +21,6 @@ export const FormInput: FC<FormInputProps> = ({
         <input
           type="text"
           className={`${styles.input} ${error ? styles.error : ''}`}
-          placeholder={placeholder}
           {...props}
         />
       ) : (
@@ -31,7 +28,6 @@ export const FormInput: FC<FormInputProps> = ({
           <input
             type="text"
             className={`${styles.input} ${error ? styles.error : ''}`}
-            placeholder={placeholder}
             {...props}
           />
           {svg}

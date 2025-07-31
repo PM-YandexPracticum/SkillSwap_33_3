@@ -1,12 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { TextArea as Component } from './TextArea';
 
+import EditIcon from '../../../assets/svg/icons/edit.svg?react';
+
 const meta = {
   title: 'shared/ui/TextArea',
   component: Component,
   tags: ['autodocs'],
   parameters: {
-    layout: 'padded',
+    layout: 'centered',
   },
   argTypes: {
     label: {
@@ -37,16 +39,14 @@ type Story = StoryObj<typeof meta>;
 
 const storyWrapper = {
   padding: '12px 20px',
-  width: '100%',
-  maxWidth: '436px',
-  margin: '0 auto',
+  width: '436px',
 };
 
 export const Default: Story = {
   args: {
     label: 'Описание',
     placeholder: 'Коротко опишите, чему можете научить',
-    value: '',
+    svg: <EditIcon />,
   },
   render: (args) => (
     <div style={storyWrapper}>
@@ -59,7 +59,7 @@ export const WithValue: Story = {
   args: {
     ...Default.args,
     label: 'Описание',
-    value:
+    defaultValue:
       'Это предварительно заполненное текстовое поле с достаточным объемом для вертикальной прокрутки при необходимости. Компонент TextArea поддерживает многострочный ввод с автоматическими полосами прокрутки для переполнения. Используйте его для форм, комментариев и любого пользовательского ввода, требующего развернутого текста. Дизайн включает в себя корректные отступы, скругленные углы и адаптивное изменение размера.',
   },
   render: (args) => (
@@ -86,7 +86,7 @@ export const Disabled: Story = {
 export const WithoutLabel: Story = {
   args: {
     placeholder: 'Поле без заголовка',
-    value: '',
+    svg: <EditIcon />,
   },
   render: (args) => (
     <div style={storyWrapper}>

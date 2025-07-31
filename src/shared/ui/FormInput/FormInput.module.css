@@ -18,6 +18,7 @@
     border: 1px solid var(--text-secondary);
     border-radius: 12px;
     padding: 12px 48px 12px 20px;
+    outline: none;
     font-family: var(--typeface-body) ;
     font-weight: 400;
     font-size: 16px;
@@ -39,6 +40,11 @@
 
 .svg-wrapper {
     position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 0;
+    line-height: 0;
 }
 
 .svg-wrapper > svg {

@@ -1,28 +1,14 @@
 import React, { useId } from 'react';
 import styles from './TextArea.module.css';
 
-export interface TextAreaProps {
+export interface TextAreaProps
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
-  value?: string;
-  onChange: (value: string) => void;
-  placeholder?: string;
-  disabled?: boolean;
   svg?: React.ReactNode;
 }
 
-export const TextArea: React.FC<TextAreaProps> = ({
-  label,
-  value,
-  onChange,
-  placeholder,
-  disabled = false,
-  svg,
-}) => {
+export const TextArea: React.FC<TextAreaProps> = ({ label, svg, ...props }) => {
   const id = useId();
-
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    onChange(e.target.value);
-  };
 
   return (
     <div className={styles.container}>
@@ -32,24 +18,10 @@ export const TextArea: React.FC<TextAreaProps> = ({
         </label>
       )}
       {!svg ? (
-        <textarea
-          id={id}
-          className={styles.textarea}
-          value={value}
-          onChange={handleChange}
-          placeholder={placeholder}
-          disabled={disabled}
-        />
+        <textarea id={id} className={styles.textarea} {...props} />
       ) : (
         <div className={styles['svg-wrapper']}>
-          <textarea
-            id={id}
-            className={styles.textarea}
-            value={value}
-            onChange={handleChange}
-            placeholder={placeholder}
-            disabled={disabled}
-          />
+          <textarea id={id} className={styles.textarea} {...props} />
           {svg}
         </div>
       )}
