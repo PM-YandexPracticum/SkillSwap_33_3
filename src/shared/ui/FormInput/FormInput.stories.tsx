@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { FormInput as Component } from './FormInput';
+import EyeIcon from '../../../assets/svg/icons/eye.svg?react';
 
 const meta = {
   title: 'Shared/FormInput',
@@ -35,13 +36,14 @@ const storyWrapper = {
   padding: '12px 20px',
   backgroundColor: '#fff',
   borderRadius: '12px',
-  width: '300px',
+  width: '500px',
 };
 
 export const Default: Story = {
   args: {
     title: 'Имя',
     placeholder: 'Введите ваше имя',
+    svg: <EyeIcon />,
   },
   render: (args) => (
     <div style={storyWrapper}>
@@ -53,7 +55,7 @@ export const Default: Story = {
 export const WithValue: Story = {
   args: {
     ...Default.args,
-    value: 'John Doe',
+    defaultValue: 'John Doe',
   },
   render: (args) => (
     <div style={storyWrapper}>
