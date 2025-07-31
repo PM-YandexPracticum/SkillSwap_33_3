@@ -15,16 +15,13 @@ export default function Home() {
   const users = useSelector(selectUsers);
 
   // Используем новый хук для управления фильтрами и сортировкой через URL
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { filters, sortMode, updateFilters, updateSortMode } = useUrlFilters();
+  const { filters, updateFilters } = useUrlFilters();
+  // TODO: sortMode и updateSortMode будут использованы на следующем этапе
+  // const { sortMode, updateSortMode } = useUrlFilters();
 
   useEffect(() => {
     dispatch(fetchUsers());
   }, [dispatch]);
-
-  // TODO: Временно логируем состояние для проверки работы
-  console.log('Current filters:', filters);
-  console.log('Current sort mode:', sortMode);
 
   const popular = [...users].sort((a, b) => b.likes - a.likes).slice(0, 3);
   const newest = [...users]
@@ -65,7 +62,7 @@ export default function Home() {
     <main className={styles.page}>
       <div className={styles.container}>
         <aside className={styles.sidebar}>
-          <FilterSidebar />
+          <FilterSidebar filters={filters} onFiltersChange={updateFilters} />
         </aside>
         <div className={styles.content}>
           {renderSection('Популярное', popular, () => {})}

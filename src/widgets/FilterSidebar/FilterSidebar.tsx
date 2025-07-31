@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { FilterSection } from '../../shared/ui/FilterSection';
 import { Checkbox } from '../../shared/ui/Checkbox';
 import { RadioButton } from '../../shared/ui/RadioButton';
@@ -12,7 +12,8 @@ import {
 import { NestedCheckboxGroup } from '../../shared/ui/NestedCheckboxGroup/NestedCheckboxGroup';
 
 interface FilterSidebarProps {
-  initialFilters?: Filters;
+  filters: Filters;
+  onFiltersChange: (filters: Filters) => void;
 }
 
 const defaultFilters: Filters = {
@@ -55,9 +56,9 @@ const cities = [
 ];
 
 export const FilterSidebar: React.FC<FilterSidebarProps> = ({
-  initialFilters = defaultFilters,
+  filters,
+  onFiltersChange,
 }) => {
-  const [filters, setFilters] = useState<Filters>(initialFilters);
   const dispatch = useDispatch();
   const skills = useSelector(selectAllSkills);
 
@@ -66,11 +67,11 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
   }, [dispatch]);
 
   const handleReset = () => {
-    setFilters(defaultFilters);
+    onFiltersChange(defaultFilters);
   };
 
   const handleModeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFilters({
+    onFiltersChange({
       ...filters,
       mode: event.target.value as 'all' | 'learn' | 'teach',
     });
@@ -84,29 +85,33 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
     if (!category) return;
 
     const subcategories = category.subcategories.map((sub) => sub.name);
-    setFilters((prev) => ({
-      ...prev,
-      subcategories:
-        mode === 'none'
-          ? [...prev.subcategories, ...subcategories]
-          : prev.subcategories.filter((sub) => !subcategories.includes(sub)),
-    }));
+    const newSubcategories =
+      mode === 'none'
+        ? [...filters.subcategories, ...subcategories]
+        : filters.subcategories.filter((sub) => !subcategories.includes(sub));
+
+    onFiltersChange({
+      ...filters,
+      subcategories: newSubcategories,
+    });
   };
 
   const handleSubcategoryChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const { value, checked } = event.target;
-    setFilters((prev) => ({
-      ...prev,
-      subcategories: checked
-        ? [...prev.subcategories, value]
-        : prev.subcategories.filter((sub) => sub !== value),
-    }));
+    const newSubcategories = checked
+      ? [...filters.subcategories, value]
+      : filters.subcategories.filter((sub) => sub !== value);
+
+    onFiltersChange({
+      ...filters,
+      subcategories: newSubcategories,
+    });
   };
 
   const handleGenderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFilters({
+    onFiltersChange({
       ...filters,
       gender: event.target.value as 'unknown' | 'male' | 'female',
     });
@@ -114,12 +119,14 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
 
   const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = event.target;
-    setFilters((prev) => ({
-      ...prev,
-      cities: checked
-        ? [...prev.cities, value]
-        : prev.cities.filter((city) => city !== value),
-    }));
+    const newCities = checked
+      ? [...filters.cities, value]
+      : filters.cities.filter((city) => city !== value);
+
+    onFiltersChange({
+      ...filters,
+      cities: newCities,
+    });
   };
 
   const hasFiltersChanged = !Object.keys(filters).every(
