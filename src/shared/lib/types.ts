@@ -52,28 +52,3 @@ export interface TSkillInfo extends TeachingSkill {
   description: string;
   images: string[];
 }
-
-// Типы для аутентификации
-export interface UserResponse {
-  id: string;
-  email: string;
-  name: string;
-  avatar?: string;
-  isEmailVerified: boolean;
-  createdAt: string;
-  updatedAt: string;
-}
-
-export interface AuthTokens {
-  accessToken: string;
-  refreshToken: string;
-}
-
-export interface LoginResponse {
-  user: UserResponse;
-  tokens: AuthTokens;
-}
-
-export interface RefreshTokenResponse {
-  accessToken: string;
-}
