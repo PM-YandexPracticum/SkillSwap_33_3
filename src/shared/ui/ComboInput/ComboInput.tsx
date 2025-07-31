@@ -41,8 +41,8 @@ export function ComboInput({
     onChange?.(e.target.value);
   };
 
-  const handleSelect = (value: string) => {
-    setQuery(value);
+  const handleSelect = ({ value, label }: Option) => {
+    setQuery(label);
     setIsOpen(false);
     onChange?.(value);
   };
@@ -102,7 +102,7 @@ export function ComboInput({
             <li
               key={opt.value}
               className={styles.option}
-              onClick={() => handleSelect(opt.value)}
+              onClick={() => handleSelect(opt)}
             >
               {opt.label}
             </li>
