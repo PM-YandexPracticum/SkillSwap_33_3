@@ -1,29 +1,38 @@
-import { useState, useRef } from 'react';
+import {
+  useState,
+  useRef,
+  Children,
+  cloneElement,
+  isValidElement,
+} from 'react';
+import type { ReactNode } from 'react';
 import clsx from 'clsx';
 import styles from './ComboInput.module.css';
 import ArrowIcon from '../../../assets/svg/icons/chevron-down.svg?react';
 import CloseIcon from '../../../assets/svg/icons/cross.svg?react';
 import { useClickOutside } from '../../hooks/useClickOutside';
 
-interface Option {
-  label: string;
-  value: string;
-}
-
 interface ComboInputProps {
   label?: string;
   placeholder?: string;
-  options: Option[];
   defaultValue?: string;
   onChange?: (value: string) => void;
+  children?: ReactNode;
 }
+
+type ListItemProps = {
+  value?: string;
+  children?: ReactNode;
+  onClick?: (e: React.MouseEvent) => void;
+  className?: string;
+} & Record<string, unknown>;
 
 export function ComboInput({
   label,
   placeholder,
-  options,
   defaultValue = '',
   onChange,
+  children,
 }: ComboInputProps) {
   const [query, setQuery] = useState(defaultValue);
   const [isOpen, setIsOpen] = useState(false);
@@ -31,20 +40,10 @@ export function ComboInput({
   const wrapperRef = useRef<HTMLDivElement>(null);
   useClickOutside(wrapperRef, () => setIsOpen(false));
 
-  const filtered = options.filter((opt) =>
-    opt.label.toLowerCase().includes(query.toLowerCase())
-  );
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
     setIsOpen(true);
     onChange?.(e.target.value);
-  };
-
-  const handleSelect = (value: string) => {
-    setQuery(value);
-    setIsOpen(false);
-    onChange?.(value);
   };
 
   const handleClear = () => {
@@ -58,6 +57,31 @@ export function ComboInput({
     setIsOpen((open) => !open);
     inputRef.current?.focus();
   };
+
+  const handleItemSelect = (value: string, label: string) => {
+    setQuery(label);
+    setIsOpen(false);
+    onChange?.(value);
+    inputRef.current?.focus();
+  };
+
+  const enhancedChildren = Children.map(children, (child) => {
+    if (!isValidElement<ListItemProps>(child)) return child;
+
+    const props = child.props as ListItemProps;
+    const value = props.value || String(props.children);
+    const label = String(props.children);
+
+    return cloneElement<ListItemProps>(child, {
+      ...props,
+      onMouseDown: (e: React.MouseEvent) => {
+        e.preventDefault();
+        handleItemSelect(value, label);
+        props.onClick?.(e);
+      },
+      className: clsx(styles.option, props.className),
+    });
+  });
 
   return (
     <div
@@ -87,26 +111,21 @@ export function ComboInput({
           <button
             type="button"
             className={styles.input__button}
-            aria-label={isOpen ? 'Close dropdown' : 'Open dropdown'}
-            onClick={handleToggle}
+            aria-label={
+              isOpen ? 'Список вариантов закрыт' : 'Список вариантов открыт'
+            }
+            onMouseDown={(e) => {
+              e.preventDefault();
+              handleToggle();
+            }}
           >
             <ArrowIcon className={clsx(isOpen && styles.arrow_open)} />
           </button>
         )}
       </div>
-      <ul
-        className={clsx(styles.list, 'scrollY', isOpen && styles.list_visible)}
-      >
-        {filtered.length > 0 ? (
-          filtered.map((opt) => (
-            <li
-              key={opt.value}
-              className={styles.option}
-              onClick={() => handleSelect(opt.value)}
-            >
-              {opt.label}
-            </li>
-          ))
+      <ul className={clsx(styles.list, isOpen && styles.list_visible)}>
+        {enhancedChildren?.length ? (
+          enhancedChildren
         ) : (
           <li className={clsx(styles.option, styles.option_inactive)}>
             Ничего не найдено

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { ComboInput } from './ComboInput';
+import type { ReactNode } from 'react';
 
 const meta = {
   title: 'UI/ComboInput',
@@ -26,21 +27,21 @@ const storyWrapper = {
   maxWidth: 440,
 };
 
-const options = Array.from({ length: 100 }).map((_, i) => ({
-  label: `Option ${i + 1}`,
-  value: `option_${i + 1}`,
-}));
+const options: ReactNode[] = Array.from({ length: 100 }).map((_, i) => (
+  <li key={`option_${i + 1}`} value={`option_${i + 1}`}>
+    Option {i + 1}
+  </li>
+));
 
 export const Default: Story = {
   args: {
     label: 'Город',
     placeholder: 'Не указан',
-    options,
     defaultValue: '',
   },
   render: (args) => (
     <div style={storyWrapper}>
-      <ComboInput {...args} />
+      <ComboInput {...args}>{options}</ComboInput>
     </div>
   ),
 };
