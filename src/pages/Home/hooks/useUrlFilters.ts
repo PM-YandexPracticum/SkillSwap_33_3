@@ -18,12 +18,12 @@ const parseFiltersFromUrl = (params: URLSearchParams): Filters => {
   return {
     mode: (params.get('mode') as Filters['mode']) || DEFAULT_FILTERS.mode,
     subcategories:
-      params.get('subcategories')?.split(',').filter(Boolean) ||
+      params.get('subcategories')?.split('|').filter(Boolean) ||
       DEFAULT_FILTERS.subcategories,
     gender:
       (params.get('gender') as Filters['gender']) || DEFAULT_FILTERS.gender,
     cities:
-      params.get('cities')?.split(',').filter(Boolean) ||
+      params.get('cities')?.split('|').filter(Boolean) ||
       DEFAULT_FILTERS.cities,
   };
 };
@@ -46,7 +46,7 @@ const updateUrlWithFilters = (
   }
 
   if (filters.subcategories.length > 0) {
-    params.set('subcategories', filters.subcategories.join(','));
+    params.set('subcategories', filters.subcategories.join('|'));
   }
 
   if (filters.gender !== DEFAULT_FILTERS.gender) {
@@ -54,7 +54,7 @@ const updateUrlWithFilters = (
   }
 
   if (filters.cities.length > 0) {
-    params.set('cities', filters.cities.join(','));
+    params.set('cities', filters.cities.join('|'));
   }
 };
 
