@@ -6,7 +6,15 @@
   padding: 20px;
   color: var(--text-dominant);
   background-color: var(--surface-main);
-  
+  overflow: hidden;
+}
+
+.card.skillPage {
+  width: 324px;
+  height: 444px;
+  padding: 32px;
+  color: var(--text-dominant);
+  background-color: var(--surface-main);
 }
 
 .info {
@@ -15,11 +23,21 @@
   margin-bottom: 8px;
 }
 
+.card.skillPage .info {
+  width: 260px;
+  height: 100px;
+  margin-bottom: 20px;
+}
+
 .avatar {
   width: 100px;
   height: 100px;
-  border-radius: 50%;
+  border-radius: 100px;
   object-fit: cover;
+}
+
+.card.skillPage .avatar {
+  border-radius: 50%;
 }
 
 .infoText {
@@ -28,12 +46,32 @@
   flex-grow: 1;
 }
 
+.card.skillPage .infoText {
+  padding: 26px 0;
+}
+
+.aboutMe {
+  font-family: var(--typeface-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: 0.02em;
+  color: var(--text-dominant);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .likeIcon {
   align-self: flex-end;
   width: 24px;
   height: 24px;
   stroke: var(--text-dominant);
   cursor: pointer;
+}
+
+.card.skillPage .likeIcon {
+  display: none;
 }
 
 .likeActive {
@@ -55,6 +93,17 @@
   font-size: 1.25rem;
   line-height: 120%;
   letter-spacing: -0.01em;
+  color: var(--text-dominant);
+}
+
+.card.skillPage .name {
+  font-family: var(--typeface-headings);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 117%;
+  letter-spacing: -0.01em;
+  color: var(--text-dominant);
+  margin-top: 0;
 }
 
 .cityAge {
@@ -66,11 +115,25 @@
   letter-spacing: 0.02em;
 }
 
-.skillsSection {
-  margin-top: 12px;
+.card.skillPage .cityAge {
+  font-family: var(--typeface-body);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 133%;
+  letter-spacing: 0.02em;
+  color: var(--text-dominant);
 }
 
-.skillsSection:nth-last-of-type(1) {
+.skillsSection {
+  margin-top: 12px;
+  width: 100%;
+}
+
+.card.skillPage .skillsSection {
+  margin-top: 24px;
+}
+
+.card:not(.skillPage) .skillsSection:nth-last-of-type(1) {
   margin-bottom: 20px;
 }
 
@@ -89,8 +152,13 @@
   margin-top: 8px;
 }
 
+.card.skillPage .skillsRow {
+  gap: 8px;
+  margin-top: 14px;
+}
+
 .skillPill {
- display: inline-block;
+  display: inline-block;
   width: 100%; 
   border-radius: 20px;
   padding: 8px 12px; 
@@ -145,4 +213,7 @@
 .health {
   background-color: var(--category-wellness);
 }
- 
+
+.card.skillPage .button {
+  display: none;
+}
