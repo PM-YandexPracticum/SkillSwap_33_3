@@ -42,7 +42,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
     if (isOpen) {
       setTempDate(selected);
     }
-  }, [isOpen]);
+  }, [isOpen, selected]);
 
   const handleApply = () => {
     onChange(tempDate);
