@@ -149,7 +149,7 @@ export default function Home() {
           </Section>
           <Section title="Рекомендуем">
             {sortUsers(users, 'recommended')
-              .slice(0, 3)
+              .slice(0, 9)
               .map((user) => (
                 <Card
                   key={user.id}
