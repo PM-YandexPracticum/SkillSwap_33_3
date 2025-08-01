@@ -214,3 +214,29 @@
     background-color: var(--action-pressed);
 }
 
+.notification-container {
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.notificationBadge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 12px;
+    height: 12px;
+    background-color: var(--status-alert);
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.notificationsDropdown {
+    position: absolute;
+    top: calc(100% + 32px);
+    right: -167px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.2s ease;
+    pointer-events: none;
+    z-index: 1000;
+}

@@ -42,6 +42,23 @@ export const authSlice = createSlice({
       state.user = null;
       state.isAuth = false;
     },
+    markNotificationsAsRead(state, action: PayloadAction<string[]>) {
+      if (state.user) {
+        state.user.notifications = state.user.notifications.map(
+          (notification) =>
+            action.payload.includes(notification.id)
+              ? { ...notification, viewed: true }
+              : notification
+        );
+      }
+    },
+    removeNotifications(state, action: PayloadAction<string[]>) {
+      if (state.user) {
+        state.user.notifications = state.user.notifications.filter(
+          (notification) => !action.payload.includes(notification.id)
+        );
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -64,11 +81,10 @@ export const authSlice = createSlice({
   },
 });
 
-export const { logout } = authSlice.actions;
-
 export const selectAuthUser = (state: RootState) => state.auth.user;
 export const selectIsAuth = (state: RootState) => state.auth.isAuth;
 export const selectAuthLoading = (state: RootState) => state.auth.loading;
 export const selectAuthError = (state: RootState) => state.auth.error;
 
-export default authSlice.reducer;
+export const { logout, markNotificationsAsRead, removeNotifications } =
+  authSlice.actions;

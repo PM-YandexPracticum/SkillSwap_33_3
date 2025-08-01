@@ -16,4 +16,5 @@
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
+    padding: 60px;
 }

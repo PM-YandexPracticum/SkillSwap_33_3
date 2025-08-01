@@ -13,6 +13,7 @@ export interface UserAuthResponse {
   isEmailVerified: boolean;
   createdAt: string;
   updatedAt: string;
+  notifications: NotificationItem[];
 }
 
 export interface AuthTokens {
