@@ -74,11 +74,7 @@ export default function Home() {
             <Section
               title={`Найдено ${sortedUsers.length} предложений`}
               button={
-                <Button
-                  variant="tertiary"
-                  onClick={handleSortToggle}
-                  style={{ marginLeft: '24px' }}
-                >
+                <Button variant="tertiary" onClick={handleSortToggle}>
                   <SortIcon />
                   {getSortButtonText(sortMode)}
                 </Button>
