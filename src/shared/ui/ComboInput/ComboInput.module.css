@@ -1,0 +1,149 @@
+.wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  font-family: var(--typeface-body);
+  color: var(--text-dominant);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: var(--text-dominant);
+}
+
+.inputWrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  position: relative;
+  width: 100%;
+  height: 48px;
+  padding: 12px 44px 12px 20px;
+  border: 1px solid var(--text-dominant);
+  border-radius: 12px;
+  outline: none;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  transition: all 0.2s ease;
+  background-color: white;
+  color: var(--text-secondary);
+  cursor: text;
+  z-index: 10;
+}
+
+.input:focus {
+  border-color: var(--text-dominant);
+}
+
+.input_open {
+  border-radius: 12px 12px 0 0;
+  border-bottom: none;
+}
+
+.wrapper.active .input {
+  border-radius: 12px 12px 0 0;
+  z-index: 20;
+}
+
+.wrapper.active::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-bottom: 1px solid rgb(0 0 0 / 10%);
+  border-radius: 12px;
+  pointer-events: none;
+  z-index: 30;
+}
+
+.input__button {
+  position: absolute;
+  top: 50%;
+  right: 24px;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  z-index: 40;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.arrow_open {
+  transform: rotate(180deg);
+  transition: transform 0.2s ease;
+}
+
+.list {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  box-sizing: border-box;
+  border: 1px solid var(--text-dominant);
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+  margin-top: 0;
+  max-height: 0;
+  overflow: hidden;
+  background-color: white;
+  opacity: 0;
+  z-index: -10;
+  padding: 8px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: all 0.3s ease-out;
+}
+
+.list_visible {
+  max-height: 300px;
+  opacity: 1;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.list_visible::-webkit-scrollbar {
+  width: 4px;
+}
+
+.list_visible::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.list_visible::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: var(--state-disabled);
+}
+
+.option {
+  padding: 4px 0 4px 20px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.option:hover {
+  background-color: var(--action-hover);
+  border-radius: 6px;
+}
+
+.option_inactive {
+  cursor: default;
+  color: var(--text-inactive);
+}

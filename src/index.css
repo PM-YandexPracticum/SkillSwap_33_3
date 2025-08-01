@@ -91,3 +91,30 @@ h4 {
   font-size: 16px;
   line-height: 24px;
 }
+
+/* === Стилизация вертикального скроллбара (универсальная) === */
+.scrollY {
+  overflow-y: auto;
+  padding-inline-end: 4px; /* убирает зазор от скролла */
+}
+
+.scrollY::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollY::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollY::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: var(--state-disabled);
+}
+
+/* === Вертикальный разделитель, например, между инпутом и кнопкой === */
+.divider-y {
+  position: absolute;
+  width: 1px;
+  height: 24px;
+  background-color: var(--success-main);
+}
