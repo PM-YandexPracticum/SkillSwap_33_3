@@ -1,6 +1,7 @@
 .card {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   width: 324px;
   border-radius: 12px;
   padding: 20px;
@@ -127,6 +128,7 @@
 .skillsSection {
   margin-top: 12px;
   width: 100%;
+  max-width: 284px;
 }
 
 .card.skillPage .skillsSection {

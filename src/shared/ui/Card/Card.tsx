@@ -59,12 +59,12 @@ export const Card: React.FC<CardProps> = ({
         <>
           <div className={styles.skillsSection}>
             <h4 className={styles.sectionTitle}>Может научить:</h4>
-            <AdaptiveSkillsList skills={teachingSkills} />
+            <AdaptiveSkillsList skills={teachingSkills} maxVisible={2} />
           </div>
 
           <div className={styles.skillsSection}>
             <h4 className={styles.sectionTitle}>Хочет научиться:</h4>
-            <AdaptiveSkillsList skills={learningSkills} />
+            <AdaptiveSkillsList skills={learningSkills} maxVisible={2} />
           </div>
         </>
       ) : (
@@ -72,13 +72,13 @@ export const Card: React.FC<CardProps> = ({
           {teachingSkills.length > 0 && (
             <div className={styles.skillsSection}>
               <h4 className={styles.sectionTitle}>Может научить:</h4>
-              <AdaptiveSkillsList skills={teachingSkills} />
+              <AdaptiveSkillsList skills={teachingSkills} maxVisible={2} />
             </div>
           )}
           {learningSkills.length > 0 && (
             <div className={styles.skillsSection}>
               <h4 className={styles.sectionTitle}>Хочет научиться:</h4>
-              <AdaptiveSkillsList skills={learningSkills} />
+              <AdaptiveSkillsList skills={learningSkills} maxVisible={2} />
             </div>
           )}
         </>
