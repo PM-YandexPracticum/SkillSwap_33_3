@@ -8,11 +8,21 @@ import { FormInput } from '../../../shared/ui/FormInput/FormInput';
 import EditIcon from '../../../assets/svg/icons/edit.svg?react';
 import GalleryEdit from '../../../assets/svg/icons/gallery-edit.svg?react';
 import ProfileAvatar from '../../../assets/img/avatars/avatar-maria-profile.jpg';
+import { CustomDatePicker } from '../../../shared/ui/CustomDatePicker/CustomDatePicker';
 
-const initialData = {
+interface FormData {
+  email: string;
+  name: string;
+  birthdate: Date | null;
+  gender: string;
+  city: string;
+  about: string;
+}
+
+const initialData: FormData = {
   email: 'Mariia@gmail.com',
   name: 'Мария',
-  birthdate: '28.10.1995',
+  birthdate: new Date(1995, 9, 28), // 28.10.1995
   gender: 'Женский',
   city: 'Москва',
   about:
@@ -20,24 +30,29 @@ const initialData = {
 };
 
 export default function Info() {
-  const [formData, setFormData] = useState(initialData);
+  const [formData, setFormData] = useState<FormData>(initialData);
   const [edited, setEdited] = useState(false);
 
-  const handleChange = (key: keyof typeof formData, value: string) => {
+  const handleChange = (key: keyof FormData, value: string | Date | null) => {
     const updated = { ...formData, [key]: value };
     setFormData(updated);
     setEdited(JSON.stringify(updated) !== JSON.stringify(initialData));
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setEdited(false);
+  };
+
   return (
-    <div className={styles.container}>
+    <form onSubmit={handleSubmit} className={styles.container}>
       <div className={styles.form}>
         {/* Email */}
         <div className={styles.field}>
           <FormInput
             title="Почта"
             value={formData.email}
-            readOnly
+            onChange={(e) => handleChange('email', e.target.value)}
             svg={<EditIcon className={styles.editIcon} />}
           />
           <span className={styles.changePassword}>Изменить пароль</span>
@@ -57,10 +72,10 @@ export default function Info() {
         <div className={styles.row}>
           <div className={styles.halfField}>
             <label>Дата рождения</label>
-            <div className={styles.readonlyField}>
-              {formData.birthdate}
-              <EditIcon className={styles.editIcon} />
-            </div>
+            <CustomDatePicker
+              selected={formData.birthdate}
+              onChange={(date) => handleChange('birthdate', date)}
+            />
           </div>
           <div className={styles.halfField}>
             <label>Пол</label>
@@ -105,16 +120,18 @@ export default function Info() {
           </div>
         </div>
 
-        <Button disabled={!edited}>Сохранить</Button>
+        <Button type="submit" disabled={!edited}>
+          Сохранить
+        </Button>
       </div>
 
       {/* Аватар */}
       <div className={styles.avatarSection}>
         <img className={styles.avatar} src={ProfileAvatar} alt="Аватарка" />
-        <button className={styles.avatarEdit}>
+        <button type="button" className={styles.avatarEdit}>
           <GalleryEdit />
         </button>
       </div>
-    </div>
+    </form>
   );
 }
