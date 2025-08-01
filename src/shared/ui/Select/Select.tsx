@@ -1,4 +1,5 @@
-import React, { FC, ReactNode, useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import type { FC, ReactNode } from 'react';
 import styles from './Select.module.css';
 import chevronDownIcon from '../../../assets/svg/icons/chevron-down.svg';
 import clsx from 'clsx';
@@ -10,9 +11,6 @@ interface SelectProps {
   placeholder?: string;
   disabled?: boolean;
   children: ReactNode;
-  className?: string;
-  dropdownClassName?: string;
-  valueClassName?: string;
 }
 
 export const Select: FC<SelectProps> = ({
@@ -21,9 +19,6 @@ export const Select: FC<SelectProps> = ({
   placeholder = 'Выберите вариант',
   disabled = false,
   children,
-  className,
-  valueClassName,
-  dropdownClassName,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const selectRef = useRef<HTMLDivElement>(null);
@@ -59,16 +54,12 @@ export const Select: FC<SelectProps> = ({
       {label && <label className={styles.label}>{label}</label>}
       <div className={styles.selectWrapper}>
         <div
-          className={clsx(
-            styles.select,
-            disabled && styles.disabled,
-            className
-          )}
+          className={clsx(styles.select, disabled && styles.disabled)}
           onClick={toggleDropdown}
           role="combobox"
           aria-disabled={disabled}
         >
-          <div className={clsx(styles.selectedValue, valueClassName)}>
+          <div className={styles.selectedValue}>
             {value ? (
               value
             ) : (
@@ -80,11 +71,7 @@ export const Select: FC<SelectProps> = ({
           </div>
         </div>
         <div
-          className={clsx(
-            styles.dropdown,
-            isOpen && styles.open,
-            dropdownClassName
-          )}
+          className={clsx(styles.dropdown, isOpen && styles.open)}
           role="listbox"
         >
           {children}
