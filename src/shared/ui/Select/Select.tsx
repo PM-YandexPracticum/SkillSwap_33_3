@@ -10,6 +10,9 @@ interface SelectProps {
   placeholder?: string;
   disabled?: boolean;
   children: ReactNode;
+  className?: string;
+  dropdownClassName?: string;
+  valueClassName?: string;
 }
 
 export const Select: FC<SelectProps> = ({
@@ -18,6 +21,9 @@ export const Select: FC<SelectProps> = ({
   placeholder = 'Выберите вариант',
   disabled = false,
   children,
+  className,
+  valueClassName,
+  dropdownClassName,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const selectRef = useRef<HTMLDivElement>(null);
@@ -53,12 +59,16 @@ export const Select: FC<SelectProps> = ({
       {label && <label className={styles.label}>{label}</label>}
       <div className={styles.selectWrapper}>
         <div
-          className={clsx(styles.select, disabled && styles.disabled)}
+          className={clsx(
+            styles.select,
+            disabled && styles.disabled,
+            className
+          )}
           onClick={toggleDropdown}
           role="combobox"
           aria-disabled={disabled}
         >
-          <div className={styles.selectedValue}>
+          <div className={clsx(styles.selectedValue, valueClassName)}>
             {value ? (
               value
             ) : (
@@ -70,7 +80,11 @@ export const Select: FC<SelectProps> = ({
           </div>
         </div>
         <div
-          className={clsx(styles.dropdown, isOpen && styles.open)}
+          className={clsx(
+            styles.dropdown,
+            isOpen && styles.open,
+            dropdownClassName
+          )}
           role="listbox"
         >
           {children}
