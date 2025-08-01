@@ -48,6 +48,8 @@ export interface Filters {
   cities: string[];
 }
 
+export type SortMode = 'new' | 'popular' | 'recommended';
+
 export interface TSkillInfo extends TeachingSkill {
   description: string;
   images: string[];
