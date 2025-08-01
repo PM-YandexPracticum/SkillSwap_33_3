@@ -9,7 +9,7 @@ import {
 import mockUser from '../../../public/db/user.json';
 
 import type { RootState } from '../../app/store';
-import type { UserAuthResponse } from '../../api/client';
+import type { UserAuthResponse } from '../../api/authClient';
 
 interface AuthState {
   user: UserAuthResponse | null;
