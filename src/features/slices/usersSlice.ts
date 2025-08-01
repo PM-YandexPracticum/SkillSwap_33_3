@@ -12,6 +12,7 @@ import mockUsers from '../../../public/db/users.json';
 import type { RootState } from '../../app/store';
 import type { UserResponse } from '../../api/client';
 import type { Filters } from '../../shared/lib/types';
+import { getLearningSkills, getTeachingSkills } from '../../shared/lib/utils';
 
 interface UsersState {
   list: UserResponse[];
@@ -62,20 +63,6 @@ export const usersSlice = createSlice({
 export const { setUsers } = usersSlice.actions;
 
 export const selectUsers = (state: RootState) => state.users.list;
-
-export const getLearningSkills = (user: UserResponse, filters?: string[]) => {
-  if (!filters || filters.length === 0) return user.learningSkills;
-  return user.learningSkills.filter((skill) =>
-    filters.includes(skill.subcategory)
-  );
-};
-
-export const getTeachingSkills = (user: UserResponse, filters?: string[]) => {
-  if (!filters || filters.length === 0) return user.teachingSkills;
-  return user.teachingSkills.filter((skill) =>
-    filters.includes(skill.subcategory)
-  );
-};
 
 export const selectUsersFiltered = createSelector(
   [selectUsers, (_: RootState, filters: Filters) => filters],

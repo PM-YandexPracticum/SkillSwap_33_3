@@ -1,15 +1,12 @@
 import clsx from 'clsx';
-import { CardSkill } from '../CardSkill';
 import styles from './Card.module.css';
 import { Button } from '../Button';
 import LikeIcon from '../../../assets/svg/icons/likeIcon.svg?react';
 import ClockIcon from '../../../assets/svg/icons/clockIcon.svg?react';
 import type { UserResponse } from '../../../api/client';
 import { ageString } from '../../lib/utils';
-import {
-  getLearningSkills,
-  getTeachingSkills,
-} from '../../../features/slices/usersSlice';
+import { getLearningSkills, getTeachingSkills } from '../../lib/utils';
+import { AdaptiveSkillsList } from '../AdaptiveSkillsList';
 
 type CardProps = {
   user: UserResponse;
@@ -17,7 +14,7 @@ type CardProps = {
   onLikeClick: () => void;
   onMoreClick: () => void;
   isProposed: boolean;
-  variant?: 'primary' | 'secondary';
+  variant?: 'default' | 'skillPage';
   filter?: string[];
 };
 
@@ -27,20 +24,26 @@ export const Card: React.FC<CardProps> = ({
   onLikeClick,
   onMoreClick,
   isProposed,
-}: CardProps) => {
+  variant = 'default',
+}) => {
   const age = ageString(user.birthDate);
   const teachingSkills = getTeachingSkills(user);
   const learningSkills = getLearningSkills(user);
+
   return (
-    <div className={styles.card}>
+    <div
+      className={clsx(styles.card, variant === 'skillPage' && styles.skillPage)}
+    >
       <div className={styles.info}>
         <img className={styles.avatar} src={user.avatar} alt={user.name} />
         <div className={styles.infoText}>
-          <LikeIcon
-            className={clsx(styles.likeIcon, { [styles.likeActive]: liked })}
-            onClick={onLikeClick}
-            aria-hidden="true"
-          />
+          {variant !== 'skillPage' && (
+            <LikeIcon
+              className={clsx(styles.likeIcon, { [styles.likeActive]: liked })}
+              onClick={onLikeClick}
+              aria-hidden="true"
+            />
+          )}
           <h3 className={styles.name}>{user.name}</h3>
           <p className={styles.cityAge}>
             {user.city}, {age}
@@ -48,42 +51,50 @@ export const Card: React.FC<CardProps> = ({
         </div>
       </div>
 
-      <div className={styles.skillsSection}>
-        <h4 className={styles.sectionTitle}>Может научить:</h4>
-        <div className={styles.skillsRow}>
-          {teachingSkills.slice(0, 2).map((skill, index) => (
-            <CardSkill key={index} skill={skill} />
-          ))}
-
-          {teachingSkills.length - 2 > 0 && (
-            <CardSkill skill={`+${teachingSkills.length - 2}`} />
-          )}
-        </div>
-      </div>
-
-      <div className={styles.skillsSection}>
-        <h4 className={styles.sectionTitle}>Хочет научиться:</h4>
-        <div className={styles.skillsRow}>
-          {learningSkills.slice(0, 2).map((skill, index) => (
-            <CardSkill key={index} skill={skill} />
-          ))}
-
-          {learningSkills.length - 2 > 0 && (
-            <CardSkill skill={`+${learningSkills.length - 2}`} />
-          )}
-        </div>
-      </div>
-
-      {!isProposed ? (
-        <Button variant="primary" onClick={onMoreClick}>
-          Подробнее
-        </Button>
-      ) : (
-        <Button variant="secondary">
-          <ClockIcon className={styles.icon} aria-hidden="true" />
-          Обмен предложен
-        </Button>
+      {variant === 'skillPage' && user.aboutMe && (
+        <p className={styles.aboutMe}>{user.aboutMe}</p>
       )}
+
+      {variant === 'default' ? (
+        <>
+          <div className={styles.skillsSection}>
+            <h4 className={styles.sectionTitle}>Может научить:</h4>
+            <AdaptiveSkillsList skills={teachingSkills} />
+          </div>
+
+          <div className={styles.skillsSection}>
+            <h4 className={styles.sectionTitle}>Хочет научиться:</h4>
+            <AdaptiveSkillsList skills={learningSkills} />
+          </div>
+        </>
+      ) : (
+        <>
+          {teachingSkills.length > 0 && (
+            <div className={styles.skillsSection}>
+              <h4 className={styles.sectionTitle}>Может научить:</h4>
+              <AdaptiveSkillsList skills={teachingSkills} />
+            </div>
+          )}
+          {learningSkills.length > 0 && (
+            <div className={styles.skillsSection}>
+              <h4 className={styles.sectionTitle}>Хочет научиться:</h4>
+              <AdaptiveSkillsList skills={learningSkills} />
+            </div>
+          )}
+        </>
+      )}
+
+      {variant !== 'skillPage' &&
+        (!isProposed ? (
+          <Button variant="primary" onClick={onMoreClick}>
+            Подробнее
+          </Button>
+        ) : (
+          <Button variant="secondary">
+            <ClockIcon className={styles.icon} aria-hidden="true" />
+            Обмен предложен
+          </Button>
+        ))}
     </div>
   );
 };
