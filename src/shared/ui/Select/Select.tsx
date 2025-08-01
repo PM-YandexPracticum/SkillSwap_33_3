@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import type { FC, ReactNode } from 'react';
 import styles from './Select.module.css';
 import chevronDownIcon from '../../../assets/svg/icons/chevron-down.svg';
