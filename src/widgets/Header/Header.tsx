@@ -25,10 +25,19 @@ import { Button } from '../../shared/ui/Button';
 import type { Category } from '../../shared/lib/types';
 import { DropdownBase } from '../../shared/ui/DropdownBase';
 import { reorderArrayByRows } from '../../shared/lib/utils';
+import { NotificationsMenu } from '../NotificationsMenu';
+import {
+  markNotificationsAsRead,
+  removeNotifications,
+} from '../../features/slices/authSlice';
 
 export const Header = () => {
   const [isSkillsMenuOpen, setIsSkillsMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [isNotificationsMenuOpen, setIsNotificationsMenuOpen] = useState(false);
+  const notificationsButtonRef = useRef<HTMLButtonElement>(null);
+  const notifications = useSelector(selectAuthUser)?.notifications || [];
+  const hasUnreadNotifications = notifications.some((n) => !n.viewed);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -83,6 +92,20 @@ export const Header = () => {
   const handleDropdownMouseLeave = useCallback(() => {
     handleSkillsMenuClose();
   }, [handleSkillsMenuClose]);
+
+  const handleMarkAsRead = useCallback(
+    (ids: string[]) => {
+      dispatch(markNotificationsAsRead(ids));
+    },
+    [dispatch]
+  );
+
+  const handleRemoveNotifications = useCallback(
+    (ids: string[]) => {
+      dispatch(removeNotifications(ids));
+    },
+    [dispatch]
+  );
 
   const handleLogout = () => {
     dispatch(logout());
@@ -216,9 +239,31 @@ export const Header = () => {
             <button className={styles['icon-container']} onClick={() => {}}>
               <MoonIcon />
             </button>
-            <button className={styles['icon-container']} onClick={() => {}}>
-              <NotificationIcon />
-            </button>
+            <div className={styles['notification-container']}>
+              <button
+                className={styles['icon-container']}
+                onClick={() => setIsNotificationsMenuOpen((prev) => !prev)}
+                ref={notificationsButtonRef}
+              >
+                <NotificationIcon />
+                {hasUnreadNotifications && (
+                  <span className={styles.notificationBadge} />
+                )}
+              </button>
+              <DropdownBase
+                isOpen={isNotificationsMenuOpen}
+                onClose={() => setIsNotificationsMenuOpen(false)}
+                triggerRef={notificationsButtonRef}
+                className={styles.notificationsDropdown}
+              >
+                <NotificationsMenu
+                  notifications={notifications}
+                  onRead={handleMarkAsRead}
+                  onRemove={handleRemoveNotifications}
+                  onFollowLink={() => {}}
+                />
+              </DropdownBase>
+            </div>
             <button className={styles['icon-container']} onClick={() => {}}>
               <LikeIcon />
             </button>

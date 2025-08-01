@@ -1,18 +1,23 @@
 import { getCookie, setCookie, deleteCookie } from '../shared/lib/cookie';
+import type { UserResponse } from './client';
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const ACCESS_TOKEN_COOKIE = 'accessToken';
 const REFRESH_TOKEN_KEY = 'refreshToken';
 
-export interface UserAuthResponse {
+export interface NotificationItem {
   id: string;
-  email: string;
-  name: string;
-  avatar?: string;
+  title: string;
+  description: string;
+  date: string;
+  viewed: boolean;
+}
+
+export interface UserAuthResponse extends UserResponse {
   isEmailVerified: boolean;
   createdAt: string;
   updatedAt: string;
+  notifications: NotificationItem[];
 }
 
 export interface AuthTokens {
