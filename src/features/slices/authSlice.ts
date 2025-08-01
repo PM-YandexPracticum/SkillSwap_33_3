@@ -9,10 +9,10 @@ import {
 import mockUser from '../../../public/db/user.json';
 
 import type { RootState } from '../../app/store';
-import type { UserResponse } from '../../api/client';
+import type { UserAuthResponse } from '../../api/client';
 
 interface AuthState {
-  user: UserResponse | null;
+  user: UserAuthResponse | null;
   isAuth: boolean;
   loading: boolean;
   error: string | null;
@@ -31,7 +31,7 @@ const initialState: AuthState = {
 // });
 export const fetchUser = createAsyncThunk('auth/fetchUser', async () => {
   await new Promise((resolve) => setTimeout(resolve, 300)); // Задержка 0.3 секунды
-  return mockUser;
+  return mockUser as UserAuthResponse;
 });
 
 export const authSlice = createSlice({
@@ -68,7 +68,7 @@ export const authSlice = createSlice({
       })
       .addCase(
         fetchUser.fulfilled,
-        (state, action: PayloadAction<UserResponse>) => {
+        (state, action: PayloadAction<UserAuthResponse>) => {
           state.loading = false;
           state.user = action.payload;
           state.isAuth = true;

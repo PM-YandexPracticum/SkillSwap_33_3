@@ -5,15 +5,26 @@ const API_BASE_URL =
 const ACCESS_TOKEN_COOKIE = 'accessToken';
 const REFRESH_TOKEN_KEY = 'refreshToken';
 
-export interface UserAuthResponse {
+export interface NotificationItem {
   id: string;
-  email: string;
+  title: string;
+  description: string;
+  date: string;
+  viewed: boolean;
+}
+
+export interface UserResponse {
+  id: string;
   name: string;
   avatar?: string;
+  notifications: NotificationItem[];
+}
+
+export interface UserAuthResponse extends UserResponse {
+  email: string;
   isEmailVerified: boolean;
   createdAt: string;
   updatedAt: string;
-  notifications: NotificationItem[];
 }
 
 export interface AuthTokens {

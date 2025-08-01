@@ -232,6 +232,7 @@
 
 .notificationsDropdown {
     position: absolute;
+    padding: 60px;
     top: calc(100% + 32px);
     right: -167px;
     opacity: 0;
