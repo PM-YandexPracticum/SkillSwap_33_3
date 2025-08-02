@@ -11,6 +11,7 @@ import { Select } from '../Select';
 interface CustomDatePickerProps {
   selected: Date | null;
   onChange: (date: Date | null) => void;
+  label?: string;
 }
 
 const InputWithIcon = React.forwardRef<
@@ -34,6 +35,7 @@ const InputWithIcon = React.forwardRef<
 export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
   selected,
   onChange,
+  label,
 }) => {
   const [tempDate, setTempDate] = useState<Date | null>(selected);
   const formattedValue = selected ? selected.toLocaleDateString('ru-RU') : '';
@@ -74,76 +76,88 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
   ];
 
   return (
-    <DatePicker
-      locale={ru}
-      onChange={(date) => setTempDate(date)}
-      selected={null}
-      open={isOpen}
-      onInputClick={() => setIsOpen(true)}
-      onClickOutside={() => setIsOpen(false)}
-      dateFormat="dd.MM.yyyy"
-      placeholderText="дд.мм.гггг"
-      customInput={<InputWithIcon displayedValue={formattedValue} />}
-      calendarClassName={styles.calendar}
-      wrapperClassName={styles.wrapper}
-      popperClassName={styles.popper}
-      showPopperArrow={false}
-      popperPlacement="bottom-start"
-      fixedHeight
-      dayClassName={(date) =>
-        tempDate && date.toDateString() === tempDate.toDateString()
-          ? `${styles.day} ${styles.selected}`
-          : styles.day
-      }
-      weekDayClassName={() => styles.weekday}
-      renderDayContents={(day) => (
-        <div className={styles.dayContent}>{day}</div>
-      )}
-      calendarContainer={({ children, className }) => (
-        <div className={`${className} ${styles.calendarContainer}`}>
-          <div className={styles.calendarInner}>
-            {children}
-            <div className={styles.footerButtons}>
-              <Button variant="secondary" onClick={handleCancel}>
-                Отменить
-              </Button>
-              <Button variant="primary" onClick={handleApply}>
-                Выбрать
-              </Button>
+    <div className={styles.container}>
+      {label && <label className={styles.label}>{label}</label>}
+
+      <DatePicker
+        locale={ru}
+        onChange={(date) => setTempDate(date)}
+        selected={null}
+        open={isOpen}
+        onInputClick={() => setIsOpen(true)}
+        onClickOutside={() => setIsOpen(false)}
+        dateFormat="dd.MM.yyyy"
+        placeholderText="дд.мм.гггг"
+        customInput={<InputWithIcon displayedValue={formattedValue} />}
+        calendarClassName={styles.calendar}
+        wrapperClassName={styles.wrapper}
+        popperClassName={styles.popper}
+        showPopperArrow={false}
+        popperPlacement="bottom-start"
+        fixedHeight
+        dayClassName={(date) =>
+          tempDate && date.toDateString() === tempDate.toDateString()
+            ? `${styles.day} ${styles.selected}`
+            : styles.day
+        }
+        weekDayClassName={() => styles.weekday}
+        renderDayContents={(day) => (
+          <div className={styles.dayContent}>{day}</div>
+        )}
+        calendarContainer={({ children, className }) => (
+          <div className={`${className} ${styles.calendarContainer}`}>
+            <div className={styles.calendarInner}>
+              {children}
+              <div className={styles.footerButtons}>
+                <Button variant="secondary" onClick={handleCancel}>
+                  Отменить
+                </Button>
+                <Button variant="primary" onClick={handleApply}>
+                  Выбрать
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-      renderCustomHeader={({ date, changeYear, changeMonth }) => (
-        <div className={styles.customHeader}>
-          <Select
-            value={months[date.getMonth()]}
-            className={`${styles.select} ${styles.borderlessSelect}`}
-            valueClassName={`${styles.select} ${styles.customValue}`}
-            dropdownClassName={`${styles.select} ${styles.customDropdown}`}
-          >
-            {months.map((month, index) => (
-              <div key={month} role="option" onClick={() => changeMonth(index)}>
-                {month}
-              </div>
-            ))}
-          </Select>
-          <div className={styles.selectWrapper}>
+        )}
+        renderCustomHeader={({ date, changeYear, changeMonth }) => (
+          <div className={styles.customHeader}>
             <Select
-              value={date.getFullYear().toString()}
+              value={months[date.getMonth()]}
               className={`${styles.select} ${styles.borderlessSelect}`}
-              valueClassName={`${styles.select} ${styles.customValue} ${styles.adjustRight}`}
+              valueClassName={`${styles.select} ${styles.customValue}`}
               dropdownClassName={`${styles.select} ${styles.customDropdown}`}
             >
-              {years.map((year) => (
-                <div key={year} role="option" onClick={() => changeYear(year)}>
-                  {year}
+              {months.map((month, index) => (
+                <div
+                  key={month}
+                  role="option"
+                  onClick={() => changeMonth(index)}
+                >
+                  {month}
                 </div>
               ))}
             </Select>
+            <div className={styles.selectWrapper}>
+              <Select
+                value={date.getFullYear().toString()}
+                className={`${styles.select} ${styles.borderlessSelect}`}
+                valueClassName={`${styles.select} ${styles.customValue} ${styles.adjustRight}`}
+                dropdownClassName={`${styles.select} ${styles.customDropdown}`}
+              >
+                {years.map((year) => (
+                  <div
+                    key={year}
+                    role="option"
+                    onClick={() => changeYear(year)}
+                  >
+                    {year}
+                  </div>
+                ))}
+              </Select>
+            </div>
           </div>
-        </div>
-      )}
-    />
+        )}
+      />
+    </div>
   );
 };

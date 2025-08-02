@@ -17,7 +17,7 @@
     position: relative;
     box-sizing: border-box;
     width: 100%;
-    min-height: 120px;
+    min-height: 96px;
     border: 1px solid var(--text-secondary);
     border-radius: 12px;
     padding: 12px 48px 12px 20px;
@@ -48,7 +48,7 @@
     line-height: 0;
 }
 
-.svg-wrapper > svg {
+.svg-wrapper>svg {
     position: absolute;
     top: 50%;
     right: 20px;

@@ -112,7 +112,7 @@
 .formSection {
   width: 100%;
   background-color: var(--surface-main);
-  padding: 121.5px 60px;
+  padding: 0 60px;
   border-radius: 12px;
 }
 
