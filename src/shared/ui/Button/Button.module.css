@@ -73,3 +73,25 @@
   padding: 0;
   background-color: transparent;
 }
+
+.button-outline {
+  background-color: var(--surface-main);
+  border: 1px solid var(--text-secondary);
+  color: var(--text-dominant);
+}
+
+.button-outline:hover {
+  border-color: var(--action-hover);
+  color: var(--text-secondary);
+}
+
+.button-outline:active {
+  border-color: 1px solid var(--action-pressed);
+  color: var(--text-dominant);
+}
+
+.button-outline:disabled {
+  border-color: var(--state-disabled);
+  color: var(--text-inactive);
+  cursor: initial;
+}

@@ -1,7 +1,7 @@
 .selectContainer {
   position: relative;
   width: 100%;
-  max-width: 400px;
+  max-width: 436px;
   font-family: var(--typeface-body);
 }
 
@@ -35,7 +35,7 @@
 }
 
 .selectedValue {
-  color: var(--text-secondary);
+  color: var(--text-dominant);
   flex-grow: 1;
 }
 
@@ -81,7 +81,7 @@
   gap: 8px;
 }
 
-.dropdown.open {  
+.dropdown.open {
   top: 100%;
   max-height: 300px;
   opacity: 1;

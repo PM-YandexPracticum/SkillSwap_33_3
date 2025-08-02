@@ -44,6 +44,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
             <span className={styles.label}>{label}</span>
           ) : null}
           <button
+            type="button"
             className={clsx(styles.uploadButton, {
               [styles.disabled]: disabled,
             })}

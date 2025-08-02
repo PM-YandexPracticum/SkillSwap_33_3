@@ -1,3 +1,18 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.label {
+  color: var(--text-dominant);
+  font-family: var(--typeface-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+
 .calendar {
   border: 1px solid var(--surface-main);
   border-radius: 10px;
@@ -77,6 +92,7 @@
   box-sizing: border-box;
   max-width: 206px;
   width: 100%;
+  height: 48px;
   padding: 12px 54px 12px 20px;
   border: 1px solid var(--text-secondary);
   border-radius: 12px;

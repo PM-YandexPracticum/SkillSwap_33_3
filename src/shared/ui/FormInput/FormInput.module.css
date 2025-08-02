@@ -7,7 +7,7 @@
 
 .title {
     color: var(--text-dominant);
-    font-family: var(--typeface-body) ;
+    font-family: var(--typeface-body);
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
@@ -19,7 +19,7 @@
     border-radius: 12px;
     padding: 12px 48px 12px 20px;
     outline: none;
-    font-family: var(--typeface-body) ;
+    font-family: var(--typeface-body);
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
@@ -32,7 +32,7 @@
 .errorMessage {
     margin-top: 4px;
     color: var(--status-error);
-    font-family: var(--typeface-body) ;
+    font-family: var(--typeface-body);
     font-weight: 400;
     font-size: 12px;
     line-height: 16px;
@@ -41,13 +41,19 @@
 .svg-wrapper {
     position: relative;
     width: 100%;
-    margin: 0;
-    padding: 0;
-    font-size: 0;
-    line-height: 0;
 }
 
-.svg-wrapper > svg {
+.icon {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.svg-wrapper>svg {
     position: absolute;
     top: 50%;
     right: 20px;

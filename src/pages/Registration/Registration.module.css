@@ -95,7 +95,7 @@
   flex: 1;
   max-width: 1440px;
   margin: 0 auto;
-  padding: 32px 24px 172px;
+  padding: 32px 24px;
   width: 100%;
 }
 
@@ -112,8 +112,11 @@
 .formSection {
   width: 100%;
   background-color: var(--surface-main);
-  padding: 121.5px 60px;
+  padding: 0 60px;
   border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .imageSection {

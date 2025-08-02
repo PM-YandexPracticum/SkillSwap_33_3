@@ -1,2 +1,2 @@
 export { Registration } from './Registration';
-export { WelcomeSection } from './WelcomeSection';
+// export { WelcomeSection } from './WelcomeSection';
