@@ -6,9 +6,10 @@ import { CustomDatePicker } from '@/shared/ui/CustomDatePicker/CustomDatePicker'
 
 import styles from './FormStepTwo.module.css';
 import { AvatarUpload } from '@/shared/ui/AvatarUpload';
-import { useDispatch, useSelector } from '@/app/store';
-import { fetchSkills, selectAllSkills } from '@/features/slices/skillsSlice';
+import { useSelector } from '@/app/store';
+import { selectAllSkills } from '@/features/slices/skillsSlice';
 import { Checkbox } from '@/shared/ui/Checkbox';
+import { ComboInput } from '@/shared/ui/ComboInput';
 
 interface FormStepTwoData {
   avatar: File | null;
@@ -32,8 +33,6 @@ export const FormStepTwo: React.FC<FormStepTwoProps> = ({
   defaultValues,
   ...rest
 }) => {
-  const dispatch = useDispatch();
-  dispatch(fetchSkills());
   const skills = useSelector(selectAllSkills);
 
   const cities = [
@@ -49,6 +48,16 @@ export const FormStepTwo: React.FC<FormStepTwoProps> = ({
     'Красноярск',
     'Иркутск',
   ];
+  const citiesOptions = cities.map((item) => ({
+    label: item,
+    value: item,
+  }));
+
+  const genders = [
+    { label: 'Мужской', value: 'male' },
+    { label: 'Женский', value: 'female' },
+    { label: 'Не указан', value: 'unknown' },
+  ];
 
   const [avatar, setAvatar] = useState<File | null>(
     defaultValues?.avatar || null
@@ -59,16 +68,9 @@ export const FormStepTwo: React.FC<FormStepTwoProps> = ({
   );
 
   const [gender, setGender] = useState(defaultValues?.gender || '');
-  const [genderLabel, setGenderLabel] = useState(() => {
-    switch (defaultValues?.gender) {
-      case 'male':
-        return 'Мужской';
-      case 'female':
-        return 'Женский';
-      default:
-        return 'Не указан';
-    }
-  });
+  const [genderLabel, setGenderLabel] = useState(
+    genders.find((item) => item.value === defaultValues?.gender)?.label
+  );
 
   const [city, setCity] = useState(defaultValues?.city || '');
   const [categories, setCategories] = useState<string[]>(
@@ -144,41 +146,26 @@ export const FormStepTwo: React.FC<FormStepTwoProps> = ({
         </div>
         <div className={styles.half}>
           <Select label="Пол" value={genderLabel}>
-            <div
-              onClick={() => {
-                setGender('male');
-                setGenderLabel('Мужской');
-              }}
-            >
-              Мужской
-            </div>
-            <div
-              onClick={() => {
-                setGender('female');
-                setGenderLabel('Женский');
-              }}
-            >
-              Женский
-            </div>
-            <div
-              onClick={() => {
-                setGender('');
-                setGenderLabel('Не указан');
-              }}
-            >
-              Не указан
-            </div>
+            {genders.map((item) => (
+              <div
+                onClick={() => {
+                  setGender(item.value);
+                  setGenderLabel(item.label);
+                }}
+              >
+                {item.label}
+              </div>
+            ))}
           </Select>
         </div>
       </div>
 
-      <Select label="Город" value={city}>
-        {cities.map((item) => (
-          <div key={item} onClick={() => setCity(item)}>
-            {item}
-          </div>
-        ))}
-      </Select>
+      <ComboInput
+        label="Город"
+        placeholder="Не указан"
+        options={citiesOptions}
+        onChange={setCity}
+      />
 
       <Select label="Категория навыка, которому хотите научиться">
         {skills.map((item) => (

@@ -114,6 +114,9 @@
   background-color: var(--surface-main);
   padding: 0 60px;
   border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .imageSection {

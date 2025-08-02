@@ -86,8 +86,6 @@ export const FormStepOne: React.FC<FormProps> = ({
         />
       </div>
 
-      <p className={styles.hint}>Пароль должен содержать не менее 8 знаков</p>
-
       <Button variant="primary" type="submit">
         Далее
       </Button>

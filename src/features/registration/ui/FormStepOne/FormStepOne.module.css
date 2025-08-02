@@ -1,5 +1,7 @@
 .form {
-    margin-top: 121.5px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .providers {
@@ -13,7 +15,6 @@
     align-items: center;
     text-align: center;
     width: 100%;
-    margin: 24px 0;
 }
 
 .wrapper::before,

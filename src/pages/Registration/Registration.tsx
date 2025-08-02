@@ -11,6 +11,8 @@ import { WelcomeSection } from '@/features/registration/ui/WelcomeSection';
 import iconStep1 from '@/assets/svg/light-bulb.svg';
 import iconStep2 from '@/assets/svg/user-info.svg';
 import iconStep3 from '@/assets/svg/school-board.svg';
+import { useDispatch } from '@/app/store';
+import { fetchSkills } from '@/features/slices/skillsSlice';
 
 export interface RegistrationData {
   email: string;
@@ -28,6 +30,9 @@ export interface RegistrationData {
 }
 
 export const Registration: React.FC = () => {
+  const dispatch = useDispatch();
+  dispatch(fetchSkills());
+
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<Partial<RegistrationData>>({});

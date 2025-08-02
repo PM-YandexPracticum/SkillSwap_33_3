@@ -5,6 +5,8 @@ import { TextArea } from '@/shared/ui/TextArea/TextArea';
 import { ImageUpload } from '@/shared/ui/ImageUpload';
 import { Button } from '@/shared/ui/Button';
 import styles from './FormStepThree.module.css';
+import { useSelector } from '@/app/store';
+import { selectAllSkills } from '@/features/slices/skillsSlice';
 
 interface FormStepThreeData {
   title: string;
@@ -24,6 +26,8 @@ export const FormStepThree: React.FC<FormStepThreeProps> = ({
   onReset,
   ...rest
 }) => {
+  const skills = useSelector(selectAllSkills);
+
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
   const [subcategory, setSubcategory] = useState('');
@@ -61,21 +65,28 @@ export const FormStepThree: React.FC<FormStepThreeProps> = ({
       />
 
       <Select label="Категория навыка" value={category}>
-        <div role="option" onClick={() => setCategory('Категория 1')}>
-          Категория 1
-        </div>
-        <div role="option" onClick={() => setCategory('Категория 2')}>
-          Категория 2
-        </div>
+        {skills.map((item) => (
+          <div style={{ height: 32 }} onClick={() => setCategory(item.name)}>
+            {item.name}
+          </div>
+        ))}
       </Select>
 
-      <Select label="Подкатегория навыка" value={subcategory}>
-        <div role="option" onClick={() => setSubcategory('Подкатегория 1')}>
-          Подкатегория 1
-        </div>
-        <div role="option" onClick={() => setSubcategory('Подкатегория 2')}>
-          Подкатегория 2
-        </div>
+      <Select
+        label="Подкатегория навыка"
+        value={subcategory}
+        disabled={!category}
+      >
+        {skills
+          .find((item) => item.name === category)
+          ?.subcategories.map((item) => (
+            <div
+              style={{ height: 32 }}
+              onClick={() => setSubcategory(item.name)}
+            >
+              {item.name}
+            </div>
+          ))}
       </Select>
 
       <TextArea
