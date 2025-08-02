@@ -1,0 +1,115 @@
+.container {
+    display: flex;
+    width: 1020px;
+    height: 752px;
+    padding: 60px;
+    background: var(--surface-main);
+    border-radius: 24px 24px 0 0;
+    font-family: var(--typeface-body);
+}
+
+.form {
+    width: 460px;
+    height: 632px;
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.field:last-of-type {
+    margin-bottom: 15px;
+}
+
+.row {
+    display: flex;
+    gap: 22px;
+}
+
+.halfField {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 1000;
+}
+
+.container.input {
+    padding: 11px 48px 11px 20px;
+}
+
+.editIcon {
+    position: absolute;
+    top: 11px;
+    right: 21px;
+    pointer-events: none;
+}
+
+.readonlyField {
+    height: 48px;
+    padding: 0 54px 1px 20px;
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--background);
+    position: relative;
+    font-size: 16px;
+    color: var(--text-dominant);
+}
+
+.changePassword {
+    color: var(--action-pressed);
+    font-family: var(--typeface-body);
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: 0.02em;
+    margin-top: 4px;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.avatarSection {
+    margin-left: auto;
+    position: relative;
+    width: 244px;
+    height: 244px;
+}
+
+.avatar {
+    width: 244px;
+    height: 244px;
+    border-radius: 100%;
+    object-fit: cover;
+    object-position: center -30px;
+}
+
+.avatarEdit {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: var(--action-hover);
+    border-radius: 100px;
+    padding: 16px;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+}
+
+.selectOption {
+    padding: 12px 16px;
+    cursor: pointer;
+}
+
+.selectOption:hover {
+    background-color: var(--action-hover);
+}

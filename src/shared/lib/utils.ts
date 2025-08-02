@@ -1,4 +1,6 @@
 import dayjs from 'dayjs';
+import type { UserResponse } from '../../api/client';
+
 export const getAge = (birthDate: string): number => {
   const today = dayjs();
   const birthDateDayjs = dayjs(birthDate);
@@ -56,3 +58,17 @@ export function reorderArrayByRows<T>(arr: T[], rows: number) {
   console.log(reordered);
   return reordered;
 }
+
+export const getLearningSkills = (user: UserResponse, filters?: string[]) => {
+  if (!filters || filters.length === 0) return user.learningSkills;
+  return user.learningSkills.filter((skill) =>
+    filters.includes(skill.subcategory)
+  );
+};
+
+export const getTeachingSkills = (user: UserResponse, filters?: string[]) => {
+  if (!filters || filters.length === 0) return user.teachingSkills;
+  return user.teachingSkills.filter((skill) =>
+    filters.includes(skill.subcategory)
+  );
+};

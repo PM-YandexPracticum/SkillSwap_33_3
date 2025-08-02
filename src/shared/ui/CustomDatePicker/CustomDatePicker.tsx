@@ -4,7 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import styles from './CustomDatePicker.module.css';
 import CalendarIcon from '@/assets/svg/icons/calendar.svg?react';
 import './DatePickerOverrides.css';
-import { ru } from 'date-fns/locale';
+import ru from 'date-fns/locale/ru';
 import { Button } from '../Button';
 import { Select } from '../Select';
 

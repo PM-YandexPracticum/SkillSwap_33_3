@@ -9,7 +9,7 @@ const meta: Meta<typeof Card> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['primary', 'secondary'],
+      options: ['default', 'skillPage'],
     },
     onLikeClick: { action: 'clicked' },
     onMoreClick: { action: 'clicked' },
@@ -64,31 +64,32 @@ const user: UserResponse = {
 export const Default: Story = {
   args: {
     user,
-    variant: 'primary',
+    variant: 'default',
     isProposed: false,
     liked: false,
     onLikeClick: () => {},
     onMoreClick: () => {},
   },
-  render: (args) => (
-    <div>
-      <Card {...args} />
-    </div>
-  ),
 };
 
 export const Secondary: Story = {
   args: {
     user,
-    variant: 'secondary',
+    variant: 'default',
     isProposed: true,
     liked: true,
     onLikeClick: () => {},
     onMoreClick: () => {},
   },
-  render: (args) => (
-    <div>
-      <Card {...args} />
-    </div>
-  ),
+};
+
+export const SkillPageVariant: Story = {
+  args: {
+    user,
+    variant: 'skillPage',
+    isProposed: false,
+    liked: false,
+    onLikeClick: () => {},
+    onMoreClick: () => {},
+  },
 };
