@@ -1,17 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Registration } from './Registration';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from '@/app/store';
 
 const meta: Meta<typeof Registration> = {
   title: 'Pages/Registration',
   component: Registration,
   decorators: [
     (Story) => (
-      <BrowserRouter>
-        <div style={{ width: '1440px', height: '1024px', overflow: 'hidden' }}>
-          <Story />
-        </div>
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <div
+            style={{ width: '1440px', height: '1024px', overflow: 'hidden' }}
+          >
+            <Story />
+          </div>
+        </BrowserRouter>
+      </Provider>
     ),
   ],
   parameters: {

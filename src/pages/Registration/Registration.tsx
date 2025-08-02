@@ -33,7 +33,6 @@ export const Registration: React.FC = () => {
   const [formData, setFormData] = useState<Partial<RegistrationData>>({});
 
   const handleNext = (data: Partial<RegistrationData>) => {
-    console.log('Получено на шаге: ', step, data);
     setFormData((prev) => ({ ...prev, ...data }));
     setStep((prev) => prev + 1);
   };

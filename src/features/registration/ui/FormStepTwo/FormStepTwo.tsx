@@ -6,6 +6,9 @@ import { CustomDatePicker } from '@/shared/ui/CustomDatePicker/CustomDatePicker'
 
 import styles from './FormStepTwo.module.css';
 import { AvatarUpload } from '@/shared/ui/AvatarUpload';
+import { useDispatch, useSelector } from '@/app/store';
+import { fetchSkills, selectAllSkills } from '@/features/slices/skillsSlice';
+import { Checkbox } from '@/shared/ui/Checkbox';
 
 interface FormStepTwoData {
   avatar: File | null;
@@ -13,8 +16,8 @@ interface FormStepTwoData {
   birthDate: Date | null;
   gender: string;
   city: string;
-  category: string;
-  subcategory: string;
+  categories: string[];
+  subcategories: string[];
 }
 
 interface FormStepTwoProps extends React.FormHTMLAttributes<HTMLFormElement> {
@@ -29,6 +32,24 @@ export const FormStepTwo: React.FC<FormStepTwoProps> = ({
   defaultValues,
   ...rest
 }) => {
+  const dispatch = useDispatch();
+  dispatch(fetchSkills());
+  const skills = useSelector(selectAllSkills);
+
+  const cities = [
+    'Москва',
+    'Санкт-Петербург',
+    'Новосибирск',
+    'Екатеринбург',
+    'Казань',
+    'Сочи',
+    'Краснодар',
+    'Кемерово',
+    'Владивосток',
+    'Красноярск',
+    'Иркутск',
+  ];
+
   const [avatar, setAvatar] = useState<File | null>(
     defaultValues?.avatar || null
   );
@@ -50,42 +71,34 @@ export const FormStepTwo: React.FC<FormStepTwoProps> = ({
   });
 
   const [city, setCity] = useState(defaultValues?.city || '');
-  const [cityLabel, setCityLabel] = useState(() => {
-    switch (defaultValues?.city) {
-      case 'moscow':
-        return 'Москва';
-      case 'spb':
-        return 'Санкт-Петербург';
-      default:
-        return 'Не указан';
-    }
-  });
-
-  const [category, setCategory] = useState(defaultValues?.category || '');
-  const [categoryLabel, setCategoryLabel] = useState(() => {
-    switch (defaultValues?.category) {
-      case 'design':
-        return 'Дизайн';
-      case 'development':
-        return 'Разработка';
-      default:
-        return '';
-    }
-  });
-
-  const [subcategory, setSubcategory] = useState(
-    defaultValues?.subcategory || ''
+  const [categories, setCategories] = useState<string[]>(
+    defaultValues?.categories || []
   );
-  const [subcategoryLabel, setSubcategoryLabel] = useState(() => {
-    switch (defaultValues?.subcategory) {
-      case 'ux':
-        return 'UX-дизайн';
-      case 'frontend':
-        return 'Frontend';
-      default:
-        return '';
-    }
-  });
+
+  const [subcategories, setSubcategories] = useState<string[]>(
+    defaultValues?.subcategories || []
+  );
+  const initialValueVisibleSubs: { name: string; items?: string[] }[] = [];
+  const visibleSubategories = skills.reduce((acc, item) => {
+    if (!categories.includes(item.name)) return acc;
+    return [...acc, ...item.subcategories];
+  }, initialValueVisibleSubs);
+
+  const handleCategoriesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, checked } = e.target;
+
+    if (checked) setCategories((state) => [...state, value]);
+    else setCategories((state) => state.filter((item) => item !== value));
+  };
+
+  const handleSubcategoriesChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { value, checked } = e.target;
+
+    if (checked) setSubcategories((state) => [...state, value]);
+    else setSubcategories((state) => state.filter((item) => item !== value));
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -95,8 +108,8 @@ export const FormStepTwo: React.FC<FormStepTwoProps> = ({
       birthDate,
       gender,
       city,
-      category,
-      subcategory,
+      categories,
+      subcategories,
     });
   };
 
@@ -159,67 +172,39 @@ export const FormStepTwo: React.FC<FormStepTwoProps> = ({
         </div>
       </div>
 
-      <Select label="Город" value={cityLabel}>
-        <div
-          onClick={() => {
-            setCity('moscow');
-            setCityLabel('Москва');
-          }}
-        >
-          Москва
-        </div>
-        <div
-          onClick={() => {
-            setCity('spb');
-            setCityLabel('Санкт-Петербург');
-          }}
-        >
-          Санкт-Петербург
-        </div>
+      <Select label="Город" value={city}>
+        {cities.map((item) => (
+          <div key={item} onClick={() => setCity(item)}>
+            {item}
+          </div>
+        ))}
       </Select>
 
-      <Select
-        label="Категория навыка, которому хотите научиться"
-        value={categoryLabel}
-      >
-        <div
-          onClick={() => {
-            setCategory('design');
-            setCategoryLabel('Дизайн');
-          }}
-        >
-          Дизайн
-        </div>
-        <div
-          onClick={() => {
-            setCategory('development');
-            setCategoryLabel('Разработка');
-          }}
-        >
-          Разработка
-        </div>
+      <Select label="Категория навыка, которому хотите научиться">
+        {skills.map((item) => (
+          <Checkbox
+            key={item.name}
+            value={item.name}
+            onChange={handleCategoriesChange}
+          >
+            {item.name}
+          </Checkbox>
+        ))}
       </Select>
 
       <Select
         label="Подкатегория навыка, которому хотите научиться"
-        value={subcategoryLabel}
+        disabled={!categories[0]}
       >
-        <div
-          onClick={() => {
-            setSubcategory('ux');
-            setSubcategoryLabel('UX-дизайн');
-          }}
-        >
-          UX-дизайн
-        </div>
-        <div
-          onClick={() => {
-            setSubcategory('frontend');
-            setSubcategoryLabel('Frontend');
-          }}
-        >
-          Frontend
-        </div>
+        {visibleSubategories.map((item) => (
+          <Checkbox
+            key={item.name}
+            value={item.name}
+            onChange={handleSubcategoriesChange}
+          >
+            {item.name}
+          </Checkbox>
+        ))}
       </Select>
 
       <div className={styles.actions}>
