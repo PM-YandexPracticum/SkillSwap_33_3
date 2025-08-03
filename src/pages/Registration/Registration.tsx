@@ -13,6 +13,7 @@ import iconStep2 from '@/assets/svg/user-info.svg';
 import iconStep3 from '@/assets/svg/school-board.svg';
 import { useDispatch } from '@/app/store';
 import { fetchSkills } from '@/features/slices/skillsSlice';
+import { register } from '@/api/authClient';
 
 export interface RegistrationData {
   email: string;
@@ -150,12 +151,27 @@ export const Registration: React.FC = () => {
 
             {step === 3 && (
               <FormStepThree
-                onFormSubmit={(stepData) => {
-                  const fullData: RegistrationData = {
+                onFormSubmit={async (stepData) => {
+                  const combined = {
                     ...formData,
                     ...stepData,
-                  } as RegistrationData;
-                  console.log('Готово к отправке:', fullData);
+                  };
+
+                  const payload = {
+                    email: combined.email!,
+                    password: combined.password!,
+                    name: combined.name!,
+                    birthDate: combined.birthDate!.toISOString(),
+                    gender: combined.gender!,
+                    city: combined.city!,
+                  };
+
+                  try {
+                    await register(payload);
+                    navigate('/');
+                  } catch (err) {
+                    console.error('Ошибка регистрации:', err);
+                  }
                 }}
                 onReset={handleReset}
               />

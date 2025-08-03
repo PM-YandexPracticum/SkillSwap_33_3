@@ -30,6 +30,7 @@ import {
   markNotificationsAsRead,
   removeNotifications,
 } from '../../features/slices/authSlice';
+import { logout as apiLogout } from '@/api/authClient';
 
 export const Header = () => {
   const [isSkillsMenuOpen, setIsSkillsMenuOpen] = useState(false);
@@ -107,9 +108,15 @@ export const Header = () => {
     [dispatch]
   );
 
-  const handleLogout = () => {
-    dispatch(logout());
-    setIsProfileMenuOpen(false);
+  const handleLogout = async () => {
+    try {
+      await apiLogout();
+      dispatch(logout());
+      navigate('/');
+      setIsProfileMenuOpen(false);
+    } catch (error) {
+      console.error('Ошибка при выходе из аккаунта:', error);
+    }
   };
 
   useEffect(() => {

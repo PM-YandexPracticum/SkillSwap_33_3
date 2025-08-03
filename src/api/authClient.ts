@@ -208,6 +208,78 @@ class AuthApiClient {
   isAuthenticated(): boolean {
     return !!this.getAccessToken();
   }
+
+  async register(data: {
+    email: string;
+    password: string;
+    name: string;
+    birthDate: string;
+    gender: string;
+    city: string;
+  }): Promise<LoginResponse> {
+    const response = await fetch(`${this.baseURL}/api/auth/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error('Ошибка регистрации');
+    }
+
+    const result: LoginResponse = await response.json();
+
+    this.saveTokens(result.tokens.accessToken, result.tokens.refreshToken);
+
+    return result;
+  }
+
+  async login(data: {
+    email: string;
+    password: string;
+  }): Promise<LoginResponse> {
+    const response = await fetch(`${this.baseURL}/api/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error('Ошибка входа');
+    }
+
+    const result: LoginResponse = await response.json();
+
+    this.saveTokens(result.tokens.accessToken, result.tokens.refreshToken);
+
+    return result;
+  }
+
+  async updateProfile(
+    userId: string,
+    data: Partial<UserAuthResponse>
+  ): Promise<UserAuthResponse> {
+    const token = this.getAccessToken();
+
+    const response = await fetch(`${this.baseURL}/api/users/${userId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error('Ошибка обновления профиля');
+    }
+
+    return response.json();
+  }
 }
 
 // Экспортируем единственный экземпляр
@@ -220,4 +292,7 @@ export const {
   logout,
   saveAuthTokens,
   isAuthenticated,
+  register,
+  login,
+  updateProfile,
 } = authApiClient;
