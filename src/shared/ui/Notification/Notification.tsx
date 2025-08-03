@@ -30,6 +30,8 @@ export const Notification: React.FC<NotificationProps> = ({
     sameDay: '[сегодня]',
     nextDay: '[завтра]',
     lastDay: '[вчера]',
+    lastWeek: 'D MMMM',
+    nextWeek: 'D MMMM',
     sameElse: 'D MMMM',
   });
 
