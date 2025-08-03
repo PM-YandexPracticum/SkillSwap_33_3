@@ -1,5 +1,6 @@
 import { getCookie, setCookie, deleteCookie } from '../shared/lib/cookie';
 import type { UserResponse } from './client';
+import axios from 'axios';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const ACCESS_TOKEN_COOKIE = 'accessToken';
@@ -32,6 +33,14 @@ export interface LoginResponse {
 
 export interface RefreshTokenResponse {
   accessToken: string;
+}
+
+interface CreateSkillPayload {
+  title: string;
+  category: string;
+  subcategory: string;
+  description: string;
+  images: File[];
 }
 
 class AuthApiClient {
@@ -281,6 +290,27 @@ class AuthApiClient {
     return response.json();
   }
 }
+//Создаем навык
+export const createSkill = async (data: CreateSkillPayload) => {
+  const formData = new FormData();
+
+  formData.append('title', data.title);
+  formData.append('category', data.category);
+  formData.append('subcategory', data.subcategory);
+  formData.append('description', data.description);
+
+  data.images.forEach((file) => {
+    formData.append('images', file); // или 'images[]', если сервер требует массив
+  });
+
+  const response = await axios.post('/skills', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+
+  return response.data;
+};
 
 // Экспортируем единственный экземпляр
 export const authApiClient = new AuthApiClient();

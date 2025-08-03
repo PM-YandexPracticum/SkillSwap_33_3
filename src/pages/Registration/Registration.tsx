@@ -14,6 +14,7 @@ import iconStep3 from '@/assets/svg/school-board.svg';
 import { useDispatch } from '@/app/store';
 import { fetchSkills } from '@/features/slices/skillsSlice';
 import { register } from '@/api/authClient';
+import { createSkill } from '@/api/authClient';
 
 export interface RegistrationData {
   email: string;
@@ -168,9 +169,21 @@ export const Registration: React.FC = () => {
 
                   try {
                     await register(payload);
+
+                    await createSkill({
+                      title: combined.title!,
+                      category: combined.category!,
+                      subcategory: combined.subcategory!,
+                      description: combined.description!,
+                      images: combined.images!,
+                    });
+
                     navigate('/');
                   } catch (err) {
-                    console.error('Ошибка регистрации:', err);
+                    console.error(
+                      'Ошибка регистрации или создания навыка:',
+                      err
+                    );
                   }
                 }}
                 onReset={handleReset}
