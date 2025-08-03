@@ -48,10 +48,20 @@ export const FormStepOne: React.FC<FormProps> = ({
       className={styles.form}
     >
       <div className={styles.providers}>
-        <Button variant="outline" startIcon={<GoogleIcon />} type="button">
+        <Button
+          variant="outline"
+          startIcon={<GoogleIcon />}
+          type="button"
+          aria-label="Продолжить регистрацию через Google"
+        >
           Продолжить с Google
         </Button>
-        <Button variant="outline" startIcon={<AppleIcon />} type="button">
+        <Button
+          variant="outline"
+          startIcon={<AppleIcon />}
+          type="button"
+          aria-label="Продолжить регистрацию через Apple"
+        >
           Продолжить с Apple
         </Button>
       </div>

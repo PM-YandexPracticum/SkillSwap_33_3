@@ -38,7 +38,11 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
           [styles.dragOver]: isDragActive && !disabled,
         })}
       >
-        <input {...getInputProps()} />
+        <input
+          {...getInputProps({
+            'aria-label': 'Выбрать изображения навыка',
+          })}
+        />
         <div className={styles.content}>
           {!value || value.length === 0 ? (
             <span className={styles.label}>{label}</span>
@@ -49,6 +53,11 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
               [styles.disabled]: disabled,
             })}
             disabled={disabled}
+            aria-label={
+              value?.length
+                ? 'Изменить изображения навыка'
+                : 'Загрузить изображения навыка'
+            }
             onClick={(event) => {
               if (rootProps.onMouseDown) {
                 rootProps.onMouseDown(event);

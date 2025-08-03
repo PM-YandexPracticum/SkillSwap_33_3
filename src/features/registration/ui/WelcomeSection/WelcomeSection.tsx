@@ -15,7 +15,11 @@ export const WelcomeSection: React.FC<WelcomeSectionProps> = ({
   return (
     <div className={styles.container}>
       <div className={styles.iconContainer}>
-        <img src={icon} alt="Иконка шага" className={styles.lightBulbIcon} />
+        <img
+          src={icon}
+          className={styles.lightBulbIcon}
+          alt="Иллюстрация текущего шага регистрации"
+        />
       </div>
       <h2 className={styles.title}>{title}</h2>
       <p className={styles.description}>{description}</p>

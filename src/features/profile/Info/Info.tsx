@@ -128,7 +128,11 @@ export default function Info() {
       {/* Аватар */}
       <div className={styles.avatarSection}>
         <img className={styles.avatar} src={ProfileAvatar} alt="Аватарка" />
-        <button type="button" className={styles.avatarEdit}>
+        <button
+          type="button"
+          className={styles.avatarEdit}
+          aria-label="Редактировать аватар"
+        >
           <GalleryEdit />
         </button>
       </div>
