@@ -9,6 +9,9 @@ import EditIcon from '../../../assets/svg/icons/edit.svg?react';
 import GalleryEdit from '../../../assets/svg/icons/gallery-edit.svg?react';
 import ProfileAvatar from '../../../assets/img/avatars/avatar-maria-profile.jpg';
 import { CustomDatePicker } from '../../../shared/ui/CustomDatePicker/CustomDatePicker';
+import { useSelector } from '@/app/store';
+import { selectAuthUser } from '@/features/slices/authSlice';
+import { updateProfile } from '@/api/authClient';
 
 interface FormData {
   email: string;
@@ -32,6 +35,7 @@ const initialData: FormData = {
 export default function Info() {
   const [formData, setFormData] = useState<FormData>(initialData);
   const [edited, setEdited] = useState(false);
+  const user = useSelector(selectAuthUser);
 
   const handleChange = (key: keyof FormData, value: string | Date | null) => {
     const updated = { ...formData, [key]: value };
@@ -39,9 +43,22 @@ export default function Info() {
     setEdited(JSON.stringify(updated) !== JSON.stringify(initialData));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setEdited(false);
+    if (!user) return;
+
+    try {
+      await updateProfile(user.id, {
+        name: formData.name,
+        city: formData.city,
+        gender: formData.gender,
+        birthDate: formData.birthdate?.toISOString() ?? '',
+      });
+
+      setEdited(false);
+    } catch (error) {
+      console.error('Ошибка при обновлении профиля', error);
+    }
   };
 
   return (
