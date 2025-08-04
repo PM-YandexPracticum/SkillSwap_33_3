@@ -10,10 +10,10 @@ import { AdaptiveSkillsList } from '../AdaptiveSkillsList';
 
 type CardProps = {
   user: UserResponse;
-  liked: boolean;
-  onLikeClick: () => void;
-  onMoreClick: () => void;
-  isProposed: boolean;
+  liked?: boolean;
+  onLikeClick?: () => void;
+  onMoreClick?: () => void;
+  isProposed?: boolean;
   variant?: 'default' | 'skillPage';
   filter?: string[];
 };
