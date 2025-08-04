@@ -2,6 +2,9 @@ import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from '@/app/store';
 import {
   fetchUsers,
+  fetchPopularUsers,
+  fetchRecentUsers,
+  fetchNewUsers,
   selectUsers,
   selectUsersFiltered,
 } from '@/features/slices/usersSlice';
@@ -12,6 +15,7 @@ import { Button } from '@/shared/ui/Button';
 import { Section } from '@/shared/ui/Section';
 import SortIcon from '@/assets/svg/icons/sort.svg?react';
 import ChevronRightIcon from '@/assets/svg/icons/chevron-right.svg?react';
+import ChevronDownIcon from '@/assets/svg/icons/chevron-down.svg?react';
 import { useUrlFilters } from './hooks/useUrlFilters';
 import { ActiveFilters } from './components/ActiveFilters';
 import {
@@ -27,6 +31,7 @@ export default function Home() {
 
   // Используем новый хук для управления фильтрами и сортировкой через URL
   const { filters, sortMode, updateFilters, updateSortMode } = useUrlFilters();
+  console.log(sortMode);
 
   // Используем селектор для получения отфильтрованных пользователей
   const filteredUsers = useSelector((state) =>
@@ -61,6 +66,20 @@ export default function Home() {
     updateSortMode('new');
   };
 
+  const hadleAppendUsers = () => {
+    switch (sortMode) {
+      case 'new':
+        dispatch(fetchNewUsers());
+        break;
+      case 'popular':
+        dispatch(fetchPopularUsers());
+        break;
+      case 'recommended':
+        dispatch(fetchRecentUsers());
+        break;
+    }
+  };
+
   // Если есть активные фильтры или сортировка - показываем результаты фильтрации
   if (hasActiveState) {
     return (
@@ -90,6 +109,11 @@ export default function Home() {
                   isProposed={false}
                 />
               ))}
+            </Section>
+            <Section>
+              <Button variant="tertiary" onClick={hadleAppendUsers}>
+                Показать больше <ChevronDownIcon />
+              </Button>
             </Section>
           </div>
         </div>
