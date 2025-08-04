@@ -5,7 +5,7 @@ import { Layout } from '@/widgets/Layout/Layout';
 import Home from '@/pages/Home/Home';
 import ProfilePage from '@/pages/Profile/Profile';
 import Info from '@/features/profile/Info/Info';
-import { SkillPage } from '@/pages/SkillPage/SkillPage';
+import SkillPage from '@/pages/SkillPage/SkillPage';
 
 function App() {
   return (

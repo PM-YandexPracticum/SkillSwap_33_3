@@ -9,7 +9,7 @@ const meta: Meta<typeof Card> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['default', 'skillPage'],
+      options: ['default', 'skillPage', 'secondary'],
     },
     onLikeClick: { action: 'clicked' },
     onMoreClick: { action: 'clicked' },
