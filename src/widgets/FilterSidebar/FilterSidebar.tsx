@@ -1,14 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { FilterSection } from '../../shared/ui/FilterSection';
 import { Checkbox } from '../../shared/ui/Checkbox';
 import { RadioButton } from '../../shared/ui/RadioButton';
 import styles from './FilterSidebar.module.css';
 import type { Filters } from '../../shared/lib/types';
-import { useSelector, useDispatch } from '../../app/store';
-import {
-  fetchSkills,
-  selectAllSkills,
-} from '../../features/slices/skillsSlice';
+import { useSelector } from '../../app/store';
+import { selectAllSkills } from '../../features/slices/skillsSlice';
 import { NestedCheckboxGroup } from '../../shared/ui/NestedCheckboxGroup/NestedCheckboxGroup';
 
 interface FilterSidebarProps {
@@ -64,12 +61,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
   filters,
   onFiltersChange,
 }) => {
-  const dispatch = useDispatch();
   const skills = useSelector(selectAllSkills);
-
-  useEffect(() => {
-    dispatch(fetchSkills());
-  }, [dispatch]);
 
   const handleReset = () => {
     onFiltersChange(defaultFilters);
