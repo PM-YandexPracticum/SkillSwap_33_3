@@ -8,6 +8,8 @@ import {
 // TODO: Убрать мок api юзеров, заменить на реальный сервер в проде
 // import { usersApi } from '../../api/client';
 import mockUsers from '../../../public/db/users.json';
+import mockUsersUnpopular from '../../../public/db/usersUnpopular.json';
+import mockUsersOld from '../../../public/db/usersOld.json';
 
 import type { RootState } from '../../app/store';
 import type { UserResponse } from '../../api/client';
@@ -26,91 +28,48 @@ const initialState: UsersState = {
   error: null,
 };
 
-const fetchUsersExecutor = async () => {
-  await new Promise((resolve) => setTimeout(resolve, 300)); // Задержка 0.3 секунды
-  return mockUsers;
-};
+function delay() {
+  return new Promise((resolve) => setTimeout(resolve, 300)); // Задержка 0.3 секунды
+}
 
 // TODO: Убрать мок api юзеров, заменить на реальный сервер в проде
 // export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
 //     return await usersApi.getAll();
 // });
-export const fetchUsers = createAsyncThunk(
-  'users/fetchUsers',
-  fetchUsersExecutor
-);
+export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
+  await delay();
+  return mockUsers;
+});
 
-// Реализуем алгоритм на идеях приоритетной очереди для выбора заданного количества записей
-// (это будет эффективнее простой сортировки для больших массивов данных)
-function FilterByPriority<T>(
-  data: Array<T>,
-  more: (one: T, too: T) => boolean,
-  count?: number
-) {
-  const defaultCount = 3;
-  const safecount = Math.max(count ?? defaultCount, 1);
-  const priorityQueue: number[] = [];
-
-  data.forEach((user, index) => {
-    if (
-      priorityQueue.length < safecount ||
-      more(user, data[priorityQueue[priorityQueue.length - 1]])
-    ) {
-      let i = 0;
-      while (i < priorityQueue.length && !more(user, data[priorityQueue[i]])) {
-        ++i;
-      }
-      priorityQueue.splice(i, 0, index);
-      if (priorityQueue.length > safecount) {
-        priorityQueue.pop();
-      }
-    }
-  });
-
-  return priorityQueue.map((index) => data[index]);
+// Для генерации идентификаторов пользователей используем линейный конгруентный
+//  генератор случайных чисел в кольце по модулю простого числа 1000000009.
+let seed: number = 1;
+function randomId() {
+  seed = (seed * 1103515245 + 12345) % 1000000009;
+  return seed.toString();
 }
 
-export const fetchPopularUsers = createAsyncThunk(
-  'users/fetchPopularUsers',
-  async (count?: number) =>
-    fetchUsersExecutor().then((data) => {
-      return FilterByPriority(
-        data,
-        (one, too) => {
-          return one.likes > too.likes;
-        },
-        count
-      );
-    })
+function patchUsers(users: UserResponse[]) {
+  return users.map((user) => ({ ...user, id: randomId() }));
+}
+
+export const fetchUnPopularUsers = createAsyncThunk(
+  'users/fetchUnPopularUsers',
+  () => {
+    return delay().then(() => patchUsers(mockUsersUnpopular));
+  }
 );
 
 export const fetchRecentUsers = createAsyncThunk(
   'users/fetchRecentUsers',
-  async (count?: number) =>
-    fetchUsersExecutor().then((data) => {
-      return FilterByPriority(
-        data,
-        (one, too) => {
-          return one.birthDate > too.birthDate;
-        },
-        count
-      );
-    })
+  () => {
+    return delay().then(() => patchUsers(mockUsers));
+  }
 );
 
-export const fetchNewUsers = createAsyncThunk(
-  'users/fetchNewUsers',
-  async (count?: number) =>
-    fetchUsersExecutor().then((data) => {
-      return FilterByPriority(
-        data,
-        (one, too) => {
-          return one.id > too.id;
-        },
-        count
-      );
-    })
-);
+export const fetchOldUsers = createAsyncThunk('users/fetchOldUsers', () => {
+  return delay().then(() => patchUsers(mockUsersOld));
+});
 
 export const usersSlice = createSlice({
   name: 'users',
@@ -136,18 +95,17 @@ export const usersSlice = createSlice({
       });
 
     builder
-      .addCase(fetchPopularUsers.pending, (state) => {
+      .addCase(fetchUnPopularUsers.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchPopularUsers.fulfilled, (state, action) => {
+      .addCase(fetchUnPopularUsers.fulfilled, (state, action) => {
         state.loading = false;
-        state.list = action.payload;
-        console.log('list accepted: ', action.payload);
+        state.list = state.list.concat(action.payload);
       })
-      .addCase(fetchPopularUsers.rejected, (state, action) => {
+      .addCase(fetchUnPopularUsers.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message || 'Failed to fetch popular users';
+        state.error = action.error.message || 'Failed to fetch unpopular users';
       });
 
     builder
@@ -157,8 +115,7 @@ export const usersSlice = createSlice({
       })
       .addCase(fetchRecentUsers.fulfilled, (state, action) => {
         state.loading = false;
-        state.list = action.payload;
-        console.log('list accepted: ', action.payload);
+        state.list = state.list.concat(action.payload);
       })
       .addCase(fetchRecentUsers.rejected, (state, action) => {
         state.loading = false;
@@ -166,18 +123,17 @@ export const usersSlice = createSlice({
       });
 
     builder
-      .addCase(fetchNewUsers.pending, (state) => {
+      .addCase(fetchOldUsers.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchNewUsers.fulfilled, (state, action) => {
+      .addCase(fetchOldUsers.fulfilled, (state, action) => {
         state.loading = false;
-        state.list = action.payload;
-        console.log('list accepted: ', action.payload);
+        state.list = state.list.concat(action.payload);
       })
-      .addCase(fetchNewUsers.rejected, (state, action) => {
+      .addCase(fetchOldUsers.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message || 'Failed to fetch new users';
+        state.error = action.error.message || 'Failed to fetch old users';
       });
   },
 });

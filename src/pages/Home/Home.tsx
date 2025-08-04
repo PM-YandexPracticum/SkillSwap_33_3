@@ -2,9 +2,9 @@ import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from '@/app/store';
 import {
   fetchUsers,
-  fetchPopularUsers,
+  fetchUnPopularUsers,
   fetchRecentUsers,
-  fetchNewUsers,
+  fetchOldUsers,
   selectUsers,
   selectUsersFiltered,
 } from '@/features/slices/usersSlice';
@@ -31,6 +31,7 @@ export default function Home() {
 
   // Используем новый хук для управления фильтрами и сортировкой через URL
   const { filters, sortMode, updateFilters, updateSortMode } = useUrlFilters();
+  console.log(sortMode);
 
   // Используем селектор для получения отфильтрованных пользователей
   const filteredUsers = useSelector((state) =>
@@ -65,16 +66,18 @@ export default function Home() {
     updateSortMode('new');
   };
 
-  const hadleLoadMostPopularUsers = () => {
-    dispatch(fetchPopularUsers());
-  };
-
-  const hadleLoadMostRecentUsers = () => {
-    dispatch(fetchRecentUsers());
-  };
-
-  const hadleLoadNewUsers = () => {
-    dispatch(fetchNewUsers());
+  const hadleAppendUsers = () => {
+    switch (sortMode) {
+      case 'new':
+        dispatch(fetchOldUsers());
+        break;
+      case 'popular':
+        dispatch(fetchUnPopularUsers());
+        break;
+      case 'recommended':
+        dispatch(fetchRecentUsers());
+        break;
+    }
   };
 
   // Если есть активные фильтры или сортировка - показываем результаты фильтрации
@@ -106,6 +109,11 @@ export default function Home() {
                   isProposed={false}
                 />
               ))}
+            </Section>
+            <Section>
+              <Button variant="tertiary" onClick={hadleAppendUsers}>
+                Показать больше <ChevronDownIcon />
+              </Button>
             </Section>
           </div>
         </div>
@@ -176,17 +184,6 @@ export default function Home() {
                   isProposed={false}
                 />
               ))}
-          </Section>
-          <Section>
-            <Button variant="tertiary" onClick={hadleLoadMostPopularUsers}>
-              Показать популярных пользователей <ChevronDownIcon />
-            </Button>
-            <Button variant="tertiary" onClick={hadleLoadMostRecentUsers}>
-              Показать недавних пользователей <ChevronDownIcon />
-            </Button>
-            <Button variant="tertiary" onClick={hadleLoadNewUsers}>
-              Показать новичков <ChevronDownIcon />
-            </Button>
           </Section>
         </div>
       </div>
