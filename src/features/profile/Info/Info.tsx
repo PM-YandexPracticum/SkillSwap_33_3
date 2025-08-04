@@ -7,7 +7,6 @@ import { Button } from '../../../shared/ui/Button';
 import { FormInput } from '../../../shared/ui/FormInput/FormInput';
 import EditIcon from '../../../assets/svg/icons/edit.svg?react';
 import GalleryEdit from '../../../assets/svg/icons/gallery-edit.svg?react';
-import ProfileAvatar from '../../../assets/img/avatars/avatar-maria-profile.jpg';
 import { CustomDatePicker } from '../../../shared/ui/CustomDatePicker/CustomDatePicker';
 import { useSelector } from '@/app/store';
 import { selectAuthUser } from '@/features/slices/authSlice';
@@ -22,6 +21,7 @@ interface FormData {
   gender: string;
   city: string;
   about: string;
+  image: string;
 }
 
 export default function Info() {
@@ -33,6 +33,7 @@ export default function Info() {
     gender: '',
     city: '',
     about: '',
+    image: '',
   };
 
   const user = useSelector(selectAuthUser);
@@ -75,6 +76,7 @@ export default function Info() {
         gender: user?.gender || '',
         city: user?.city || '',
         about: user?.aboutMe || '',
+        image: user?.avatar || '',
       }));
   }, [user]);
 
@@ -104,28 +106,23 @@ export default function Info() {
 
         {/* Дата рождения + Пол */}
         <div className={styles.row}>
-          <div className={styles.halfField}>
-            <label>Дата рождения</label>
-            <CustomDatePicker
-              selected={formData.birthdate}
-              onChange={(date) => handleChange('birthdate', date)}
-            />
-          </div>
-          <div className={styles.halfField}>
-            <label>Пол</label>
-            <Select value={formData.gender}>
-              {['Женский', 'Мужской'].map((option) => (
-                <div
-                  key={option}
-                  role="option"
-                  className={styles.selectOption}
-                  onClick={() => handleChange('gender', option)}
-                >
-                  {option}
-                </div>
-              ))}
-            </Select>
-          </div>
+          <CustomDatePicker
+            label="Дата рождения"
+            selected={formData.birthdate}
+            onChange={(date) => handleChange('birthdate', date)}
+          />
+          <Select label="Пол" value={formData.gender}>
+            {['Женский', 'Мужской'].map((option) => (
+              <div
+                key={option}
+                role="option"
+                className={styles.selectOption}
+                onClick={() => handleChange('gender', option)}
+              >
+                {option}
+              </div>
+            ))}
+          </Select>
         </div>
 
         {/* Город */}
@@ -161,7 +158,7 @@ export default function Info() {
 
       {/* Аватар */}
       <div className={styles.avatarSection}>
-        <img className={styles.avatar} src={ProfileAvatar} alt="Аватарка" />
+        <img className={styles.avatar} src={formData.image} alt="Аватарка" />
         <button type="button" className={styles.avatarEdit}>
           <GalleryEdit />
         </button>

@@ -29,5 +29,9 @@
       "@assets/*": ["src/assets/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": [
+    "**/*.stories.tsx",
+    "node_modules"
+  ]
 }
