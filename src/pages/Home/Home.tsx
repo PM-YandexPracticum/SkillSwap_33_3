@@ -2,6 +2,9 @@ import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from '@/app/store';
 import {
   fetchUsers,
+  fetchPopularUsers,
+  fetchRecentUsers,
+  fetchNewUsers,
   selectUsers,
   selectUsersFiltered,
 } from '@/features/slices/usersSlice';
@@ -12,6 +15,7 @@ import { Button } from '@/shared/ui/Button';
 import { Section } from '@/shared/ui/Section';
 import SortIcon from '@/assets/svg/icons/sort.svg?react';
 import ChevronRightIcon from '@/assets/svg/icons/chevron-right.svg?react';
+import ChevronDownIcon from '@/assets/svg/icons/chevron-down.svg?react';
 import { useUrlFilters } from './hooks/useUrlFilters';
 import { ActiveFilters } from './components/ActiveFilters';
 import {
@@ -59,6 +63,18 @@ export default function Home() {
 
   const handleShowAllNew = () => {
     updateSortMode('new');
+  };
+
+  const hadleLoadMostPopularUsers = () => {
+    dispatch(fetchPopularUsers());
+  };
+
+  const hadleLoadMostRecentUsers = () => {
+    dispatch(fetchRecentUsers());
+  };
+
+  const hadleLoadNewUsers = () => {
+    dispatch(fetchNewUsers());
   };
 
   // Если есть активные фильтры или сортировка - показываем результаты фильтрации
@@ -160,6 +176,17 @@ export default function Home() {
                   isProposed={false}
                 />
               ))}
+          </Section>
+          <Section>
+            <Button variant="tertiary" onClick={hadleLoadMostPopularUsers}>
+              Показать популярных пользователей <ChevronDownIcon />
+            </Button>
+            <Button variant="tertiary" onClick={hadleLoadMostRecentUsers}>
+              Показать недавних пользователей <ChevronDownIcon />
+            </Button>
+            <Button variant="tertiary" onClick={hadleLoadNewUsers}>
+              Показать новичков <ChevronDownIcon />
+            </Button>
           </Section>
         </div>
       </div>

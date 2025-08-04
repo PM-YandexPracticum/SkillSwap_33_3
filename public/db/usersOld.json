@@ -1,0 +1,515 @@
+[
+  {
+    "email": "ivan@yandex.ru",
+    "avatar": "/src/assets/img/avatars/avatar-ivan.jpg",
+    "name": "Иван",
+    "birthDate": "1991-01-01",
+    "gender": "male",
+    "city": "Санкт-Петербург",
+    "aboutMe": "Привет! Люблю ритм, кофе по утрам и людей, которые не боятся пробовать новое",
+    "teachingSkills": [
+      {
+        "category": "Творчество и искусство",
+        "subcategory": "Музыка и звук",
+        "skillName": "Игра на барабанах",
+        "id": 1
+      },
+      {
+        "category": "Здоровье и лайфстайл",
+        "subcategory": "Физические тренировки",
+        "skillName": "Кроссфит",
+        "id": 2
+      }
+    ],
+    "learningSkills": [
+      {
+        "category": "Бизнес и карьера",
+        "subcategory": "Тайм-менеджмент"
+      },
+      {
+        "category": "Здоровье и лайфстайл",
+        "subcategory": "Йога и медитация"
+      },
+      {
+        "category": "Технологии",
+        "subcategory": "Программирование"
+      }
+    ],
+    "likes": 31,
+    "id": "-1"
+  },
+  {
+    "email": "anna@yandex.ru",
+    "avatar": "/src/assets/img/avatars/avatar-anna.jpg",
+    "name": "Анна",
+    "birthDate": "1999-01-01",
+    "gender": "female",
+    "city": "Казань",
+    "aboutMe": "Обожаю видеть, как загораются глаза учеников при освоении нового. Кофеин и позитив — мои лучшие друзья в работе!",
+    "teachingSkills": [
+      {
+        "category": "Иностранные языки",
+        "subcategory": "Английский",
+        "skillName": "Деловой английский",
+        "id": 3
+      },
+      {
+        "category": "Бизнес и карьера",
+        "subcategory": "Личный бренд",
+        "skillName": "Публичные выступления",
+        "id": 4
+      }
+    ],
+    "learningSkills": [
+      {
+        "category": "Образование и развитие",
+        "subcategory": "Навыки обучения"
+      },
+      {
+        "category": "Творчество и искусство",
+        "subcategory": "Дизайн"
+      }
+    ],
+    "likes": 29,
+    "id": "-1"
+  },
+  {
+    "email": "max@yandex.ru",
+    "avatar": "/src/assets/img/avatars/avatar-maksim.jpg",
+    "name": "Максим",
+    "birthDate": "2002-01-01",
+    "gender": "male",
+    "city": "Москва",
+    "aboutMe": "Учу не только навыкам, но и творческому подходу к решению задач. Верю, что каждый может найти свой путь к успеху.",
+    "teachingSkills": [
+      {
+        "category": "Бизнес и карьера",
+        "subcategory": "Предпринимательство",
+        "skillName": "Финансовое планирование",
+        "id": 5
+      }
+    ],
+    "learningSkills": [
+      {
+        "category": "Иностранные языки",
+        "subcategory": "Французский"
+      },
+      {
+        "category": "Дом и уют",
+        "subcategory": "Декор и DIY"
+      },
+      {
+        "category": "Здоровье и лайфстайл",
+        "subcategory": "Фитнес"
+      },
+      {
+        "category": "Технологии",
+        "subcategory": "Анализ данных"
+      }
+    ],
+    "likes": 55,
+    "id": "-1"
+  },
+  {
+    "email": "ilona@yandex.ru",
+    "avatar": "/src/assets/img/avatars/avatar-ilona.jpg",
+    "name": "Илона",
+    "birthDate": "1992-01-01",
+    "gender": "female",
+    "city": "Екатеринбург",
+    "aboutMe": "Приветствую! Вдохновляю людей на перемены и помогаю раскрыть их потенциал. В работе ценю честность и открытость, а в жизни — путешествия и новые впечатления.",
+    "teachingSkills": [
+      {
+        "category": "Иностранные языки",
+        "subcategory": "Французский",
+        "skillName": "Разговорный французский",
+        "id": 6
+      }
+    ],
+    "learningSkills": [
+      {
+        "category": "Бизнес и карьера",
+        "subcategory": "Маркетинг и реклама"
+      },
+      {
+        "category": "Творчество и искусство",
+        "subcategory": "Фотография"
+      }
+    ],
+    "likes": 44,
+    "id": "-1"
+  },
+  {
+    "email": "mixail@yandex.ru",
+    "avatar": "/src/assets/img/avatars/avatar-mihail.jpg",
+    "name": "Михаил",
+    "birthDate": "1996-01-01",
+    "gender": "male",
+    "city": "Новосибирск",
+    "aboutMe": "Создаю образовательные программы, которые меняют жизнь к лучшему. Люблю сложные задачи и горжусь успехами своих учеников. Мой девиз: «Учиться можно с удовольствием!»",
+    "teachingSkills": [
+      {
+        "category": "Технологии",
+        "subcategory": "Программирование",
+        "skillName": "Python для начинающих",
+        "id": 7
+      },
+      {
+        "category": "Образование и развитие",
+        "subcategory": "Навыки преподавания",
+        "skillName": "Методы вовлечения",
+        "id": 8
+      }
+    ],
+    "learningSkills": [
+      {
+        "category": "Здоровье и лайфстайл",
+        "subcategory": "Питание"
+      },
+      {
+        "category": "Творчество и искусство",
+        "subcategory": "Рисование и иллюстрация"
+      }
+    ],
+    "likes": 76,
+    "id": "-1"
+  },
+  {
+    "email": "maria@yandex.ru",
+    "avatar": "/src/assets/img/avatars/avatar-maria.jpg",
+    "name": "Мария",
+    "birthDate": "2003-01-01",
+    "gender": "female",
+    "city": "Краснодар",
+    "aboutMe": "Превращаю сложные концепции в понятные истории. Учу не бояться ошибок и смело идти вперёд. В свободное время занимаюсь йогой и читаю философские книги.",
+    "teachingSkills": [
+      {
+        "category": "Иностранные языки",
+        "subcategory": "Испанский",
+        "skillName": "Испанский для путешествий",
+        "id": 9
+      }
+    ],
+    "learningSkills": [
+      {
+        "category": "Бизнес и карьера",
+        "subcategory": "Личный бренд"
+      },
+      {
+        "category": "Творчество и искусство",
+        "subcategory": "Каллиграфия"
+      },
+      {
+        "category": "Здоровье и лайфстайл",
+        "subcategory": "Осознанность"
+      }
+    ],
+    "likes": 35,
+    "id": "-1"
+  },
+  {
+    "email": "viktoria@yandex.ru",
+    "avatar": "/src/assets/img/avatars/avatar-victoria.jpg",
+    "name": "Виктория",
+    "birthDate": "1995-01-01",
+    "gender": "female",
+    "city": "Кемерово",
+    "aboutMe": "Помогаю людям находить свой путь в профессии. Верю в силу маленьких шагов и больших мечтаний. Обожаю работать с амбициозными личностями!",
+    "teachingSkills": [
+      {
+        "category": "Творчество и искусство",
+        "subcategory": "Дизайн",
+        "skillName": "Графический дизайн",
+        "id": 10
+      },
+      {
+        "category": "Дом и уют",
+        "subcategory": "Декор и DIY",
+        "skillName": "Вязание и макраме",
+        "id": 11
+      }
+    ],
+    "learningSkills": [
+      {
+        "category": "Здоровье и лайфстайл",
+        "subcategory": "Психология"
+      },
+      {
+        "category": "Технологии",
+        "subcategory": "Веб-разработка"
+      }
+    ],
+    "likes": 91,
+    "id": "-1"
+  },
+  {
+    "email": "elizaveta@yandex.ru",
+    "avatar": "/src/assets/img/avatars/avatar-elizaveta.jpg",
+    "name": "Елизавета",
+    "birthDate": "2000-01-01",
+    "gender": "female",
+    "city": "Владивосток",
+    "aboutMe": "Вдохновляюсь успехами других и делюсь этим вдохновением с учениками. Учу не только знаниям, но и умению применять их на практике. Кофе и музыка — мои верные спутники.",
+    "teachingSkills": [
+      {
+        "category": "Творчество и искусство",
+        "subcategory": "Музыка и звук",
+        "skillName": "Игра на гитаре",
+        "id": 12
+      }
+    ],
+    "learningSkills": [
+      {
+        "category": "Образование и развитие",
+        "subcategory": "Личностное развитие"
+      },
+      {
+        "category": "Технологии",
+        "subcategory": "Мобильная разработка"
+      },
+      {
+        "category": "Дом и уют",
+        "subcategory": "Домашние растения"
+      }
+    ],
+    "likes": 68,
+    "id": "-1"
+  },
+  {
+    "email": "viktoria2@yandex.ru",
+    "avatar": "/src/assets/img/avatars/avatar-victoria-2.jpg",
+    "name": "Виктория",
+    "birthDate": "1994-01-01",
+    "gender": "female",
+    "city": "Сочи",
+    "aboutMe": "Делюсь опытом и знаниями, накопленными за годы практики. Верю, что каждый может достичь своих целей, если приложить достаточно усилий. Люблю вызовы и новые проекты.",
+    "teachingSkills": [
+      {
+        "category": "Технологии",
+        "subcategory": "Анализ данных",
+        "skillName": "Data Science",
+        "id": 13
+      },
+      {
+        "category": "Бизнес и карьера",
+        "subcategory": "Продажи и переговоры",
+        "skillName": "Техники убеждения",
+        "id": 14
+      }
+    ],
+    "learningSkills": [
+      {
+        "category": "Здоровье и лайфстайл",
+        "subcategory": "Ментальное здоровье"
+      },
+      {
+        "category": "Дом и уют",
+        "subcategory": "Уборка и организация"
+      }
+    ],
+    "likes": 34,
+    "id": "-1"
+  },
+  {
+    "email": "elena@yandex.ru",
+    "avatar": "/src/assets/img/avatars/avatar-elena.jpg",
+    "name": "Елена",
+    "birthDate": "1997-01-01",
+    "gender": "female",
+    "city": "Красноярск",
+    "aboutMe": "Помогаю людям раскрывать свои таланты и достигать новых высот. Люблю работать с целеустремлёнными личностями и видеть их прогресс. Энергия и драйв — моё второе имя!",
+    "teachingSkills": [
+      {
+        "category": "Здоровье и лайфстайл",
+        "subcategory": "Йога и медитация",
+        "skillName": "Хатха-йога",
+        "id": 15
+      }
+    ],
+    "learningSkills": [
+      {
+        "category": "Бизнес и карьера",
+        "subcategory": "Проектное управление"
+      },
+      {
+        "category": "Творчество и искусство",
+        "subcategory": "Видеомонтаж"
+      },
+      {
+        "category": "Иностранные языки",
+        "subcategory": "Китайский"
+      }
+    ],
+    "likes": 52,
+    "id": "-1"
+  },
+  {
+    "email": "konstantin@yandex.ru",
+    "avatar": "/src/assets/img/avatars/avatar-konstantin.jpg",
+    "name": "Константин",
+    "birthDate": "1989-01-01",
+    "gender": "male",
+    "city": "Иркутск",
+    "aboutMe": "Вдохновляю на изменения и помогаю их осуществить. Учу не только теории, но и практике применения знаний. В работе ценю честность, открытость и взаимное уважение.",
+    "teachingSkills": [
+      {
+        "category": "Бизнес и карьера",
+        "subcategory": "Проектное управление",
+        "skillName": "Управление рисками",
+        "id": 16
+      }
+    ],
+    "learningSkills": [
+      {
+        "category": "Образование и развитие",
+        "subcategory": "Коучинг"
+      },
+      {
+        "category": "Творчество и искусство",
+        "subcategory": "Актёрское мастерство"
+      }
+    ],
+    "likes": 41,
+    "id": "-1"
+  },
+  {
+    "email": "sofia@yandex.ru",
+    "avatar": "/src/assets/img/avatars/avatar-sofia.jpg",
+    "name": "София",
+    "birthDate": "2001-01-01",
+    "gender": "female",
+    "city": "Абакан",
+    "aboutMe": "Открываю новые горизонты вместе с учениками. Учу не бояться вызовов и превращать препятствия в возможности. В работе руководствуюсь принципом: «Нет ничего невозможного!»",
+    "teachingSkills": [
+      {
+        "category": "Творчество и искусство",
+        "subcategory": "Креативное письмо",
+        "skillName": "Поэзия и рифмы",
+        "id": 18
+      },
+      {
+        "category": "Здоровье и лайфстайл",
+        "subcategory": "Баланс жизни и работы",
+        "skillName": "Профилактика выгорания",
+        "id": 19
+      }
+    ],
+    "learningSkills": [
+      {
+        "category": "Дом и уют",
+        "subcategory": "Домашние финансы"
+      },
+      {
+        "category": "Технологии",
+        "subcategory": "Искусственный интеллект"
+      },
+      {
+        "category": "Здоровье и лайфстайл",
+        "subcategory": "Сон и восстановление"
+      }
+    ],
+    "likes": 84,
+    "id": "-1"
+  },
+  {
+    "email": "ekaterina@yandex.ru",
+    "avatar": "/src/assets/img/avatars/avatar-ekaterina.jpg",
+    "name": "Екатерина",
+    "birthDate": "1992-01-01",
+    "gender": "female",
+    "city": "Пермь",
+    "aboutMe": "Развиваю таланты и помогаю их реализовать. Люблю видеть, как идеи превращаются в реальные достижения. Энергия и энтузиазм — мои лучшие помощники.",
+    "teachingSkills": [
+      {
+        "category": "Образование и развитие",
+        "subcategory": "Коучинг",
+        "skillName": "Коучинг карьеры",
+        "id": 20
+      }
+    ],
+    "learningSkills": [
+      {
+        "category": "Иностранные языки",
+        "subcategory": "Немецкий"
+      },
+      {
+        "category": "Творчество и искусство",
+        "subcategory": "Кинематограф"
+      },
+      {
+        "category": "Дом и уют",
+        "subcategory": "Ремонт"
+      }
+    ],
+    "likes": 89,
+    "id": "-1"
+  },
+  {
+    "email": "daria@yandex.ru",
+    "avatar": "/src/assets/img/avatars/avatar-darya.jpg",
+    "name": "Дарья",
+    "birthDate": "1999-01-01",
+    "gender": "female",
+    "city": "Ярославль",
+    "aboutMe": "Создаю пространство для роста и развития. Учу находить баланс между амбициями и реальностью. В работе ценю искренность и готовность к изменениям.",
+    "teachingSkills": [
+      {
+        "category": "Здоровье и лайфстайл",
+        "subcategory": "Ментальное здоровье",
+        "skillName": "Работа с прокрастинацией",
+        "id": 22
+      }
+    ],
+    "learningSkills": [
+      {
+        "category": "Бизнес и карьера",
+        "subcategory": "Предпринимательство"
+      },
+      {
+        "category": "Творчество и искусство",
+        "subcategory": "Литература"
+      }
+    ],
+    "likes": 63,
+    "id": "-1"
+  },
+  {
+    "email": "alla@yandex.ru",
+    "avatar": "/src/assets/img/avatars/avatar-alla.jpg",
+    "name": "Алла",
+    "birthDate": "2003-01-01",
+    "gender": "female",
+    "city": "Архангельск",
+    "aboutMe": "Превращаю обучение в увлекательное путешествие. Учу не только знаниям, но и умению их применять. Люблю сложные задачи и нестандартные решения.",
+    "teachingSkills": [
+      {
+        "category": "Иностранные языки",
+        "subcategory": "Подготовка к экзаменам (IELTS, TOEFL)",
+        "skillName": "Listening-тренировки",
+        "id": 24
+      },
+      {
+        "category": "Творчество и искусство",
+        "subcategory": "Рисование и иллюстрация",
+        "skillName": "Работа с графическим планшетом",
+        "id": 25
+      }
+    ],
+    "learningSkills": [
+      {
+        "category": "Здоровье и лайфстайл",
+        "subcategory": "Питание и ЗОЖ"
+      },
+      {
+        "category": "Технологии",
+        "subcategory": "Кибербезопасность"
+      },
+      {
+        "category": "Дом и уют",
+        "subcategory": "Приготовление еды"
+      }
+    ],
+    "likes": 73,
+    "id": "-1"
+  }
+]
