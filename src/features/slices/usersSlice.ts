@@ -53,8 +53,8 @@ function patchUsers(users: UserResponse[]) {
   return users.map((user) => ({ ...user, id: randomId() }));
 }
 
-export const fetchUnPopularUsers = createAsyncThunk(
-  'users/fetchUnPopularUsers',
+export const fetchPopularUsers = createAsyncThunk(
+  'users/fetchPopularUsers',
   () => {
     return delay().then(() => patchUsers(mockUsersUnpopular));
   }
@@ -67,7 +67,7 @@ export const fetchRecentUsers = createAsyncThunk(
   }
 );
 
-export const fetchOldUsers = createAsyncThunk('users/fetchOldUsers', () => {
+export const fetchNewUsers = createAsyncThunk('users/fetchNewUsers', () => {
   return delay().then(() => patchUsers(mockUsersOld));
 });
 
@@ -95,17 +95,17 @@ export const usersSlice = createSlice({
       });
 
     builder
-      .addCase(fetchUnPopularUsers.pending, (state) => {
+      .addCase(fetchPopularUsers.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchUnPopularUsers.fulfilled, (state, action) => {
+      .addCase(fetchPopularUsers.fulfilled, (state, action) => {
         state.loading = false;
         state.list = state.list.concat(action.payload);
       })
-      .addCase(fetchUnPopularUsers.rejected, (state, action) => {
+      .addCase(fetchPopularUsers.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message || 'Failed to fetch unpopular users';
+        state.error = action.error.message || 'Failed to fetch popular users';
       });
 
     builder
@@ -123,17 +123,17 @@ export const usersSlice = createSlice({
       });
 
     builder
-      .addCase(fetchOldUsers.pending, (state) => {
+      .addCase(fetchNewUsers.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchOldUsers.fulfilled, (state, action) => {
+      .addCase(fetchNewUsers.fulfilled, (state, action) => {
         state.loading = false;
         state.list = state.list.concat(action.payload);
       })
-      .addCase(fetchOldUsers.rejected, (state, action) => {
+      .addCase(fetchNewUsers.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message || 'Failed to fetch old users';
+        state.error = action.error.message || 'Failed to fetch new users';
       });
   },
 });

@@ -2,9 +2,9 @@ import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from '@/app/store';
 import {
   fetchUsers,
-  fetchUnPopularUsers,
+  fetchPopularUsers,
   fetchRecentUsers,
-  fetchOldUsers,
+  fetchNewUsers,
   selectUsers,
   selectUsersFiltered,
 } from '@/features/slices/usersSlice';
@@ -69,10 +69,10 @@ export default function Home() {
   const hadleAppendUsers = () => {
     switch (sortMode) {
       case 'new':
-        dispatch(fetchOldUsers());
+        dispatch(fetchNewUsers());
         break;
       case 'popular':
-        dispatch(fetchUnPopularUsers());
+        dispatch(fetchPopularUsers());
         break;
       case 'recommended':
         dispatch(fetchRecentUsers());
