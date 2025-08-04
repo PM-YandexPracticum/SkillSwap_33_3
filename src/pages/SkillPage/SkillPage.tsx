@@ -77,30 +77,23 @@ export default function SkillPage() {
   return (
     <main className={styles.container}>
       <div className={styles.content}>
-        <div className={styles.userSection}>
-          <Card user={user} variant="skillPage" />
-        </div>
+        <Card user={user} variant="skillPage" />
 
-        <div className={styles.skillSection}>
-          <SkillCard skill={skill} onClick={() => {}} />
-        </div>
+        <SkillCard skill={skill} onClick={() => {}} />
       </div>
 
-      <div className={styles.recommendations}>
-        <h2 className={styles.recommendationsTitle}>Рекомендуем</h2>
-        <Slider visible={4}>
-          {recomendedUsers.map((user) => (
-            <Card
-              key={user.id}
-              user={user}
-              liked={false}
-              onLikeClick={() => {}}
-              onMoreClick={() => {}}
-              isProposed={false}
-            />
-          ))}
-        </Slider>
-      </div>
+      <Slider label="Похожие предложения" visible={4}>
+        {recomendedUsers.map((user) => (
+          <Card
+            key={user.id}
+            user={user}
+            liked={false}
+            onLikeClick={() => {}}
+            onMoreClick={() => {}}
+            isProposed={false}
+          />
+        ))}
+      </Slider>
     </main>
   );
 }

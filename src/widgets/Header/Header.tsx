@@ -12,7 +12,10 @@ import NotificationIcon from '../../assets/svg/icons/notification.svg?react';
 import LogoutIcon from '../../assets/svg/icons/logout.svg?react';
 
 import { useDispatch, useSelector } from '../../app/store';
-import { selectAllSkills } from '../../features/slices/skillsSlice';
+import {
+  fetchSkills,
+  selectAllSkills,
+} from '../../features/slices/skillsSlice';
 import {
   fetchUser,
   logout,
@@ -162,6 +165,10 @@ export const Header = () => {
       }
     };
   }, []);
+
+  useEffect(() => {
+    dispatch(fetchSkills());
+  });
 
   return (
     <header className={styles['header-wrapper']} ref={headerRef}>
