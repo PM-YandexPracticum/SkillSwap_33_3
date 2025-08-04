@@ -11,7 +11,7 @@ import ProfileAvatar from '../../../assets/img/avatars/avatar-maria-profile.jpg'
 import { CustomDatePicker } from '../../../shared/ui/CustomDatePicker/CustomDatePicker';
 import { useSelector } from '@/app/store';
 import { selectAuthUser } from '@/features/slices/authSlice';
-import { updateProfile } from '@/api/authClient';
+import { authApiClient } from '@/api/authClient';
 
 interface FormData {
   email: string;
@@ -48,7 +48,7 @@ export default function Info() {
     if (!user) return;
 
     try {
-      await updateProfile(user.id, {
+      await authApiClient.updateProfile(user.id, {
         name: formData.name,
         city: formData.city,
         gender: formData.gender,

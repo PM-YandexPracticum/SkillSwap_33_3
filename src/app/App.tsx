@@ -5,8 +5,11 @@ import Home from '@/pages/Home/Home';
 import { Registration } from '@/pages/Registration';
 import ProfilePage from '@/pages/Profile/Profile';
 import Info from '@/features/profile/Info/Info';
+import { authApiClient } from '@/api/authClient';
 
 function App() {
+  authApiClient.saveAuthTokens('jopa', 'refreshJopa');
+
   return (
     <Routes>
       <Route path="/" element={<Layout />}>

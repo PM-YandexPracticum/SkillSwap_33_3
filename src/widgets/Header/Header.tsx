@@ -30,7 +30,7 @@ import {
   markNotificationsAsRead,
   removeNotifications,
 } from '../../features/slices/authSlice';
-import { logout as apiLogout } from '@/api/authClient';
+import { authApiClient } from '@/api/authClient';
 
 export const Header = () => {
   const [isSkillsMenuOpen, setIsSkillsMenuOpen] = useState(false);
@@ -110,7 +110,7 @@ export const Header = () => {
 
   const handleLogout = async () => {
     try {
-      await apiLogout();
+      await authApiClient.logout();
       dispatch(logout());
       navigate('/');
       setIsProfileMenuOpen(false);

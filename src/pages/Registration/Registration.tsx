@@ -13,7 +13,7 @@ import iconStep2 from '@/assets/svg/user-info.svg';
 import iconStep3 from '@/assets/svg/school-board.svg';
 import { useDispatch } from '@/app/store';
 import { fetchSkills } from '@/features/slices/skillsSlice';
-import { register } from '@/api/authClient';
+import { authApiClient } from '@/api/authClient';
 import { createSkill } from '@/api/authClient';
 
 export interface RegistrationData {
@@ -168,7 +168,7 @@ export const Registration: React.FC = () => {
                   };
 
                   try {
-                    await register(payload);
+                    await authApiClient.register(payload);
 
                     await createSkill({
                       title: combined.title!,

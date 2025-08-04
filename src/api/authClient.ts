@@ -115,6 +115,8 @@ class AuthApiClient {
   ): Promise<T> {
     const accessToken = this.getAccessToken();
 
+    console.log(accessToken);
+
     // Функция для выполнения запроса
     const makeRequest = async (token: string): Promise<Response> => {
       return fetch(`${this.baseURL}${endpoint}`, {
@@ -163,6 +165,8 @@ class AuthApiClient {
 
     // Если нет accessToken, пытаемся обновить
     const newAccessToken = await this.refreshAccessToken();
+
+    console.log(newAccessToken);
 
     if (newAccessToken) {
       const response = await makeRequest(newAccessToken);
@@ -314,15 +318,3 @@ export const createSkill = async (data: CreateSkillPayload) => {
 
 // Экспортируем единственный экземпляр
 export const authApiClient = new AuthApiClient();
-
-// Экспортируем методы для удобства
-export const {
-  authenticatedRequest,
-  checkAuth,
-  logout,
-  saveAuthTokens,
-  isAuthenticated,
-  register,
-  login,
-  updateProfile,
-} = authApiClient;

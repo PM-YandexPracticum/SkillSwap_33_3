@@ -5,12 +5,8 @@ import {
   type PayloadAction,
 } from '@reduxjs/toolkit';
 
-// TODO: Убрать мок api юзеров, заменить на реальный сервер в проде
-// import { usersApi } from '../../api/client';
-import mockUsers from '../../../public/db/users.json';
-
 import type { RootState } from '../../app/store';
-import type { UserResponse } from '../../api/client';
+import { usersApi, type UserResponse } from '../../api/client';
 import type { Filters } from '../../shared/lib/types';
 import { getLearningSkills, getTeachingSkills } from '../../shared/lib/utils';
 
@@ -26,13 +22,8 @@ const initialState: UsersState = {
   error: null,
 };
 
-// TODO: Убрать мок api юзеров, заменить на реальный сервер в проде
-// export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
-//     return await usersApi.getAll();
-// });
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
-  await new Promise((resolve) => setTimeout(resolve, 300)); // Задержка 0.3 секунды
-  return mockUsers;
+  return await usersApi.getAll();
 });
 
 export const usersSlice = createSlice({

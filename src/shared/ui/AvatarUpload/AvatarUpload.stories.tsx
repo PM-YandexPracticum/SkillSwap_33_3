@@ -16,7 +16,6 @@ const Template: StoryFn<AvatarUploadProps> = (args) => {
       value={file}
       onChange={(newFile) => {
         setFile(newFile);
-        console.log('Файл загружен:', newFile.name);
       }}
     />
   );

@@ -4,12 +4,8 @@ import {
   type PayloadAction,
 } from '@reduxjs/toolkit';
 
-// TODO: Убрать мок api юзера, заменить на реальный сервер в проде
-// import { userApi } from '../../api/client';
-import mockUser from '../../../public/db/user.json';
-
 import type { RootState } from '../../app/store';
-import type { UserAuthResponse } from '../../api/authClient';
+import { authApiClient, type UserAuthResponse } from '../../api/authClient';
 
 interface AuthState {
   user: UserAuthResponse | null;
@@ -25,13 +21,8 @@ const initialState: AuthState = {
   error: null,
 };
 
-// TODO: Убрать мок api юзера, заменить на реальный сервер в проде
-// export const fetchUsers = createAsyncThunk('auth/fetchUser', async () => {
-//     return await userApi.get();
-// });
 export const fetchUser = createAsyncThunk('auth/fetchUser', async () => {
-  await new Promise((resolve) => setTimeout(resolve, 300)); // Задержка 0.3 секунды
-  return mockUser as UserAuthResponse;
+  return await authApiClient.checkAuth();
 });
 
 export const authSlice = createSlice({
