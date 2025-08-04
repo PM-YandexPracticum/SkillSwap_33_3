@@ -175,7 +175,7 @@ export const Header = () => {
 
   useEffect(() => {
     dispatch(fetchSkills());
-  });
+  }, [dispatch]);
 
   return (
     <header className={styles['header-wrapper']} ref={headerRef}>
