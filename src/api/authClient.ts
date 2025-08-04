@@ -115,8 +115,6 @@ class AuthApiClient {
   ): Promise<T> {
     const accessToken = this.getAccessToken();
 
-    console.log(accessToken);
-
     // Функция для выполнения запроса
     const makeRequest = async (token: string): Promise<Response> => {
       return fetch(`${this.baseURL}${endpoint}`, {
@@ -165,8 +163,6 @@ class AuthApiClient {
 
     // Если нет accessToken, пытаемся обновить
     const newAccessToken = await this.refreshAccessToken();
-
-    console.log(newAccessToken);
 
     if (newAccessToken) {
       const response = await makeRequest(newAccessToken);

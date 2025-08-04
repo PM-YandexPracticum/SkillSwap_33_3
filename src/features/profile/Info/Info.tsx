@@ -12,6 +12,8 @@ import { CustomDatePicker } from '../../../shared/ui/CustomDatePicker/CustomDate
 import { useSelector } from '@/app/store';
 import { selectAuthUser } from '@/features/slices/authSlice';
 import { authApiClient } from '@/api/authClient';
+import { useNavigate } from 'react-router-dom';
+import { useUpdateEffect } from '@/shared/hooks/useUpdateEffect';
 
 interface FormData {
   email: string;
@@ -22,20 +24,21 @@ interface FormData {
   about: string;
 }
 
-const initialData: FormData = {
-  email: 'Mariia@gmail.com',
-  name: 'Мария',
-  birthdate: new Date(1995, 9, 28), // 28.10.1995
-  gender: 'Женский',
-  city: 'Москва',
-  about:
-    'Люблю учиться новому, особенно если это можно делать за чаем и в пижаме. Всегда готова пообщаться и обменяться чем-то интересным!',
-};
-
 export default function Info() {
+  const navigate = useNavigate();
+  const initialData: FormData = {
+    email: '',
+    name: '',
+    birthdate: new Date(''),
+    gender: '',
+    city: '',
+    about: '',
+  };
+
+  const user = useSelector(selectAuthUser);
+
   const [formData, setFormData] = useState<FormData>(initialData);
   const [edited, setEdited] = useState(false);
-  const user = useSelector(selectAuthUser);
 
   const handleChange = (key: keyof FormData, value: string | Date | null) => {
     const updated = { ...formData, [key]: value };
@@ -60,6 +63,20 @@ export default function Info() {
       console.error('Ошибка при обновлении профиля', error);
     }
   };
+
+  useUpdateEffect(() => {
+    if (!user) navigate('/');
+    else
+      setFormData((state) => ({
+        ...state,
+        email: user?.email || '',
+        name: user?.name || '',
+        birthdate: new Date(user?.birthDate || ''),
+        gender: user?.gender || '',
+        city: user?.city || '',
+        about: user?.aboutMe || '',
+      }));
+  }, [user]);
 
   return (
     <form onSubmit={handleSubmit} className={styles.container}>
