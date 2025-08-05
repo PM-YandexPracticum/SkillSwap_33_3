@@ -33,6 +33,19 @@
     resize: none;
 }
 
+.textarea.error {
+    border-color: var(--status-error);
+}
+
+.errorMessage {
+    margin-top: 4px;
+    color: var(--status-error);
+    font-family: var(--typeface-body);
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+}
+
 .textarea:disabled {
     opacity: 0.7;
     background-color: #f5f5f5;

@@ -16,6 +16,7 @@ interface ComboInputProps {
   options: Option[];
   defaultValue?: string;
   onChange?: (value: string) => void;
+  error?: string;
 }
 
 export function ComboInput({
@@ -24,6 +25,7 @@ export function ComboInput({
   options,
   defaultValue = '',
   onChange,
+  error,
 }: ComboInputProps) {
   const [query, setQuery] = useState(defaultValue);
   const [isOpen, setIsOpen] = useState(false);
@@ -59,6 +61,8 @@ export function ComboInput({
     inputRef.current?.focus();
   };
 
+  console.log(styles.error);
+
   return (
     <div
       ref={wrapperRef}
@@ -68,7 +72,11 @@ export function ComboInput({
       <div className={styles.inputWrapper}>
         <input
           ref={inputRef}
-          className={clsx(styles.input, isOpen && styles.input_open)}
+          className={clsx(
+            styles.input,
+            isOpen && styles.input_open,
+            error && styles.error
+          )}
           placeholder={placeholder}
           value={query}
           onChange={handleInputChange}
@@ -94,6 +102,7 @@ export function ComboInput({
           </button>
         )}
       </div>
+      {error && !isOpen && <span className={styles.errorMessage}>{error}</span>}
       <ul
         className={clsx(styles.list, 'scrollY', isOpen && styles.list_visible)}
       >

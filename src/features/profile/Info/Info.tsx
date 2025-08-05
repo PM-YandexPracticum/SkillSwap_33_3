@@ -12,6 +12,7 @@ import { CustomDatePicker } from '../../../shared/ui/CustomDatePicker/CustomDate
 import { useSelector } from '@/app/store';
 import { selectAuthUser } from '@/features/slices/authSlice';
 import { updateProfile } from '@/api/authClient';
+import * as validation from '../../../shared/contants/validation';
 
 interface FormData {
   email: string;
@@ -35,6 +36,11 @@ const initialData: FormData = {
 export default function Info() {
   const [formData, setFormData] = useState<FormData>(initialData);
   const [edited, setEdited] = useState(false);
+  const [emailError, setEmailError] = useState('');
+  const [nameError, setNameError] = useState('');
+  const [birthdateError, setBirthdateError] = useState('');
+  const [cityError, setCityError] = useState('');
+  const [aboutError, setAboutError] = useState('');
   const user = useSelector(selectAuthUser);
 
   const handleChange = (key: keyof FormData, value: string | Date | null) => {
@@ -46,6 +52,35 @@ export default function Info() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user) return;
+
+    if (formData.email.length === 0) {
+      setEmailError(validation.eMessageFieldMustBeNotEmpty);
+    }
+
+    if (formData.name.length === 0) {
+      setNameError(validation.eMessageFieldMustBeNotEmpty);
+    } else if (
+      formData.name.length < validation.shortFieldLengthMin ||
+      formData.name.length > validation.shortFieldLengthMax
+    ) {
+      setNameError(validation.eMessageFieldMustBeShort);
+    }
+
+    if (formData.birthdate === null) {
+      setBirthdateError(validation.eMessageFieldMustBeNotEmpty);
+    }
+
+    if (formData.city.length === 0) {
+      setCityError(validation.eMessageFieldMustBeNotEmpty);
+    }
+
+    if (formData.about.length > validation.longFieldLengthMax) {
+      setAboutError(validation.eMessageFieldMustBeLong);
+    }
+
+    if (emailError || nameError || birthdateError || cityError || aboutError) {
+      return;
+    }
 
     try {
       await updateProfile(user.id, {
@@ -68,6 +103,7 @@ export default function Info() {
         <div className={styles.field}>
           <FormInput
             title="Почта"
+            error={emailError}
             value={formData.email}
             onChange={(e) => handleChange('email', e.target.value)}
             svg={<EditIcon className={styles.editIcon} />}
@@ -79,6 +115,7 @@ export default function Info() {
         <div className={styles.field}>
           <FormInput
             title="Имя"
+            error={nameError}
             value={formData.name}
             onChange={(e) => handleChange('name', e.target.value)}
             svg={<EditIcon className={styles.editIcon} />}
@@ -92,6 +129,7 @@ export default function Info() {
             <CustomDatePicker
               selected={formData.birthdate}
               onChange={(date) => handleChange('birthdate', date)}
+              error={birthdateError}
             />
           </div>
           <div className={styles.halfField}>
@@ -122,6 +160,7 @@ export default function Info() {
               { label: 'Санкт-Петербург', value: 'spb' },
               { label: 'Новосибирск', value: 'nsk' },
             ]}
+            error={cityError}
           />
         </div>
 
@@ -133,6 +172,7 @@ export default function Info() {
               value={formData.about}
               onChange={(e) => handleChange('about', e.target.value)}
               svg={<EditIcon className={styles.editIcon} />}
+              error={aboutError}
             />
           </div>
         </div>

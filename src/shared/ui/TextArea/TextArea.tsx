@@ -5,9 +5,15 @@ export interface TextAreaProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
   svg?: React.ReactNode;
+  error?: string;
 }
 
-export const TextArea: React.FC<TextAreaProps> = ({ label, svg, ...props }) => {
+export const TextArea: React.FC<TextAreaProps> = ({
+  label,
+  svg,
+  error,
+  ...props
+}) => {
   const id = useId();
 
   return (
@@ -18,13 +24,22 @@ export const TextArea: React.FC<TextAreaProps> = ({ label, svg, ...props }) => {
         </label>
       )}
       {!svg ? (
-        <textarea id={id} className={styles.textarea} {...props} />
+        <textarea
+          id={id}
+          className={`${styles.textarea} ${error ? styles.error : ''}`}
+          {...props}
+        />
       ) : (
         <div className={styles['svg-wrapper']}>
-          <textarea id={id} className={styles.textarea} {...props} />
+          <textarea
+            id={id}
+            className={`${styles.textarea} ${error ? styles.error : ''}`}
+            {...props}
+          />
           {svg}
         </div>
       )}
+      {error && <span className={styles.errorMessage}>{error}</span>}
     </div>
   );
 };
