@@ -13,6 +13,7 @@ import { useSelector } from '@/app/store';
 import { selectAuthUser } from '@/features/slices/authSlice';
 import { updateProfile } from '@/api/authClient';
 import * as validation from '../../../shared/constants/validation';
+import { SelectOption } from '@/shared/ui/SelectOption';
 
 interface FormData {
   email: string;
@@ -34,6 +35,30 @@ const initialData: FormData = {
 };
 
 export default function Info() {
+  const cities = [
+    'Москва',
+    'Санкт-Петербург',
+    'Новосибирск',
+    'Екатеринбург',
+    'Казань',
+    'Сочи',
+    'Краснодар',
+    'Кемерово',
+    'Владивосток',
+    'Красноярск',
+    'Иркутск',
+  ];
+  const citiesOptions = cities.map((item) => ({
+    label: item,
+    value: item,
+  }));
+
+  const genders = [
+    { label: 'Мужской', value: 'male' },
+    { label: 'Женский', value: 'female' },
+    { label: 'Не указан', value: 'unknown' },
+  ];
+
   const [formData, setFormData] = useState<FormData>(initialData);
   const [edited, setEdited] = useState(false);
   const [emailError, setEmailError] = useState('');
@@ -160,16 +185,19 @@ export default function Info() {
           </div>
           <div className={styles.halfField}>
             <label>Пол</label>
-            <Select value={formData.gender}>
-              {['Женский', 'Мужской'].map((option) => (
-                <div
-                  key={option}
-                  role="option"
-                  className={styles.selectOption}
-                  onClick={() => handleChange('gender', option)}
+            <Select
+              value={
+                genders.find((item) => item.value === formData.gender)?.label
+              }
+            >
+              {genders.map((option) => (
+                <SelectOption
+                  key={option.value}
+                  value={option.value}
+                  onClick={(value: string) => handleChange('gender', value)}
                 >
-                  {option}
-                </div>
+                  {option.label}
+                </SelectOption>
               ))}
             </Select>
           </div>
@@ -181,11 +209,7 @@ export default function Info() {
           <ComboInput
             defaultValue={formData.city}
             onChange={(val) => handleChange('city', val)}
-            options={[
-              { label: 'Москва', value: 'moscow' },
-              { label: 'Санкт-Петербург', value: 'spb' },
-              { label: 'Новосибирск', value: 'nsk' },
-            ]}
+            options={citiesOptions}
             error={cityError}
           />
         </div>

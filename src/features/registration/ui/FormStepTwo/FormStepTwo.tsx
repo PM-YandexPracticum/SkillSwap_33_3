@@ -11,6 +11,7 @@ import { selectAllSkills } from '@/features/slices/skillsSlice';
 import { Checkbox } from '@/shared/ui/Checkbox';
 import { ComboInput } from '@/shared/ui/ComboInput';
 import * as validation from '@/shared/constants/validation';
+import { SelectOption } from '@/shared/ui/SelectOption';
 
 interface FormStepTwoData {
   avatar: File | null;
@@ -199,14 +200,16 @@ export const FormStepTwo: React.FC<FormStepTwoProps> = ({
         <div className={styles.half}>
           <Select label="Пол" value={genderLabel}>
             {genders.map((item) => (
-              <div
-                onClick={() => {
-                  setGender(item.value);
+              <SelectOption
+                key={item.value}
+                value={item.value}
+                onClick={(value: string) => {
+                  setGender(value);
                   setGenderLabel(item.label);
                 }}
               >
                 {item.label}
-              </div>
+              </SelectOption>
             ))}
           </Select>
         </div>
@@ -222,13 +225,15 @@ export const FormStepTwo: React.FC<FormStepTwoProps> = ({
 
       <Select label="Категория навыка, которому хотите научиться">
         {skills.map((item) => (
-          <Checkbox
-            key={item.name}
-            value={item.name}
-            onChange={handleCategoriesChange}
-          >
-            {item.name}
-          </Checkbox>
+          <div style={{ paddingLeft: 12 }}>
+            <Checkbox
+              key={item.name}
+              value={item.name}
+              onChange={handleCategoriesChange}
+            >
+              {item.name}
+            </Checkbox>
+          </div>
         ))}
       </Select>
 
@@ -237,13 +242,15 @@ export const FormStepTwo: React.FC<FormStepTwoProps> = ({
         disabled={!categories[0]}
       >
         {visibleSubategories.map((item) => (
-          <Checkbox
-            key={item.name}
-            value={item.name}
-            onChange={handleSubcategoriesChange}
-          >
-            {item.name}
-          </Checkbox>
+          <div style={{ paddingLeft: 12 }}>
+            <Checkbox
+              key={item.name}
+              value={item.name}
+              onChange={handleSubcategoriesChange}
+            >
+              {item.name}
+            </Checkbox>
+          </div>
         ))}
       </Select>
 

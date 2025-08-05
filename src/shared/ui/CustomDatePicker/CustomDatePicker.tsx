@@ -95,7 +95,11 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
         placeholderText="дд.мм.гггг"
         customInput={
           <div>
-            <InputWithIcon displayedValue={formattedValue} error={error} />
+            <InputWithIcon
+              placeholder="дд.мм.гггг"
+              displayedValue={formattedValue}
+              error={error}
+            />
             <div className={styles.validationHost}>
               <span className={styles.validationMessage}>{error}</span>
             </div>
