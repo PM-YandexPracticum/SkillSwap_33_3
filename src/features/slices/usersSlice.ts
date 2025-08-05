@@ -8,6 +8,8 @@ import {
 // TODO: Убрать мок api юзеров, заменить на реальный сервер в проде
 // import { usersApi } from '../../api/client';
 import mockUsers from '../../../public/db/users.json';
+import mockUsersUnpopular from '../../../public/db/usersUnpopular.json';
+import mockUsersOld from '../../../public/db/usersOld.json';
 
 import type { RootState } from '../../app/store';
 import type { UserResponse } from '../../api/client';
@@ -26,13 +28,46 @@ const initialState: UsersState = {
   error: null,
 };
 
+function delay() {
+  return new Promise((resolve) => setTimeout(resolve, 300)); // Задержка 0.3 секунды
+}
+
 // TODO: Убрать мок api юзеров, заменить на реальный сервер в проде
 // export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
 //     return await usersApi.getAll();
 // });
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
-  await new Promise((resolve) => setTimeout(resolve, 300)); // Задержка 0.3 секунды
+  await delay();
   return mockUsers;
+});
+
+// Для генерации идентификаторов пользователей используем линейный конгруентный
+//  генератор случайных чисел в кольце по модулю простого числа 1000000009.
+let seed: number = 1;
+function randomId() {
+  seed = (seed * 1103515245 + 12345) % 1000000009;
+}
+
+function patchUsers(users: UserResponse[]) {
+  return users.map((user) => ({ ...user, id: randomId() }));
+}
+
+export const fetchPopularUsers = createAsyncThunk(
+  'users/fetchPopularUsers',
+  () => {
+    return delay().then(() => patchUsers(mockUsersUnpopular));
+  }
+);
+
+export const fetchRecentUsers = createAsyncThunk(
+  'users/fetchRecentUsers',
+  () => {
+    return delay().then(() => patchUsers(mockUsers));
+  }
+);
+
+export const fetchNewUsers = createAsyncThunk('users/fetchNewUsers', () => {
+  return delay().then(() => patchUsers(mockUsersOld));
 });
 
 export const usersSlice = createSlice({
@@ -56,6 +91,48 @@ export const usersSlice = createSlice({
       .addCase(fetchUsers.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'Failed to fetch users';
+      });
+
+    builder
+      .addCase(fetchPopularUsers.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchPopularUsers.fulfilled, (state, action) => {
+        state.loading = false;
+        state.list = state.list.concat(action.payload);
+      })
+      .addCase(fetchPopularUsers.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || 'Failed to fetch popular users';
+      });
+
+    builder
+      .addCase(fetchRecentUsers.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchRecentUsers.fulfilled, (state, action) => {
+        state.loading = false;
+        state.list = state.list.concat(action.payload);
+      })
+      .addCase(fetchRecentUsers.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || 'Failed to fetch recent users';
+      });
+
+    builder
+      .addCase(fetchNewUsers.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchNewUsers.fulfilled, (state, action) => {
+        state.loading = false;
+        state.list = state.list.concat(action.payload);
+      })
+      .addCase(fetchNewUsers.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || 'Failed to fetch new users';
       });
   },
 });

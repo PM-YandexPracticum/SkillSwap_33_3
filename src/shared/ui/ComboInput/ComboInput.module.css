@@ -135,18 +135,18 @@
   background-color: var(--state-disabled);
 }
 
-.option {
-  padding: 4px 0 4px 20px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
 .option:hover {
   background-color: var(--action-hover);
   border-radius: 6px;
 }
 
+/* .option {
+  padding: 4px 0 4px 20px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
 .option_inactive {
   cursor: default;
   color: var(--text-inactive);
-}
+} */

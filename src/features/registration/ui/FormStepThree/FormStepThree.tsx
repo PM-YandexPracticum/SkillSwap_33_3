@@ -8,6 +8,7 @@ import styles from './FormStepThree.module.css';
 import { useSelector } from '@/app/store';
 import { selectAllSkills } from '@/features/slices/skillsSlice';
 import * as validation from '@/shared/constants/validation';
+import { SelectOption } from '@/shared/ui/SelectOption';
 
 interface FormStepThreeData {
   title: string;
@@ -120,9 +121,9 @@ export const FormStepThree: React.FC<FormStepThreeProps> = ({
 
       <Select label="Категория навыка" value={category}>
         {skills.map((item) => (
-          <div style={{ height: 32 }} onClick={() => setCategory(item.name)}>
+          <SelectOption key={item.name} value={item.name} onClick={setCategory}>
             {item.name}
-          </div>
+          </SelectOption>
         ))}
       </Select>
 
@@ -134,12 +135,13 @@ export const FormStepThree: React.FC<FormStepThreeProps> = ({
         {skills
           .find((item) => item.name === category)
           ?.subcategories.map((item) => (
-            <div
-              style={{ height: 32 }}
-              onClick={() => setSubcategory(item.name)}
+            <SelectOption
+              key={item.name}
+              value={item.name}
+              onClick={setSubcategory}
             >
               {item.name}
-            </div>
+            </SelectOption>
           ))}
       </Select>
 
