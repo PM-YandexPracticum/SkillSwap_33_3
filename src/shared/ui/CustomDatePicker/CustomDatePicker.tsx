@@ -96,7 +96,9 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
         customInput={
           <div>
             <InputWithIcon displayedValue={formattedValue} error={error} />
-            {error && <span className={styles.errorMessage}>{error}</span>}
+            <div className={styles.validationHost}>
+              <span className={styles.validationMessage}>{error}</span>
+            </div>
           </div>
         }
         calendarClassName={styles.calendar}

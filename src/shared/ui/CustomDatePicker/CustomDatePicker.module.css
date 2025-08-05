@@ -106,8 +106,17 @@
     border-color: var(--status-error);
 }
 
-.errorMessage {
-    margin-top: 4px;
+.validationHost {
+    height: 16px;
+    position: relative;
+    overflow: visible;    
+    margin-top: 0;
+}
+
+.validationMessage {
+    position: absolute;
+    left: 0;
+    top: 0;
     color: var(--status-error);
     font-family: var(--typeface-body);
     font-weight: 400;

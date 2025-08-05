@@ -4,6 +4,7 @@ import styles from './ComboInput.module.css';
 import ArrowIcon from '../../../assets/svg/icons/chevron-down.svg?react';
 import CloseIcon from '../../../assets/svg/icons/cross.svg?react';
 import { useClickOutside } from '../../hooks/useClickOutside';
+import { ValidationMessage } from '../ValidationMessage/ValidationMessage';
 
 interface Option {
   label: string;
@@ -64,64 +65,70 @@ export function ComboInput({
   console.log(styles.error);
 
   return (
-    <div
-      ref={wrapperRef}
-      className={clsx(styles.wrapper, isOpen && styles.active)}
-    >
-      {label && <label className={styles.label}>{label}</label>}
-      <div className={styles.inputWrapper}>
-        <input
-          ref={inputRef}
-          className={clsx(
-            styles.input,
-            isOpen && styles.input_open,
-            error && styles.error
-          )}
-          placeholder={placeholder}
-          value={query}
-          onChange={handleInputChange}
-          onFocus={() => setIsOpen(true)}
-        />
-        {query ? (
-          <button
-            type="button"
-            className={styles.input__button}
-            aria-label="Clear input"
-            onClick={handleClear}
-          >
-            <CloseIcon />
-          </button>
-        ) : (
-          <button
-            type="button"
-            className={styles.input__button}
-            aria-label={isOpen ? 'Close dropdown' : 'Open dropdown'}
-            onClick={handleToggle}
-          >
-            <ArrowIcon className={clsx(isOpen && styles.arrow_open)} />
-          </button>
-        )}
-      </div>
-      {error && !isOpen && <span className={styles.errorMessage}>{error}</span>}
-      <ul
-        className={clsx(styles.list, 'scrollY', isOpen && styles.list_visible)}
+    <>
+      <div
+        ref={wrapperRef}
+        className={clsx(styles.wrapper, isOpen && styles.active)}
       >
-        {filtered.length > 0 ? (
-          filtered.map((opt) => (
-            <li
-              key={opt.value}
-              className={styles.option}
-              onClick={() => handleSelect(opt)}
+        {label && <label className={styles.label}>{label}</label>}
+        <div className={styles.inputWrapper}>
+          <input
+            ref={inputRef}
+            className={clsx(
+              styles.input,
+              isOpen && styles.input_open,
+              error && styles.error
+            )}
+            placeholder={placeholder}
+            value={query}
+            onChange={handleInputChange}
+            onFocus={() => setIsOpen(true)}
+          />
+          {query ? (
+            <button
+              type="button"
+              className={styles.input__button}
+              aria-label="Clear input"
+              onClick={handleClear}
             >
-              {opt.label}
+              <CloseIcon />
+            </button>
+          ) : (
+            <button
+              type="button"
+              className={styles.input__button}
+              aria-label={isOpen ? 'Close dropdown' : 'Open dropdown'}
+              onClick={handleToggle}
+            >
+              <ArrowIcon className={clsx(isOpen && styles.arrow_open)} />
+            </button>
+          )}
+        </div>
+        <ul
+          className={clsx(
+            styles.list,
+            'scrollY',
+            isOpen && styles.list_visible
+          )}
+        >
+          {filtered.length > 0 ? (
+            filtered.map((opt) => (
+              <li
+                key={opt.value}
+                className={styles.option}
+                onClick={() => handleSelect(opt)}
+              >
+                {opt.label}
+              </li>
+            ))
+          ) : (
+            <li className={clsx(styles.option, styles.option_inactive)}>
+              Ничего не найдено
             </li>
-          ))
-        ) : (
-          <li className={clsx(styles.option, styles.option_inactive)}>
-            Ничего не найдено
-          </li>
-        )}
-      </ul>
-    </div>
+          )}
+        </ul>
+      </div>
+      <ValidationMessage error={error} />
+    </>
   );
 }

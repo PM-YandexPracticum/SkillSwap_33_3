@@ -4,6 +4,7 @@ import GalleryEdit from '../../../assets/svg/icons/galleryEdit.svg?react';
 import GalleryAdd from '../../../assets/svg/icons/galleryAdd.svg?react';
 import type { Accept } from 'react-dropzone';
 import clsx from 'clsx';
+import { ValidationMessage } from '../ValidationMessage/ValidationMessage';
 
 export interface ImageUploadProps {
   value?: File[] | null; //— текущие выбранные изображения
@@ -71,7 +72,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
           </button>
         </div>
       </div>
-      {error && <span className={styles.errorMessage}>{error}</span>}
+      <ValidationMessage error={error} />
     </>
   );
 };

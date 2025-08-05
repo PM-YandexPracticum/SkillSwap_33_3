@@ -22,15 +22,6 @@
   cursor: pointer;
 }
 
-.errorMessage {
-    margin-top: 4px;
-    color: var(--status-error);
-    font-family: var(--typeface-body);
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 16px;
-}
-
 .dragOver {
   border-width: 2px;
   border-color: var(--action-hover);

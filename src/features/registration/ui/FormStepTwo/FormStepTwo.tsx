@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Button } from '@/shared/ui/Button';
 import { FormInput } from '@/shared/ui/FormInput';
 import { Select } from '@/shared/ui/Select';
@@ -37,7 +37,6 @@ export const FormStepTwo: React.FC<FormStepTwoProps> = ({
   const skills = useSelector(selectAllSkills);
   const [nameError, setNameError] = useState('');
   const [birthdateError, setBirthdateError] = useState('');
-  const [genderError, setGenderError] = useState('');
   const [cityError, setCityError] = useState('');
 
   const cities = [
@@ -107,9 +106,7 @@ export const FormStepTwo: React.FC<FormStepTwoProps> = ({
     else setSubcategories((state) => state.filter((item) => item !== value));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const validator = () => {
     let succeded = true;
 
     if (name.length === 0) {
@@ -121,23 +118,37 @@ export const FormStepTwo: React.FC<FormStepTwoProps> = ({
     ) {
       setNameError(validation.eMessageFieldMustBeShort);
       succeded = false;
+    } else {
+      setNameError('');
     }
 
     if (birthDate === null) {
       setBirthdateError(validation.eMessageFieldMustBeNotEmpty);
       succeded = false;
-    }
-
-    if (gender.length == 0) {
-      setGenderError(validation.eMessageFieldMustBeNotEmpty);
+    } else {
+      setBirthdateError('');
     }
 
     if (city.length === 0) {
       setCityError(validation.eMessageFieldMustBeNotEmpty);
       succeded = false;
+    } else {
+      setCityError('');
     }
 
-    if (succeded) {
+    return succeded;
+  };
+
+  const validate = useCallback(validator, [name, birthDate, city]);
+
+  useEffect(() => {
+    validate();
+  }, [validate]);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (validator()) {
       onFormSubmit({
         avatar,
         name,
@@ -154,7 +165,6 @@ export const FormStepTwo: React.FC<FormStepTwoProps> = ({
     e.preventDefault();
     setNameError('');
     setBirthdateError('');
-    setGenderError('');
     setCityError('');
     onReset?.();
   };
@@ -173,6 +183,7 @@ export const FormStepTwo: React.FC<FormStepTwoProps> = ({
         placeholder="Введите ваше имя"
         value={name}
         onChange={(e) => setName(e.target.value)}
+        maxLength={validation.shortFieldLengthMax}
         error={nameError}
       />
 
@@ -186,7 +197,7 @@ export const FormStepTwo: React.FC<FormStepTwoProps> = ({
           />
         </div>
         <div className={styles.half}>
-          <Select label="Пол" value={genderLabel} error={genderError}>
+          <Select label="Пол" value={genderLabel}>
             {genders.map((item) => (
               <div
                 onClick={() => {

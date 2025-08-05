@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import styles from './Info.module.css';
 import { Select } from '../../../shared/ui/Select';
 import { ComboInput } from '../../../shared/ui/ComboInput';
@@ -49,14 +49,13 @@ export default function Info() {
     setEdited(JSON.stringify(updated) !== JSON.stringify(initialData));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!user) return;
-
+  const validator = () => {
     let succeded = true;
     if (formData.email.length === 0) {
       setEmailError(validation.eMessageFieldMustBeNotEmpty);
       succeded = false;
+    } else {
+      setEmailError('');
     }
 
     if (formData.name.length === 0) {
@@ -68,24 +67,44 @@ export default function Info() {
     ) {
       setNameError(validation.eMessageFieldMustBeShort);
       succeded = false;
+    } else {
+      setNameError('');
     }
 
     if (formData.birthdate === null) {
       setBirthdateError(validation.eMessageFieldMustBeNotEmpty);
       succeded = false;
+    } else {
+      setBirthdateError('');
     }
 
     if (formData.city.length === 0) {
       setCityError(validation.eMessageFieldMustBeNotEmpty);
       succeded = false;
+    } else {
+      setCityError('');
     }
 
     if (formData.about.length > validation.longFieldLengthMax) {
       setAboutError(validation.eMessageFieldMustBeLong);
       succeded = false;
+    } else {
+      setAboutError('');
     }
 
-    if (succeded) {
+    return succeded;
+  };
+  const validate = useCallback(validator, [formData]);
+
+  useEffect(() => {
+    validate();
+  }, [validate]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!user) return;
+
+    if (validator()) {
       try {
         await updateProfile(user.id, {
           name: formData.name,
@@ -112,6 +131,7 @@ export default function Info() {
             value={formData.email}
             onChange={(e) => handleChange('email', e.target.value)}
             svg={<EditIcon className={styles.editIcon} />}
+            maxLength={validation.shortFieldLengthMax}
           />
           <span className={styles.changePassword}>Изменить пароль</span>
         </div>
@@ -124,6 +144,7 @@ export default function Info() {
             value={formData.name}
             onChange={(e) => handleChange('name', e.target.value)}
             svg={<EditIcon className={styles.editIcon} />}
+            maxLength={validation.shortFieldLengthMax}
           />
         </div>
 
@@ -178,6 +199,7 @@ export default function Info() {
               onChange={(e) => handleChange('about', e.target.value)}
               svg={<EditIcon className={styles.editIcon} />}
               error={aboutError}
+              maxLength={validation.longFieldLengthMax}
             />
           </div>
         </div>

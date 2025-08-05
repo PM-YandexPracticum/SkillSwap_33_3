@@ -1,5 +1,6 @@
 import React, { useId } from 'react';
 import styles from './TextArea.module.css';
+import { ValidationMessage } from '../ValidationMessage/ValidationMessage';
 
 export interface TextAreaProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -17,29 +18,31 @@ export const TextArea: React.FC<TextAreaProps> = ({
   const id = useId();
 
   return (
-    <div className={styles.container}>
-      {label && (
-        <label className={styles.label} htmlFor={id}>
-          {label}
-        </label>
-      )}
-      {!svg ? (
-        <textarea
-          id={id}
-          className={`${styles.textarea} ${error ? styles.error : ''}`}
-          {...props}
-        />
-      ) : (
-        <div className={styles['svg-wrapper']}>
+    <>
+      <div className={styles.container}>
+        {label && (
+          <label className={styles.label} htmlFor={id}>
+            {label}
+          </label>
+        )}
+        {!svg ? (
           <textarea
             id={id}
             className={`${styles.textarea} ${error ? styles.error : ''}`}
             {...props}
           />
-          {svg}
-        </div>
-      )}
-      {error && <span className={styles.errorMessage}>{error}</span>}
-    </div>
+        ) : (
+          <div className={styles['svg-wrapper']}>
+            <textarea
+              id={id}
+              className={`${styles.textarea} ${error ? styles.error : ''}`}
+              {...props}
+            />
+            {svg}
+          </div>
+        )}
+      </div>
+      <ValidationMessage error={error} />
+    </>
   );
 };
