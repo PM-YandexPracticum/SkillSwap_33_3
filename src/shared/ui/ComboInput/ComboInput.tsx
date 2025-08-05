@@ -4,6 +4,7 @@ import styles from './ComboInput.module.css';
 import ArrowIcon from '../../../assets/svg/icons/chevron-down.svg?react';
 import CloseIcon from '../../../assets/svg/icons/cross.svg?react';
 import { useClickOutside } from '../../hooks/useClickOutside';
+import { SelectOption } from '../SelectOption';
 
 interface Option {
   label: string;
@@ -99,12 +100,10 @@ export function ComboInput({
       >
         {filtered.length > 0 ? (
           filtered.map((opt) => (
-            <li
-              key={opt.value}
-              className={styles.option}
-              onClick={() => handleSelect(opt)}
-            >
-              {opt.label}
+            <li key={opt.value}>
+              <SelectOption value={opt.value} onClick={() => handleSelect(opt)}>
+                {opt.label}
+              </SelectOption>
             </li>
           ))
         ) : (
