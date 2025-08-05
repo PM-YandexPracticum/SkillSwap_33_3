@@ -12,9 +12,10 @@ export type Notification = {
 interface NotificationProps {
   notifications: Notification[];
   onClose: (id: string) => void;
+  className?: string;
 }
 
-const Notifications: React.FC<NotificationProps> = ({
+export const Notifications: React.FC<NotificationProps> = ({
   notifications,
   onClose,
 }) => {
