@@ -1,45 +1,35 @@
 import { Outlet } from 'react-router-dom';
 import { Header } from '@/widgets/Header';
 import { Footer } from '@/widgets/Footer';
-import { authApiClient } from '@/api/authClient';
 import { Notifications } from '../Notifications';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import {
+  fetchUser,
+  markNotificationsAsRead,
+  selectAuthUser,
+  selectIsAuth,
+} from '@/features/slices/authSlice';
+import { useSelector } from 'react-redux';
+import { useDispatch } from '@/app/store';
 
 export function Layout() {
-  // Состояние для хранения уведомлений
-  const [notifications, setNotifications] = useState([
-    {
-      id: '1',
-      notification: 'Николай принял ваш обмен',
-    },
-    {
-      id: '2',
-      notification: 'Татьяна предлагает вам обмен',
-    },
-  ]);
+  const user = useSelector(selectAuthUser);
+
+  const notifications =
+    user?.notifications?.filter((note) => !note.viewed) || [];
 
   // Функция для имитации закрытия уведомления
   const handleClose = (id: string) => {
-    setNotifications(notifications.filter((note) => note.id !== id));
+    dispatch(markNotificationsAsRead([id]));
   };
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const isAuthenticated = useSelector(selectIsAuth);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    // Проверяем аутентификацию при загрузке
-    const checkAuth = async () => {
-      try {
-        // Пытаемся проверить аутентификацию
-        await authApiClient.checkAuth();
-        setIsAuthenticated(true);
-      } catch {
-        // Если произошла ошибка - пользователь не аутентифицирован
-        setIsAuthenticated(false);
-      }
-    };
-
-    checkAuth();
-  }, []);
+    // Вызываем проверку аутентификации при монтировании компонента
+    dispatch(fetchUser());
+  }, [dispatch]);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -50,7 +40,7 @@ export function Layout() {
       </div>
 
       {/* Отображаем уведомления только если пользователь аутентифицирован */}
-      {!isAuthenticated && (
+      {isAuthenticated && (
         <Notifications notifications={notifications} onClose={handleClose} />
       )}
 

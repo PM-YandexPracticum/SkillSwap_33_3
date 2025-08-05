@@ -6,7 +6,10 @@ import Cross from '@assets/svg/icons/cross.svg?react';
 
 export type Notification = {
   id: string;
-  notification: string;
+  title: string;
+  description: string;
+  date: string;
+  viewed: boolean;
 };
 
 interface NotificationProps {
@@ -27,11 +30,11 @@ export const Notifications: React.FC<NotificationProps> = ({
             to="/"
             className="notification-link"
             onClick={(e) => e.stopPropagation()}
-            aria-label={`Уведомление: ${note.notification}`}
+            aria-label={`Уведомление: ${note.title}`}
           >
             <div className="notification-content">
               <Lamp className="notification-icon" />
-              <span className="notification-text">{note.notification}</span>
+              <span className="notification-text">{note.description}</span>
             </div>
             <div className="notification-go-container">
               <span className="notification-go-text">Перейти</span>
