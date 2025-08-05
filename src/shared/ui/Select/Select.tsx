@@ -14,6 +14,7 @@ interface SelectProps {
   className?: string;
   dropdownClassName?: string;
   valueClassName?: string;
+  error?: string;
 }
 
 export const Select: FC<SelectProps> = ({
@@ -25,6 +26,7 @@ export const Select: FC<SelectProps> = ({
   className,
   valueClassName,
   dropdownClassName,
+  error,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const selectRef = useRef<HTMLDivElement>(null);
@@ -63,6 +65,7 @@ export const Select: FC<SelectProps> = ({
           className={clsx(
             styles.select,
             disabled && styles.disabled,
+            error && styles.error,
             className
           )}
           onClick={toggleDropdown}
@@ -80,6 +83,9 @@ export const Select: FC<SelectProps> = ({
             <img src={chevronDownIcon} alt="Стрелка вниз" aria-hidden="true" />
           </div>
         </div>
+        {error && !isOpen && (
+          <span className={styles.errorMessage}>{error}</span>
+        )}
         <div
           className={clsx(
             styles.dropdown,

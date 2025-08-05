@@ -7,6 +7,7 @@ import { Button } from '@/shared/ui/Button';
 import styles from './FormStepThree.module.css';
 import { useSelector } from '@/app/store';
 import { selectAllSkills } from '@/features/slices/skillsSlice';
+import * as validation from '@/shared/contants/validation';
 
 interface FormStepThreeData {
   title: string;
@@ -34,10 +35,39 @@ export const FormStepThree: React.FC<FormStepThreeProps> = ({
   const [description, setDescription] = useState('');
   const [images, setImages] = useState<File[]>([]);
 
+  const [skillError, setSkillError] = useState('');
+  const [skillDescError, setSkillDescError] = useState('');
+  const [imageError, setImageError] = useState('');
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    onFormSubmit({ title, category, subcategory, description, images });
+    let succeded = true;
+
+    if (title.length === 0) {
+      setSkillError(validation.eMessageFieldMustBeNotEmpty);
+      succeded = false;
+    } else if (
+      title.length < validation.shortFieldLengthMin ||
+      title.length > validation.shortFieldLengthMax
+    ) {
+      setSkillError(validation.eMessageFieldMustBeShort);
+      succeded = false;
+    }
+
+    if (description.length > validation.longFieldLengthMax) {
+      setSkillDescError(validation.eMessageFieldMustBeLong);
+      succeded = false;
+    }
+
+    if (images.length > 1) {
+      setImageError(validation.eMessageImageMustBeSmall);
+      succeded = false;
+    }
+
+    if (succeded) {
+      onFormSubmit({ title, category, subcategory, description, images });
+    }
   };
 
   const handleReset = () => {
@@ -46,6 +76,9 @@ export const FormStepThree: React.FC<FormStepThreeProps> = ({
     setSubcategory('');
     setDescription('');
     setImages([]);
+    setSkillError('');
+    setSkillDescError('');
+    setImageError('');
     onReset?.();
   };
 
@@ -61,7 +94,7 @@ export const FormStepThree: React.FC<FormStepThreeProps> = ({
         placeholder="Введите название вашего навыка"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        required
+        error={skillError}
       />
 
       <Select label="Категория навыка" value={category}>
@@ -94,9 +127,10 @@ export const FormStepThree: React.FC<FormStepThreeProps> = ({
         placeholder="Коротко опишите, чему можете научить"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
+        error={skillDescError}
       />
 
-      <ImageUpload value={images} onChange={setImages} />
+      <ImageUpload value={images} onChange={setImages} error={imageError} />
 
       <div className={styles.actions}>
         <Button variant="secondary" type="reset">

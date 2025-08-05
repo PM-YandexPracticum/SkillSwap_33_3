@@ -6,6 +6,7 @@ import AppleIcon from '@/assets/svg/icons/Apple.svg?react';
 import EyeIcon from '@/assets/svg/icons/eye.svg?react';
 import EyeSlashIcon from '@/assets/svg/icons/eye-slash.svg?react';
 import styles from './FormStepOne.module.css';
+import * as validation from '@/shared/contants/validation';
 
 interface FormStepOneData {
   email: string;
@@ -27,10 +28,26 @@ export const FormStepOne: React.FC<FormProps> = ({
   const [email, setEmail] = useState(defaultValues?.email || '');
   const [password, setPassword] = useState(defaultValues?.password || '');
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onFormSubmit({ email, password });
+
+    let succeded = true;
+    if (email.length === 0) {
+      setEmailError(validation.eMessageFieldMustBeNotEmpty);
+      succeded = false;
+    }
+
+    if (password.length === 0) {
+      setPasswordError(validation.eMessageFieldMustBeNotEmpty);
+      succeded = false;
+    }
+
+    if (succeded) {
+      onFormSubmit({ email, password });
+    }
   };
 
   const handleReset = (e: React.FormEvent<HTMLFormElement>) => {
@@ -38,6 +55,8 @@ export const FormStepOne: React.FC<FormProps> = ({
     onReset?.();
     setEmail('');
     setPassword('');
+    setEmailError('');
+    setPasswordError('');
   };
 
   return (
@@ -67,7 +86,7 @@ export const FormStepOne: React.FC<FormProps> = ({
           placeholder="Введите email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          required
+          error={emailError}
         />
 
         <FormInput
@@ -83,6 +102,7 @@ export const FormStepOne: React.FC<FormProps> = ({
               <EyeIcon onClick={() => setIsPasswordVisible(true)} />
             )
           }
+          error={passwordError}
         />
       </div>
 

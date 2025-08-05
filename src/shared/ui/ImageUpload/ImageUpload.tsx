@@ -11,6 +11,7 @@ export interface ImageUploadProps {
   accept?: Accept; // MIME-типы (по умолчанию "image/*")
   label?: string; //— текст-подсказка (" Перетащите или выберите изображения навыка")
   disabled?: boolean;
+  error?: string;
 }
 
 export const ImageUpload: React.FC<ImageUploadProps> = ({
@@ -19,6 +20,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
   accept = { 'image/*': [] },
   label = 'Перетащите или выберите изображения навыка',
   disabled = false,
+  error,
 }) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept,
@@ -69,6 +71,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
           </button>
         </div>
       </div>
+      {error && <span className={styles.errorMessage}>{error}</span>}
     </>
   );
 };

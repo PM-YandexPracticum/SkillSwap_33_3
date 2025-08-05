@@ -53,46 +53,51 @@ export default function Info() {
     e.preventDefault();
     if (!user) return;
 
+    let succeded = true;
     if (formData.email.length === 0) {
       setEmailError(validation.eMessageFieldMustBeNotEmpty);
+      succeded = false;
     }
 
     if (formData.name.length === 0) {
       setNameError(validation.eMessageFieldMustBeNotEmpty);
+      succeded = false;
     } else if (
       formData.name.length < validation.shortFieldLengthMin ||
       formData.name.length > validation.shortFieldLengthMax
     ) {
       setNameError(validation.eMessageFieldMustBeShort);
+      succeded = false;
     }
 
     if (formData.birthdate === null) {
       setBirthdateError(validation.eMessageFieldMustBeNotEmpty);
+      succeded = false;
     }
 
     if (formData.city.length === 0) {
       setCityError(validation.eMessageFieldMustBeNotEmpty);
+      succeded = false;
     }
 
     if (formData.about.length > validation.longFieldLengthMax) {
       setAboutError(validation.eMessageFieldMustBeLong);
+      succeded = false;
     }
 
-    if (emailError || nameError || birthdateError || cityError || aboutError) {
-      return;
-    }
+    if (succeded) {
+      try {
+        await updateProfile(user.id, {
+          name: formData.name,
+          city: formData.city,
+          gender: formData.gender,
+          birthDate: formData.birthdate?.toISOString() ?? '',
+        });
 
-    try {
-      await updateProfile(user.id, {
-        name: formData.name,
-        city: formData.city,
-        gender: formData.gender,
-        birthDate: formData.birthdate?.toISOString() ?? '',
-      });
-
-      setEdited(false);
-    } catch (error) {
-      console.error('Ошибка при обновлении профиля', error);
+        setEdited(false);
+      } catch (error) {
+        console.error('Ошибка при обновлении профиля', error);
+      }
     }
   };
 
