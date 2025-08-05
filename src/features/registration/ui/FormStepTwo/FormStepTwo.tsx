@@ -10,7 +10,7 @@ import { useSelector } from '@/app/store';
 import { selectAllSkills } from '@/features/slices/skillsSlice';
 import { Checkbox } from '@/shared/ui/Checkbox';
 import { ComboInput } from '@/shared/ui/ComboInput';
-import * as validation from '@/shared/contants/validation';
+import * as validation from '@/shared/constants/validation';
 
 interface FormStepTwoData {
   avatar: File | null;

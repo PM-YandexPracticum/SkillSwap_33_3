@@ -12,7 +12,7 @@ import { CustomDatePicker } from '../../../shared/ui/CustomDatePicker/CustomDate
 import { useSelector } from '@/app/store';
 import { selectAuthUser } from '@/features/slices/authSlice';
 import { updateProfile } from '@/api/authClient';
-import * as validation from '../../../shared/contants/validation';
+import * as validation from '../../../shared/constants/validation';
 
 interface FormData {
   email: string;

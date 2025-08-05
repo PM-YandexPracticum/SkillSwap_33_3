@@ -7,7 +7,7 @@ import { Button } from '@/shared/ui/Button';
 import styles from './FormStepThree.module.css';
 import { useSelector } from '@/app/store';
 import { selectAllSkills } from '@/features/slices/skillsSlice';
-import * as validation from '@/shared/contants/validation';
+import * as validation from '@/shared/constants/validation';
 
 interface FormStepThreeData {
   title: string;

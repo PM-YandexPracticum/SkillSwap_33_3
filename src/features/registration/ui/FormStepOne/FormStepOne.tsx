@@ -6,7 +6,7 @@ import AppleIcon from '@/assets/svg/icons/Apple.svg?react';
 import EyeIcon from '@/assets/svg/icons/eye.svg?react';
 import EyeSlashIcon from '@/assets/svg/icons/eye-slash.svg?react';
 import styles from './FormStepOne.module.css';
-import * as validation from '@/shared/contants/validation';
+import * as validation from '@/shared/constants/validation';
 
 interface FormStepOneData {
   email: string;
