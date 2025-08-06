@@ -111,7 +111,7 @@ export default function Info() {
 
     if (validate()) {
       try {
-        await updateProfile(user.id, {
+        await updateProfile(`${user.id}`, {
           name: formData.name,
           city: formData.city,
           gender: formData.gender,
