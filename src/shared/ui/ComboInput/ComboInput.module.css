@@ -39,7 +39,10 @@
   background-color: white;
   color: var(--text-secondary);
   cursor: text;
-  z-index: 10;
+}
+
+.input.error {
+    border-color: var(--status-error);
 }
 
 .input:focus {
@@ -75,7 +78,6 @@
   background: transparent;
   color: var(--text-secondary);
   cursor: pointer;
-  z-index: 40;
   width: 20px;
   height: 20px;
   display: flex;
@@ -131,18 +133,18 @@
   background-color: var(--state-disabled);
 }
 
-.option {
-  padding: 4px 0 4px 20px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
 .option:hover {
   background-color: var(--action-hover);
   border-radius: 6px;
 }
 
+/* .option {
+  padding: 4px 0 4px 20px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
 .option_inactive {
   cursor: default;
   color: var(--text-inactive);
-}
+} */

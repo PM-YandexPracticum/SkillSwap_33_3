@@ -4,6 +4,7 @@ import styles from './Select.module.css';
 import chevronDownIcon from '../../../assets/svg/icons/chevron-down.svg';
 import clsx from 'clsx';
 import { useUpdateEffect } from '../../hooks/useUpdateEffect.ts';
+import { ValidationMessage } from '../ValidationMessage/ValidationMessage.tsx';
 
 interface SelectProps {
   label?: string;
@@ -14,6 +15,7 @@ interface SelectProps {
   className?: string;
   dropdownClassName?: string;
   valueClassName?: string;
+  error?: string;
 }
 
 export const Select: FC<SelectProps> = ({
@@ -25,6 +27,7 @@ export const Select: FC<SelectProps> = ({
   className,
   valueClassName,
   dropdownClassName,
+  error,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const selectRef = useRef<HTMLDivElement>(null);
@@ -63,6 +66,7 @@ export const Select: FC<SelectProps> = ({
           className={clsx(
             styles.select,
             disabled && styles.disabled,
+            error && styles.error,
             className
           )}
           onClick={toggleDropdown}
@@ -91,6 +95,7 @@ export const Select: FC<SelectProps> = ({
           {children}
         </div>
       </div>
+      <ValidationMessage error={error} />
     </div>
   );
 };

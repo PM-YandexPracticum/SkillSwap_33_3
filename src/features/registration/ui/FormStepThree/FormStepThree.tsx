@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FormInput } from '@/shared/ui/FormInput';
 import { Select } from '@/shared/ui/Select';
 import { TextArea } from '@/shared/ui/TextArea/TextArea';
@@ -13,6 +13,8 @@ import type { TSkillInfo } from '@/shared/lib/types';
 import { Gallery } from '@/widgets/Gallery';
 import { useNavigate } from 'react-router-dom';
 import EditIcon from '../../../../assets/svg/icons/edit.svg?react';
+import * as validation from '@/shared/constants/validation';
+import { SelectOption } from '@/shared/ui/SelectOption';
 
 interface FormStepThreeData {
   title: string;
@@ -40,8 +42,56 @@ export const FormStepThree: React.FC<FormStepThreeProps> = ({
   const [description, setDescription] = useState('');
   const [images, setImages] = useState<File[]>([]);
   const navigate = useNavigate();
+
+  const [titleError, setTitleError] = useState('');
+  const [categoryError, setCategoryError] = useState('');
+  const [subcategoryError, setSubcategoryError] = useState('');
+  const [descriptionError, setDescriptionError] = useState('');
+  const [imagesError, setImagesError] = useState('');
+
+  const validate = () => {
+    if (title.length === 0) return true;
+
+    let succeded = true;
+    if (
+      title.length < validation.shortFieldLengthMin ||
+      title.length > validation.shortFieldLengthMax
+    ) {
+      setTitleError(validation.eMessageFieldMustBeShort);
+      succeded = false;
+    }
+
+    if (!category) {
+      setCategoryError(validation.eMessageFieldMustBeNotEmpty);
+      succeded = false;
+    }
+
+    if (!subcategory) {
+      setSubcategoryError(validation.eMessageFieldMustBeNotEmpty);
+      succeded = false;
+    }
+
+    if (description.length > validation.longFieldLengthMax) {
+      setDescriptionError(validation.eMessageFieldMustBeLong);
+      succeded = false;
+    }
+
+    const isLargeFile = (image: File) => {
+      return image.size > validation.imageSizeLimit;
+    };
+
+    if (images.some(isLargeFile)) {
+      setImagesError(validation.eMessageImageMustBeSmall);
+      succeded = false;
+    }
+
+    return succeded;
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!validate()) return;
 
     const newSkillInfo: TSkillInfo = {
       skillName: title,
@@ -56,6 +106,12 @@ export const FormStepThree: React.FC<FormStepThreeProps> = ({
     onFormSubmit({ title, category, subcategory, description, images });
     openModal();
   };
+
+  useEffect(() => setTitleError(''), [title]);
+  useEffect(() => setCategoryError(''), [category]);
+  useEffect(() => setSubcategoryError(''), [subcategory]);
+  useEffect(() => setDescriptionError(''), [description]);
+  useEffect(() => setImagesError(''), [images]);
 
   const handleReset = () => {
     setTitle('');
@@ -89,31 +145,39 @@ export const FormStepThree: React.FC<FormStepThreeProps> = ({
         placeholder="Введите название вашего навыка"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        required
+        error={titleError}
+        maxLength={validation.shortFieldLengthMax}
       />
 
-      <Select label="Категория навыка" value={category}>
+      <Select
+        label="Категория навыка"
+        value={category}
+        error={categoryError}
+        disabled={!title}
+      >
         {skills.map((item) => (
-          <div style={{ height: 32 }} onClick={() => setCategory(item.name)}>
+          <SelectOption key={item.name} value={item.name} onClick={setCategory}>
             {item.name}
-          </div>
+          </SelectOption>
         ))}
       </Select>
 
       <Select
         label="Подкатегория навыка"
         value={subcategory}
-        disabled={!category}
+        error={subcategoryError}
+        disabled={!category || !title}
       >
         {skills
           .find((item) => item.name === category)
           ?.subcategories.map((item) => (
-            <div
-              style={{ height: 32 }}
-              onClick={() => setSubcategory(item.name)}
+            <SelectOption
+              key={item.name}
+              value={item.name}
+              onClick={setSubcategory}
             >
               {item.name}
-            </div>
+            </SelectOption>
           ))}
       </Select>
 
@@ -122,9 +186,17 @@ export const FormStepThree: React.FC<FormStepThreeProps> = ({
         placeholder="Коротко опишите, чему можете научить"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
+        error={descriptionError}
+        maxLength={validation.longFieldLengthMax}
+        disabled={!title}
       />
 
-      <ImageUpload value={images} onChange={setImages} />
+      <ImageUpload
+        value={images}
+        onChange={setImages}
+        error={imagesError}
+        disabled={!title}
+      />
 
       <div className={styles.actions}>
         <Button variant="secondary" type="reset">

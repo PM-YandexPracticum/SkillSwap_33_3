@@ -55,7 +55,6 @@ export function reorderArrayByRows<T>(arr: T[], rows: number) {
       }
     }
   }
-  console.log(reordered);
   return reordered;
 }
 

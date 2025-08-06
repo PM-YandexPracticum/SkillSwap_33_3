@@ -46,6 +46,7 @@ export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
 let seed: number = 1;
 function randomId() {
   seed = (seed * 1103515245 + 12345) % 1000000009;
+  return seed;
 }
 
 function patchUsers(users: UserResponse[]) {

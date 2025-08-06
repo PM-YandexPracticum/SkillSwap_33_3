@@ -25,21 +25,11 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   );
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(
-      'Checkbox changed:',
-      event.target.checked,
-      'Checked prop:',
-      checked,
-      'IsChecked:',
-      isChecked
-    );
     setIsChecked(event.target.checked);
     if (onChange) {
       onChange(event);
     }
   };
-
-  console.log('Rendering Checkbox:', { checked, isChecked, props });
 
   return (
     <label className={styles.wrapper}>
