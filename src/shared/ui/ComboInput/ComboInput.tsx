@@ -66,71 +66,62 @@ export function ComboInput({
   console.log(styles.error);
 
   return (
-    <>
-      <div
-        ref={wrapperRef}
-        className={clsx(styles.wrapper, isOpen && styles.active)}
-      >
-        {label && <label className={styles.label}>{label}</label>}
-        <div className={styles.inputWrapper}>
-          <input
-            ref={inputRef}
-            className={clsx(
-              styles.input,
-              isOpen && styles.input_open,
-              error && styles.error
-            )}
-            placeholder={placeholder}
-            value={query}
-            onChange={handleInputChange}
-            onFocus={() => setIsOpen(true)}
-          />
-          {query ? (
-            <button
-              type="button"
-              className={styles.input__button}
-              aria-label="Clear input"
-              onClick={handleClear}
-            >
-              <CloseIcon />
-            </button>
-          ) : (
-            <button
-              type="button"
-              className={styles.input__button}
-              aria-label={isOpen ? 'Close dropdown' : 'Open dropdown'}
-              onClick={handleToggle}
-            >
-              <ArrowIcon className={clsx(isOpen && styles.arrow_open)} />
-            </button>
-          )}
-        </div>
-        <ul
+    <div
+      ref={wrapperRef}
+      className={clsx(styles.wrapper, isOpen && styles.active)}
+    >
+      {label && <label className={styles.label}>{label}</label>}
+      <div className={styles.inputWrapper}>
+        <input
+          ref={inputRef}
           className={clsx(
-            styles.list,
-            'scrollY',
-            isOpen && styles.list_visible
+            styles.input,
+            isOpen && styles.input_open,
+            error && styles.error
           )}
-        >
-          {filtered.length > 0 ? (
-            filtered.map((opt) => (
-              <li key={opt.value}>
-                <SelectOption
-                  value={opt.value}
-                  onClick={() => handleSelect(opt)}
-                >
-                  {opt.label}
-                </SelectOption>
-              </li>
-            ))
-          ) : (
-            <li className={clsx(styles.option, styles.option_inactive)}>
-              Ничего не найдено
-            </li>
-          )}
-        </ul>
+          placeholder={placeholder}
+          value={query}
+          onChange={handleInputChange}
+          onFocus={() => setIsOpen(true)}
+        />
+        {query ? (
+          <button
+            type="button"
+            className={styles.input__button}
+            aria-label="Clear input"
+            onClick={handleClear}
+          >
+            <CloseIcon />
+          </button>
+        ) : (
+          <button
+            type="button"
+            className={styles.input__button}
+            aria-label={isOpen ? 'Close dropdown' : 'Open dropdown'}
+            onClick={handleToggle}
+          >
+            <ArrowIcon className={clsx(isOpen && styles.arrow_open)} />
+          </button>
+        )}
       </div>
+      <ul
+        className={clsx(styles.list, 'scrollY', isOpen && styles.list_visible)}
+      >
+        {filtered.length > 0 ? (
+          filtered.map((opt) => (
+            <li key={opt.value}>
+              <SelectOption value={opt.value} onClick={() => handleSelect(opt)}>
+                {opt.label}
+              </SelectOption>
+            </li>
+          ))
+        ) : (
+          <li className={clsx(styles.option, styles.option_inactive)}>
+            Ничего не найдено
+          </li>
+        )}
+      </ul>
       <ValidationMessage error={error} />
-    </>
+    </div>
   );
 }

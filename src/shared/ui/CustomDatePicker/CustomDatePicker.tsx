@@ -7,6 +7,7 @@ import './DatePickerOverrides.css';
 import ru from 'date-fns/locale/ru';
 import { Button } from '../Button';
 import { Select } from '../Select';
+import { ValidationMessage } from '../ValidationMessage/ValidationMessage';
 
 interface CustomDatePickerProps {
   selected: Date | null;
@@ -100,9 +101,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
               displayedValue={formattedValue}
               error={error}
             />
-            <div className={styles.validationHost}>
-              <span className={styles.validationMessage}>{error}</span>
-            </div>
+            <ValidationMessage error={error} />
           </div>
         }
         calendarClassName={styles.calendar}

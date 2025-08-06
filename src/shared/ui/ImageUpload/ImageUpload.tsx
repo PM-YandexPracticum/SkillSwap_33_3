@@ -34,46 +34,44 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
   const rootProps = getRootProps();
 
   return (
-    <>
-      <div
-        {...getRootProps()}
-        className={clsx(styles.dropzone, {
-          [styles.dragOver]: isDragActive && !disabled,
-        })}
-      >
-        <input {...getInputProps()} />
-        <div className={styles.content}>
-          {!value || value.length === 0 ? (
-            <span className={styles.label}>{label}</span>
-          ) : null}
-          <button
-            type="button"
-            className={clsx(styles.uploadButton, {
-              [styles.disabled]: disabled,
-            })}
-            disabled={disabled}
-            onClick={(event) => {
-              if (rootProps.onMouseDown) {
-                rootProps.onMouseDown(event);
-              }
-            }}
-          >
-            {value && value.length > 0 ? (
-              <div className={styles.success}>
-                <GalleryEdit />
-                <span>Файлы загружены</span>
-              </div>
-            ) : (
-              <>
-                <GalleryAdd />
-                <span className={styles.description}>Выбрать изображения</span>
-              </>
-            )}
-          </button>
-        </div>
+    <div
+      {...getRootProps()}
+      className={clsx(styles.dropzone, {
+        [styles.dragOver]: isDragActive && !disabled,
+      })}
+    >
+      <input {...getInputProps()} />
+      <div className={styles.content}>
+        {!value || value.length === 0 ? (
+          <span className={styles.label}>{label}</span>
+        ) : null}
+        <button
+          type="button"
+          className={clsx(styles.uploadButton, {
+            [styles.disabled]: disabled,
+          })}
+          disabled={disabled}
+          onClick={(event) => {
+            if (rootProps.onMouseDown) {
+              rootProps.onMouseDown(event);
+            }
+          }}
+        >
+          {value && value.length > 0 ? (
+            <div className={styles.success}>
+              <GalleryEdit />
+              <span>Файлы загружены</span>
+            </div>
+          ) : (
+            <>
+              <GalleryAdd />
+              <span className={styles.description}>Выбрать изображения</span>
+            </>
+          )}
+        </button>
       </div>
       <ValidationMessage error={error} />
-    </>
+    </div>
   );
 };
 

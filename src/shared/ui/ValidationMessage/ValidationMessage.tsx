@@ -6,9 +6,5 @@ interface ValidationMessageProps {
 }
 
 export const ValidationMessage: FC<ValidationMessageProps> = ({ error }) => {
-  return (
-    <div className={styles.validationHost}>
-      <span className={styles.validationMessage}>{error}</span>
-    </div>
-  );
+  return error && <span className={styles.validationMessage}>{error}</span>;
 };

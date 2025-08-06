@@ -119,7 +119,7 @@ export const FormStepThree: React.FC<FormStepThreeProps> = ({
         maxLength={validation.shortFieldLengthMax}
       />
 
-      <Select label="Категория навыка" value={category}>
+      <Select label="Категория навыка" value={category} disabled={!title}>
         {skills.map((item) => (
           <SelectOption key={item.name} value={item.name} onClick={setCategory}>
             {item.name}
@@ -130,7 +130,7 @@ export const FormStepThree: React.FC<FormStepThreeProps> = ({
       <Select
         label="Подкатегория навыка"
         value={subcategory}
-        disabled={!category}
+        disabled={!category || !title}
       >
         {skills
           .find((item) => item.name === category)
@@ -152,9 +152,15 @@ export const FormStepThree: React.FC<FormStepThreeProps> = ({
         onChange={(e) => setDescription(e.target.value)}
         error={skillDescError}
         maxLength={validation.longFieldLengthMax}
+        disabled={!title}
       />
 
-      <ImageUpload value={images} onChange={setImages} error={imageError} />
+      <ImageUpload
+        value={images}
+        onChange={setImages}
+        error={imageError}
+        disabled={!title}
+      />
 
       <div className={styles.actions}>
         <Button variant="secondary" type="reset">

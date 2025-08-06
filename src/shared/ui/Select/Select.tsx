@@ -54,54 +54,48 @@ export const Select: FC<SelectProps> = ({
   }, [value]);
 
   return (
-    <>
-      <div
-        className={clsx(styles.selectContainer, isOpen && styles.active)}
-        ref={selectRef}
-        aria-haspopup="listbox"
-        aria-expanded={isOpen}
-      >
-        {label && <label className={styles.label}>{label}</label>}
-        <div className={styles.selectWrapper}>
-          <div
-            className={clsx(
-              styles.select,
-              disabled && styles.disabled,
-              error && styles.error,
-              className
+    <div
+      className={clsx(styles.selectContainer, isOpen && styles.active)}
+      ref={selectRef}
+      aria-haspopup="listbox"
+      aria-expanded={isOpen}
+    >
+      {label && <label className={styles.label}>{label}</label>}
+      <div className={styles.selectWrapper}>
+        <div
+          className={clsx(
+            styles.select,
+            disabled && styles.disabled,
+            error && styles.error,
+            className
+          )}
+          onClick={toggleDropdown}
+          role="combobox"
+          aria-disabled={disabled}
+        >
+          <div className={clsx(styles.selectedValue, valueClassName)}>
+            {value ? (
+              value
+            ) : (
+              <span className={styles.placeholder}>{placeholder}</span>
             )}
-            onClick={toggleDropdown}
-            role="combobox"
-            aria-disabled={disabled}
-          >
-            <div className={clsx(styles.selectedValue, valueClassName)}>
-              {value ? (
-                value
-              ) : (
-                <span className={styles.placeholder}>{placeholder}</span>
-              )}
-            </div>
-            <div className={clsx(styles.arrow, isOpen && styles.open)}>
-              <img
-                src={chevronDownIcon}
-                alt="Стрелка вниз"
-                aria-hidden="true"
-              />
-            </div>
           </div>
-          <div
-            className={clsx(
-              styles.dropdown,
-              isOpen && styles.open,
-              dropdownClassName
-            )}
-            role="listbox"
-          >
-            {children}
+          <div className={clsx(styles.arrow, isOpen && styles.open)}>
+            <img src={chevronDownIcon} alt="Стрелка вниз" aria-hidden="true" />
           </div>
+        </div>
+        <div
+          className={clsx(
+            styles.dropdown,
+            isOpen && styles.open,
+            dropdownClassName
+          )}
+          role="listbox"
+        >
+          {children}
         </div>
       </div>
       <ValidationMessage error={error} />
-    </>
+    </div>
   );
 };
