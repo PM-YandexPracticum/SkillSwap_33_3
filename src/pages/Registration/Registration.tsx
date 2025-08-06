@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './Registration.module.css';
 import logoIcon from '@/assets/svg/logo.svg';
 import { Button } from '@/shared/ui/Button';
 import CrossIcon from '@/assets/svg/icons/cross.svg?react';
-import { FormStepOne } from '@/features/registration/ui/FormStepOne';
-import { FormStepTwo } from '@/features/registration/ui/FormStepTwo';
-import { FormStepThree } from '@/features/registration/ui/FormStepThree';
 import { WelcomeSection } from '@/features/registration/ui/WelcomeSection';
 import iconStep1 from '@/assets/svg/light-bulb.svg';
 import iconStep2 from '@/assets/svg/user-info.svg';
@@ -15,6 +12,17 @@ import { useDispatch } from '@/app/store';
 import { fetchSkills } from '@/features/slices/skillsSlice';
 import { authApiClient } from '@/api/authClient';
 import { createSkill } from '@/api/authClient';
+import { Loader } from '@/shared/ui/Loader/Loader';
+
+const FormStepOne = lazy(
+  () => import('@/features/registration/ui/FormStepOne')
+);
+const FormStepTwo = lazy(
+  () => import('@/features/registration/ui/FormStepTwo')
+);
+const FormStepThree = lazy(
+  () => import('@/features/registration/ui/FormStepThree')
+);
 
 export interface RegistrationData {
   email: string;
@@ -31,7 +39,7 @@ export interface RegistrationData {
   images: File[];
 }
 
-export const Registration: React.FC = () => {
+function Registration() {
   const dispatch = useDispatch();
   dispatch(fetchSkills());
 
@@ -140,54 +148,63 @@ export const Registration: React.FC = () => {
           {/* Левая часть - Форма */}
           <div className={styles.formSection}>
             {step === 1 && (
-              <FormStepOne onFormSubmit={handleNext} defaultValues={formData} />
+              <Suspense fallback={<Loader />}>
+                <FormStepOne
+                  onFormSubmit={handleNext}
+                  defaultValues={formData}
+                />
+              </Suspense>
             )}
             {step === 2 && (
-              <FormStepTwo
-                onFormSubmit={handleNext}
-                onReset={handleReset}
-                defaultValues={formData}
-              />
+              <Suspense fallback={<Loader />}>
+                <FormStepTwo
+                  onFormSubmit={handleNext}
+                  onReset={handleReset}
+                  defaultValues={formData}
+                />
+              </Suspense>
             )}
 
             {step === 3 && (
-              <FormStepThree
-                onFormSubmit={async (stepData) => {
-                  const combined = {
-                    ...formData,
-                    ...stepData,
-                  };
+              <Suspense fallback={<Loader />}>
+                <FormStepThree
+                  onFormSubmit={async (stepData) => {
+                    const combined = {
+                      ...formData,
+                      ...stepData,
+                    };
 
-                  const payload = {
-                    email: combined.email!,
-                    password: combined.password!,
-                    name: combined.name!,
-                    birthDate: combined.birthDate!.toISOString(),
-                    gender: combined.gender!,
-                    city: combined.city!,
-                  };
+                    const payload = {
+                      email: combined.email!,
+                      password: combined.password!,
+                      name: combined.name!,
+                      birthDate: combined.birthDate!.toISOString(),
+                      gender: combined.gender!,
+                      city: combined.city!,
+                    };
 
-                  try {
-                    await authApiClient.register(payload);
+                    try {
+                      await authApiClient.register(payload);
 
-                    await createSkill({
-                      title: combined.title!,
-                      category: combined.category!,
-                      subcategory: combined.subcategory!,
-                      description: combined.description!,
-                      images: combined.images!,
-                    });
+                      await createSkill({
+                        title: combined.title!,
+                        category: combined.category!,
+                        subcategory: combined.subcategory!,
+                        description: combined.description!,
+                        images: combined.images!,
+                      });
 
-                    navigate('/');
-                  } catch (err) {
-                    console.error(
-                      'Ошибка регистрации или создания навыка:',
-                      err
-                    );
-                  }
-                }}
-                onReset={handleReset}
-              />
+                      navigate('/');
+                    } catch (err) {
+                      console.error(
+                        'Ошибка регистрации или создания навыка:',
+                        err
+                      );
+                    }
+                  }}
+                  onReset={handleReset}
+                />
+              </Suspense>
             )}
           </div>
 
@@ -197,4 +214,6 @@ export const Registration: React.FC = () => {
       </div>
     </div>
   );
-};
+}
+
+export const Component = Registration;

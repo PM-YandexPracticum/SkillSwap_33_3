@@ -9,6 +9,9 @@ import type { RootState } from '../../app/store';
 import { usersApi, type UserResponse } from '../../api/client';
 import type { Filters } from '../../shared/lib/types';
 import { getLearningSkills, getTeachingSkills } from '../../shared/lib/utils';
+import mockUsersUnpopular from '../../../public/db/usersUnpopular.json';
+import mockUsers from '../../../public/db/users.json';
+import mockUsersOld from '../../../public/db/usersOld.json';
 
 interface UsersState {
   list: UserResponse[];
@@ -41,19 +44,19 @@ function patchUsers(users: UserResponse[]) {
 export const fetchPopularUsers = createAsyncThunk(
   'users/fetchPopularUsers',
   () => {
-    return delay().then(() => patchUsers(mockUsersUnpopular));
+    return patchUsers(mockUsersUnpopular);
   }
 );
 
 export const fetchRecentUsers = createAsyncThunk(
   'users/fetchRecentUsers',
   () => {
-    return delay().then(() => patchUsers(mockUsers));
+    return patchUsers(mockUsers);
   }
 );
 
 export const fetchNewUsers = createAsyncThunk('users/fetchNewUsers', () => {
-  return delay().then(() => patchUsers(mockUsersOld));
+  return patchUsers(mockUsersOld);
 });
 
 export const usersSlice = createSlice({

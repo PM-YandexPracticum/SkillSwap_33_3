@@ -29,7 +29,7 @@ interface FormStepThreeProps extends React.FormHTMLAttributes<HTMLFormElement> {
   onReset?: () => void;
 }
 
-export const FormStepThree: React.FC<FormStepThreeProps> = ({
+const FormStepThree: React.FC<FormStepThreeProps> = ({
   onFormSubmit,
   onReset,
   ...rest
@@ -240,3 +240,5 @@ export const FormStepThree: React.FC<FormStepThreeProps> = ({
     </form>
   );
 };
+
+export default FormStepThree;

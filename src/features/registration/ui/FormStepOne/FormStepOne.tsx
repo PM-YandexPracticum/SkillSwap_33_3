@@ -19,7 +19,7 @@ interface FormProps extends React.FormHTMLAttributes<HTMLFormElement> {
   defaultValues?: Partial<FormStepOneData>;
 }
 
-export const FormStepOne: React.FC<FormProps> = ({
+const FormStepOne: React.FC<FormProps> = ({
   onFormSubmit,
   onReset,
   defaultValues,
@@ -119,3 +119,5 @@ export const FormStepOne: React.FC<FormProps> = ({
     </form>
   );
 };
+
+export default FormStepOne;

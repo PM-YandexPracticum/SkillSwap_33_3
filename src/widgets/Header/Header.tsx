@@ -17,7 +17,6 @@ import {
   selectAllSkills,
 } from '../../features/slices/skillsSlice';
 import {
-  fetchUser,
   logout,
   selectAuthUser,
   selectIsAuth,
@@ -121,10 +120,6 @@ export const Header = () => {
       console.error('Ошибка при выходе из аккаунта:', error);
     }
   };
-
-  useEffect(() => {
-    dispatch(fetchUser());
-  }, [dispatch]);
 
   // Обработка клика вне компонента
   useEffect(() => {

@@ -62,7 +62,7 @@ const mockSkill = {
   images: [img1, img2, img3, img4],
 };
 
-export default function SkillPage() {
+function SkillPage() {
   const user = mockUser;
   const skill = mockSkill;
 
@@ -97,3 +97,5 @@ export default function SkillPage() {
     </main>
   );
 }
+
+export const Component = SkillPage;

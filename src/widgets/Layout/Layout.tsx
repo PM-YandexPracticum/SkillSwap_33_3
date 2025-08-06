@@ -12,7 +12,7 @@ import {
 import { useSelector } from 'react-redux';
 import { useDispatch } from '@/app/store';
 
-export function Layout() {
+function Layout() {
   const user = useSelector(selectAuthUser);
 
   const notifications =
@@ -48,3 +48,5 @@ export function Layout() {
     </div>
   );
 }
+
+export const Component = Layout;

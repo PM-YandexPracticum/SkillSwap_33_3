@@ -29,7 +29,7 @@ interface FormStepTwoProps extends React.FormHTMLAttributes<HTMLFormElement> {
   defaultValues?: Partial<FormStepTwoData>;
 }
 
-export const FormStepTwo: React.FC<FormStepTwoProps> = ({
+const FormStepTwo: React.FC<FormStepTwoProps> = ({
   onFormSubmit,
   onReset,
   defaultValues,
@@ -261,3 +261,5 @@ export const FormStepTwo: React.FC<FormStepTwoProps> = ({
     </form>
   );
 };
+
+export default FormStepTwo;

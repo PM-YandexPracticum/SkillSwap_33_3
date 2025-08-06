@@ -25,7 +25,7 @@ import {
   getNextSortMode,
 } from './utils/filterUtils';
 
-export default function Home() {
+function Home() {
   const dispatch = useDispatch();
   const users = useSelector(selectUsers);
 
@@ -189,3 +189,5 @@ export default function Home() {
     </main>
   );
 }
+
+export const Component = Home;

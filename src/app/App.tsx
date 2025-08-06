@@ -1,27 +1,50 @@
-// src/App.tsx
-import { Routes, Route } from 'react-router-dom';
-import NotFound from '@/pages/NotFound/NotFound';
-import { Layout } from '@/widgets/Layout/Layout';
-import Home from '@/pages/Home/Home';
-import { Registration } from '@/pages/Registration';
-import ProfilePage from '@/pages/Profile/Profile';
-import Info from '@/features/profile/Info/Info';
-import SkillPage from '@/pages/SkillPage/SkillPage';
+import { Loader } from '@/shared/ui/Loader/Loader';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    lazy: () => import('@/widgets/Layout/Layout'),
+    hydrateFallbackElement: <Loader />,
+    children: [
+      {
+        index: true,
+        hydrateFallbackElement: <Loader />,
+        lazy: () => import('@/pages/Home/Home'),
+      },
+      {
+        path: 'profile',
+        hydrateFallbackElement: <Loader />,
+        lazy: () => import('@/pages/Profile/Profile'),
+        children: [
+          {
+            path: 'info',
+            hydrateFallbackElement: <Loader />,
+            lazy: () => import('@/features/profile/Info/Info'),
+          },
+        ],
+      },
+      {
+        path: 'skills/:id',
+        hydrateFallbackElement: <Loader />,
+        lazy: () => import('@/pages/SkillPage/SkillPage'),
+      },
+      {
+        path: '*',
+        hydrateFallbackElement: <Loader />,
+        lazy: () => import('@/pages/NotFound/NotFound'),
+      },
+    ],
+  },
+  {
+    path: '/registration',
+    hydrateFallbackElement: <Loader />,
+    lazy: () => import('@/pages/Registration/Registration'),
+  },
+]);
 
 function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
-        <Route path="profile" element={<ProfilePage />}>
-          <Route path="info" element={<Info />} />
-        </Route>
-        <Route path="skills/:id" element={<SkillPage />} />
-        <Route path="*" element={<NotFound />} />
-      </Route>
-      <Route path="/registration" element={<Registration />} />
-    </Routes>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

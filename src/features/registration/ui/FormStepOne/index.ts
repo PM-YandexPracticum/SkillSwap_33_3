@@ -1,1 +1,1 @@
-export { FormStepOne } from './FormStepOne';
+export { default } from './FormStepOne';

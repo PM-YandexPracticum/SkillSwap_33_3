@@ -26,7 +26,7 @@ interface FormData {
   image: string;
 }
 
-export default function Info() {
+function Info() {
   const navigate = useNavigate();
   const initialData: FormData = {
     email: '',
@@ -242,3 +242,5 @@ export default function Info() {
     </form>
   );
 }
+
+export const Component = Info;
