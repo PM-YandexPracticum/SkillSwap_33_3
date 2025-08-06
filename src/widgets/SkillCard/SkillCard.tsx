@@ -106,7 +106,7 @@ export const SkillCard: React.FC<SkillCardProps> = ({ skill, onClick }) => {
             </p>
           </div>
           <div className={styles.buttonsContainer}>
-            <Button variant="primary" onClick={() => navigate('/')}>
+            <Button variant="primary" onClick={() => setShowModal(false)}>
               Готово
             </Button>
           </div>
