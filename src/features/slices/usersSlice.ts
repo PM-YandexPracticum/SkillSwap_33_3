@@ -142,9 +142,9 @@ export const selectUsersFiltered = createSelector(
       let matchesMode = true;
 
       if (filters.mode === 'learn') {
-        matchesMode = getLearningSkills(user, filters.subcategories).length > 0;
-      } else if (filters.mode === 'teach') {
         matchesMode = getTeachingSkills(user, filters.subcategories).length > 0;
+      } else if (filters.mode === 'teach') {
+        matchesMode = getLearningSkills(user, filters.subcategories).length > 0;
       } else if (filters.mode === 'all') {
         matchesMode =
           getLearningSkills(user, filters.subcategories).length > 0 ||

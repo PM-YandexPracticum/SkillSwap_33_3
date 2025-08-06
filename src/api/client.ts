@@ -1,4 +1,8 @@
-import type { LearningSkill, TeachingSkill } from '../shared/lib/types';
+import type {
+  LearningSkill,
+  TeachingSkill,
+  TSkillInfo,
+} from '../shared/lib/types';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -14,8 +18,6 @@ export interface UserResponse {
   teachingSkills: TeachingSkill[];
   learningSkills: LearningSkill[];
   likes: number;
-  createdAt?: string; // Добавлено для сортировки по дате создания
-  updatedAt?: string;
 }
 
 export interface SkillResponse {
@@ -27,24 +29,8 @@ export interface SkillResponse {
 }
 
 export interface SkillDetailResponse {
-  id: number;
-  skillName: string;
-  category: string;
-  subcategory: string;
-  description: string;
-  images: string[];
-  userId: string;
-  user: {
-    name: string;
-    avatar: string;
-    city: string;
-    aboutMe: string;
-  };
-}
-
-interface PaginationParams {
-  limit?: number;
-  offset?: number;
+  user: UserResponse;
+  skill: TSkillInfo;
 }
 
 class ApiClient {
@@ -83,18 +69,12 @@ class ApiClient {
     return this.get<SkillDetailResponse>(`/api/skills/${id}`);
   }
 
-  async getPopularUsers(params?: PaginationParams): Promise<UserResponse[]> {
-    const query = new URLSearchParams();
-    if (params?.limit) query.set('limit', params.limit.toString());
-    if (params?.offset) query.set('offset', params.offset.toString());
-    return this.get<UserResponse[]>(`/api/users/popular?${query.toString()}`);
+  async getPopularUsers(): Promise<UserResponse[]> {
+    return this.get<UserResponse[]>(`/api/users/popular`);
   }
 
-  async getRecentUsers(params?: PaginationParams): Promise<UserResponse[]> {
-    const query = new URLSearchParams();
-    if (params?.limit) query.set('limit', params.limit.toString());
-    if (params?.offset) query.set('offset', params.offset.toString());
-    return this.get<UserResponse[]>(`/api/users/recent?${query.toString()}`);
+  async getRecentUsers(): Promise<UserResponse[]> {
+    return this.get<UserResponse[]>(`/api/users/recent`);
   }
 }
 
@@ -107,10 +87,8 @@ export const usersApi = {
     apiClient.get<UserResponse>(`/api/users/${id}`),
   create: (user: Partial<UserResponse>): Promise<UserResponse> =>
     apiClient.post<UserResponse>('/api/users', user),
-  getPopular: (params?: PaginationParams): Promise<UserResponse[]> =>
-    apiClient.getPopularUsers(params),
-  getRecent: (params?: PaginationParams): Promise<UserResponse[]> =>
-    apiClient.getRecentUsers(params),
+  getPopular: (): Promise<UserResponse[]> => apiClient.getPopularUsers(),
+  getRecent: (): Promise<UserResponse[]> => apiClient.getRecentUsers(),
   search: (query: string): Promise<UserResponse[]> =>
     apiClient.get<UserResponse[]>(
       `/api/users/search?q=${encodeURIComponent(query)}`
@@ -125,11 +103,3 @@ export const skillsApi = {
   create: (data: FormData): Promise<SkillDetailResponse> =>
     apiClient.post<SkillDetailResponse>('/api/skills', data),
 };
-
-// Вспомогательные типы
-export interface PaginatedResponse<T> {
-  data: T[];
-  total: number;
-  limit: number;
-  offset: number;
-}
