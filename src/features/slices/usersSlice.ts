@@ -16,7 +16,7 @@ import type { UserResponse } from '../../api/client';
 import type { Filters } from '../../shared/lib/types';
 import { getLearningSkills, getTeachingSkills } from '../../shared/lib/utils';
 
-interface UsersState {
+export interface UsersState {
   list: UserResponse[];
   loading: boolean;
   error: string | null;
