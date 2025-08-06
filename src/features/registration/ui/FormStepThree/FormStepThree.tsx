@@ -7,12 +7,6 @@ import { Button } from '@/shared/ui/Button';
 import styles from './FormStepThree.module.css';
 import { useSelector } from '@/app/store';
 import { selectAllSkills } from '@/features/slices/skillsSlice';
-import { Modal } from '@/shared/ui/Modal';
-import { SkillInfo } from '@/shared/ui/SkillInfo';
-import type { TSkillInfo } from '@/shared/lib/types';
-import { Gallery } from '@/widgets/Gallery';
-import { useNavigate } from 'react-router-dom';
-import EditIcon from '../../../../assets/svg/icons/edit.svg?react';
 import * as validation from '@/shared/constants/validation';
 import { SelectOption } from '@/shared/ui/SelectOption';
 
@@ -25,7 +19,7 @@ interface FormStepThreeData {
 }
 
 interface FormStepThreeProps extends React.FormHTMLAttributes<HTMLFormElement> {
-  onFormSubmit: (data: FormStepThreeData) => void;
+  onFormSubmit: (data: FormStepThreeData | null) => void;
   onReset?: () => void;
 }
 
@@ -41,7 +35,6 @@ const FormStepThree: React.FC<FormStepThreeProps> = ({
   const [subcategory, setSubcategory] = useState('');
   const [description, setDescription] = useState('');
   const [images, setImages] = useState<File[]>([]);
-  const navigate = useNavigate();
 
   const [titleError, setTitleError] = useState('');
   const [categoryError, setCategoryError] = useState('');
@@ -92,19 +85,8 @@ const FormStepThree: React.FC<FormStepThreeProps> = ({
     e.preventDefault();
 
     if (!validate()) return;
-
-    const newSkillInfo: TSkillInfo = {
-      skillName: title,
-      category: category,
-      subcategory: subcategory,
-      description: description,
-      images: images.map((img) => URL.createObjectURL(img)),
-      id: Date.now(),
-    };
-
-    setSkillInfo(newSkillInfo);
+    if (!title) onFormSubmit(null);
     onFormSubmit({ title, category, subcategory, description, images });
-    openModal();
   };
 
   useEffect(() => setTitleError(''), [title]);
@@ -120,17 +102,6 @@ const FormStepThree: React.FC<FormStepThreeProps> = ({
     setDescription('');
     setImages([]);
     onReset?.();
-  };
-  const [skillInfo, setSkillInfo] = useState<TSkillInfo>();
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
   };
 
   return (
@@ -202,41 +173,10 @@ const FormStepThree: React.FC<FormStepThreeProps> = ({
         <Button variant="secondary" type="reset">
           Назад
         </Button>
-        <Button variant="primary" type="submit" onClick={openModal}>
+        <Button variant="primary" type="submit">
           Продолжить
         </Button>
       </div>
-      {isModalOpen && (
-        <Modal isOpen={isModalOpen} onClose={closeModal}>
-          <div className={styles.header}>
-            <h2 className={styles.title}>Ваше предложение</h2>
-            <p className={styles.description}>
-              {' '}
-              Пожалуйста, проверьте и подтвердите правильность данных
-            </p>
-          </div>
-
-          {skillInfo && (
-            <>
-              <div className={styles.content}>
-                <div className={styles.descriptionContainer}>
-                  <SkillInfo skill={skillInfo} />
-                  <div className={styles.buttonsContainer}>
-                    <Button variant="secondary" onClick={closeModal}>
-                      Редактировать
-                      <EditIcon />
-                    </Button>
-                    <Button variant="primary" onClick={() => navigate('/')}>
-                      Готово
-                    </Button>
-                  </div>
-                </div>
-                <Gallery images={skillInfo.images} />
-              </div>
-            </>
-          )}
-        </Modal>
-      )}
     </form>
   );
 };

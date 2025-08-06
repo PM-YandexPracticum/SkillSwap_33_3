@@ -1,3 +1,4 @@
+import type { TSkillInfo } from '@/shared/lib/types';
 import { getCookie, setCookie, deleteCookie } from '../shared/lib/cookie';
 import type { UserResponse } from './client';
 import axios from 'axios';
@@ -39,8 +40,8 @@ interface CreateSkillPayload {
   title: string;
   category: string;
   subcategory: string;
-  description: string;
-  images: File[];
+  description?: string;
+  images?: File[];
 }
 
 class AuthApiClient {
@@ -114,6 +115,8 @@ class AuthApiClient {
     options: RequestInit = {}
   ): Promise<T> {
     const accessToken = this.getAccessToken();
+
+    console.log(accessToken);
 
     // Функция для выполнения запроса
     const makeRequest = async (token: string): Promise<Response> => {
@@ -221,10 +224,13 @@ class AuthApiClient {
   async register(data: {
     email: string;
     password: string;
+    avatar?: File | null;
     name: string;
-    birthDate: string;
-    gender: string;
+    birthDate: Date | null;
+    gender?: string;
     city: string;
+    categories?: string[];
+    subcategories?: string[];
   }): Promise<LoginResponse> {
     const response = await fetch(`${this.baseURL}/api/auth/register`, {
       method: 'POST',
@@ -290,26 +296,24 @@ class AuthApiClient {
     return response.json();
   }
 }
-//Создаем навык
 export const createSkill = async (data: CreateSkillPayload) => {
   const formData = new FormData();
 
   formData.append('title', data.title);
   formData.append('category', data.category);
   formData.append('subcategory', data.subcategory);
-  formData.append('description', data.description);
+  formData.append('description', data.description || '');
 
-  data.images.forEach((file) => {
-    formData.append('images', file); // или 'images[]', если сервер требует массив
+  data.images?.forEach((file) => {
+    formData.append('images', file);
   });
-
-  const response = await axios.post('/skills', formData, {
+  const response = await axios.post(`${API_BASE_URL}/api/skills`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
   });
 
-  return response.data;
+  return response.data as TSkillInfo;
 };
 
 // Экспортируем единственный экземпляр

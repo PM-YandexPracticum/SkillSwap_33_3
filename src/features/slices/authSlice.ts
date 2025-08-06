@@ -66,6 +66,7 @@ export const authSlice = createSlice({
         }
       )
       .addCase(fetchUser.rejected, (state, action) => {
+        state.isAuth = false;
         state.loading = false;
         state.error = action.error.message || 'Failed to fetch user';
       });
