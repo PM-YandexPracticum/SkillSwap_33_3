@@ -8,8 +8,13 @@ import LikeIcon from '../../assets/svg/icons/like.svg?react';
 import LikeHollowIcon from '../../assets/svg/icons/like-hollow.svg?react';
 import ShareIcon from '../../assets/svg/icons/share.svg?react';
 import MoreIcon from '../../assets/svg/icons/more-square.svg?react';
+import Notification from '../../assets/svg/icons/notificatiom.svg?react';
 
 import styles from './SkillCard.module.css';
+import { selectIsAuth } from '@/features/slices/authSlice';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { Modal } from '@/shared/ui/Modal';
 
 interface SkillCardProps {
   skill: TSkillInfo;
@@ -19,6 +24,21 @@ interface SkillCardProps {
 export const SkillCard: React.FC<SkillCardProps> = ({ skill, onClick }) => {
   const [liked, setLiked] = useState(false);
   const [pressed, setPressed] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
+  const isAuth = useSelector(selectIsAuth);
+  const navigate = useNavigate();
+
+  const handleExchange = () => {
+    if (!isAuth) {
+      navigate('/register');
+      return;
+    }
+
+    setPressed(!pressed);
+    onClick();
+    setShowModal(true);
+  };
 
   return (
     <div className={styles.card}>
@@ -62,10 +82,7 @@ export const SkillCard: React.FC<SkillCardProps> = ({ skill, onClick }) => {
             variant={pressed ? 'secondary' : 'primary'}
             aria-label="Предложить обмен"
             aria-pressed={pressed}
-            onClick={() => {
-              setPressed(!pressed);
-              onClick();
-            }}
+            onClick={handleExchange}
           >
             Предложить обмен
           </Button>
@@ -75,6 +92,26 @@ export const SkillCard: React.FC<SkillCardProps> = ({ skill, onClick }) => {
           <Gallery images={skill.images} />
         </div>
       </div>
+
+      <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+        <div className={styles.modal}>
+          <div className={styles.notification}>
+            {' '}
+            <Notification />{' '}
+          </div>
+          <div className={styles.content}>
+            <h2 className={styles.title}>Вы предложили обмен</h2>
+            <p className={styles.description}>
+              Теперь дождитесь подтверждения. Вам придёт уведомление
+            </p>
+          </div>
+          <div className={styles.buttonsContainer}>
+            <Button variant="primary" onClick={() => setShowModal(false)}>
+              Готово
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };

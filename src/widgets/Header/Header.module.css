@@ -241,3 +241,11 @@
     pointer-events: none;
     z-index: 1000;
 }
+
+.button-register {
+  text-decoration: none;
+}
+
+.button-register:hover {
+  text-decoration: none;
+}

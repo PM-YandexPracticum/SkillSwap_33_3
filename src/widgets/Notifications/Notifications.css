@@ -18,7 +18,7 @@
   font-size: 20px;
   color: #253017;
   border-radius: 8px;
-  width: 340px;
+  max-width: 500px;
   height: 72px;
   overflow: hidden;
 }

@@ -1,13 +1,13 @@
 .card {
-    width: 1020px;
-    height: 444px;
-    padding: 32px 50px;
-    border: 2px solid var(--surface-main);
-    border-radius: 12px;
-    background: var(--surface-main);
     display: flex;
     flex-direction: column;
     gap: 24px;
+    width: 1020px;
+    height: 444px;
+    border: 2px solid var(--surface-main);
+    border-radius: 12px;
+    padding: 32px 50px;
+    background: var(--surface-main);
 }
 
 .actions {
@@ -18,22 +18,22 @@
 }
 
 .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 24px;
     height: 24px;
-    background: none;
+    margin: 0;
     border: none;
     padding: 0;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: none;
     cursor: pointer;
 }
 
 .icon svg {
+    display: block;
     width: 24px;
     height: 24px;
-    display: block;
 }
 
 .body {
@@ -51,15 +51,66 @@
 }
 
 .button {
-    border-radius: 12px;
-    padding: 12px 24px;
     width: 399px;
     height: 52px;
-    background: var(--accent-primary);
+    border: none;
+    border-radius: 12px;
+    padding: 12px 24px;
+    color: var(--text-dominant);
     font-family: var(--typeface-body);
     font-weight: 500;
     font-size: 16px;
-    color: var(--text-dominant);
-    border: none;
+    background: var(--accent-primary);
     cursor: pointer;
+}
+
+.modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 556px;
+    height: 480px;
+    border-radius: 12px;
+    padding: 90px 60px;
+    background: var(--surface-main);
+}
+
+.title {
+    color: var(--text-dominant);
+    font-family: var(--typeface-headings);
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 28px;
+    letter-spacing: -0.01em;
+}
+
+.description {
+    color: var(--text-dominant);
+    font-family: var(--typeface-body);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.02em;
+    text-align: center;
+    
+}
+
+.notification {
+    margin-bottom: 60px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+  justify-content: center;
+    align-items: center;
+    gap: 13px;
+  
+}
+
+.buttonsContainer {
+    width: 436px;
+    height: 46px;
+    padding-top: 30px;
+    
 }

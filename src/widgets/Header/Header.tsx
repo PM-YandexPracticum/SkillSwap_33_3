@@ -245,7 +245,9 @@ export const Header = () => {
 
             <div className={styles['header-auth']}>
               <Button variant="secondary">Войти</Button>
-              <Button variant="primary">Зарегистрироваться</Button>
+              <Link to="/registration" className={styles['button-register']}>
+                <Button variant="primary">Зарегистрироваться</Button>
+              </Link>
             </div>
           </>
         ) : (
