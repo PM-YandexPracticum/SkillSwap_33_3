@@ -32,7 +32,7 @@ export const SkillCard: React.FC<SkillCardProps> = ({ skill, onClick }) => {
 
   const handleExchange = () => {
     if (!isAuth) {
-      navigate('/register');
+      navigate('/registration');
       return;
     }
 

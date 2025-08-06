@@ -12,7 +12,6 @@ import { useSelector } from '@/app/store';
 import { selectAuthUser, selectIsAuth } from '@/features/slices/authSlice';
 import { authApiClient } from '@/api/authClient';
 import { useNavigate } from 'react-router-dom';
-import { useUpdateEffect } from '@/shared/hooks/useUpdateEffect';
 import * as validation from '../../../shared/constants/validation';
 import { SelectOption } from '@/shared/ui/SelectOption';
 
@@ -26,41 +25,43 @@ interface FormData {
   image: string;
 }
 
+const cities = [
+  'Москва',
+  'Санкт-Петербург',
+  'Новосибирск',
+  'Екатеринбург',
+  'Казань',
+  'Сочи',
+  'Краснодар',
+  'Кемерово',
+  'Владивосток',
+  'Красноярск',
+  'Иркутск',
+];
+const citiesOptions = cities.map((item) => ({
+  label: item,
+  value: item,
+}));
+
+const genders = [
+  { label: 'Мужской', value: 'male' },
+  { label: 'Женский', value: 'female' },
+  { label: 'Не указан', value: 'unknown' },
+];
+
 function Info() {
   const navigate = useNavigate();
+  const user = useSelector(selectAuthUser);
+  const isAuth = useSelector(selectIsAuth);
   const initialData: FormData = {
-    email: '',
-    name: '',
-    birthdate: new Date(''),
-    gender: '',
-    city: '',
-    about: '',
-    image: '',
+    email: user?.email || '',
+    name: user?.name || '',
+    birthdate: new Date(user?.birthDate || ''),
+    gender: user?.gender || '',
+    city: user?.city || '',
+    about: user?.aboutMe || '',
+    image: user?.avatar || '',
   };
-
-  const cities = [
-    'Москва',
-    'Санкт-Петербург',
-    'Новосибирск',
-    'Екатеринбург',
-    'Казань',
-    'Сочи',
-    'Краснодар',
-    'Кемерово',
-    'Владивосток',
-    'Красноярск',
-    'Иркутск',
-  ];
-  const citiesOptions = cities.map((item) => ({
-    label: item,
-    value: item,
-  }));
-
-  const genders = [
-    { label: 'Мужской', value: 'male' },
-    { label: 'Женский', value: 'female' },
-    { label: 'Не указан', value: 'unknown' },
-  ];
 
   const [formData, setFormData] = useState<FormData>(initialData);
   const [edited, setEdited] = useState(false);
@@ -69,8 +70,6 @@ function Info() {
   const [birthdateError, setBirthdateError] = useState('');
   const [cityError, setCityError] = useState('');
   const [aboutError, setAboutError] = useState('');
-  const user = useSelector(selectAuthUser);
-  const isAuth = useSelector(selectIsAuth);
 
   const handleChange = (key: keyof FormData, value: string | Date | null) => {
     const updated = { ...formData, [key]: value };
@@ -129,7 +128,7 @@ function Info() {
     }
   };
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     if (!isAuth) navigate('/');
     else
       setFormData((state) => ({
@@ -142,7 +141,7 @@ function Info() {
         about: user?.aboutMe || '',
         image: user?.avatar || '',
       }));
-  }, [user]);
+  }, [user, isAuth, navigate]);
   useEffect(() => setEmailError(''), [formData.email]);
   useEffect(() => setNameError(''), [formData.name]);
   useEffect(() => setBirthdateError(''), [formData.birthdate]);
