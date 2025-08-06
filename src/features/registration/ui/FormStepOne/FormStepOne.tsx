@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/shared/ui/Button';
 import { FormInput } from '@/shared/ui/FormInput';
 import GoogleIcon from '@/assets/svg/icons/Google.svg?react';
@@ -31,37 +31,31 @@ export const FormStepOne: React.FC<FormProps> = ({
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  const validator = () => {
+  const validate = () => {
     let succeded = true;
     if (email.length === 0) {
       setEmailError(validation.eMessageFieldMustBeNotEmpty);
       succeded = false;
-    } else {
-      setEmailError('');
     }
 
     if (password.length === 0) {
       setPasswordError(validation.eMessageFieldMustBeNotEmpty);
       succeded = false;
-    } else {
-      setPasswordError('');
     }
 
     return succeded;
   };
-  const validate = useCallback(validator, [email, password]);
-
-  useEffect(() => {
-    validate();
-  }, [validate]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (validator()) {
+    if (validate()) {
       onFormSubmit({ email, password });
     }
   };
+
+  useEffect(() => setEmailError(''), [email]);
+  useEffect(() => setPasswordError(''), [password]);
 
   const handleReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

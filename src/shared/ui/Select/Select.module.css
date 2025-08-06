@@ -29,7 +29,7 @@
 }
 
 .select.error {
-    border-color: var(--status-error);
+  border-color: var(--status-error);
 }
 
 .disabled {
@@ -93,6 +93,10 @@
   z-index: 10;
 }
 
+.select.error + .dropdown {
+  border-color: var(--status-error);
+}
+
 .selectContainer.active .select {
   border-radius: 12px 12px 0 0;
   border-bottom: none;
@@ -122,9 +126,3 @@
   pointer-events: none;
   z-index: 11;
 }
-
-/* .option {
-  padding: 4px 6px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-} */

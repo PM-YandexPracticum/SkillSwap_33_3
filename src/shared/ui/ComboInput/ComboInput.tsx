@@ -63,8 +63,6 @@ export function ComboInput({
     inputRef.current?.focus();
   };
 
-  console.log(styles.error);
-
   return (
     <div
       ref={wrapperRef}

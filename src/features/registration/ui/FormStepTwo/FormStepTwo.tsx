@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/shared/ui/Button';
 import { FormInput } from '@/shared/ui/FormInput';
 import { Select } from '@/shared/ui/Select';
@@ -107,7 +107,7 @@ export const FormStepTwo: React.FC<FormStepTwoProps> = ({
     else setSubcategories((state) => state.filter((item) => item !== value));
   };
 
-  const validator = () => {
+  const validate = () => {
     let succeded = true;
 
     if (name.length === 0) {
@@ -119,37 +119,25 @@ export const FormStepTwo: React.FC<FormStepTwoProps> = ({
     ) {
       setNameError(validation.eMessageFieldMustBeShort);
       succeded = false;
-    } else {
-      setNameError('');
     }
 
     if (birthDate === null) {
       setBirthdateError(validation.eMessageFieldMustBeNotEmpty);
       succeded = false;
-    } else {
-      setBirthdateError('');
     }
 
     if (city.length === 0) {
       setCityError(validation.eMessageFieldMustBeNotEmpty);
       succeded = false;
-    } else {
-      setCityError('');
     }
 
     return succeded;
   };
 
-  const validate = useCallback(validator, [name, birthDate, city]);
-
-  useEffect(() => {
-    validate();
-  }, [validate]);
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (validator()) {
+    if (validate()) {
       onFormSubmit({
         avatar,
         name,
@@ -164,11 +152,19 @@ export const FormStepTwo: React.FC<FormStepTwoProps> = ({
 
   const handleReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setNameError('');
-    setBirthdateError('');
-    setCityError('');
+    setAvatar(null);
+    setName('');
+    setBirthDate(null);
+    setGender('unknown');
+    setGenderLabel('Не указан');
+    setCity('');
+    setSubcategories([]);
     onReset?.();
   };
+
+  useEffect(() => setNameError(''), [name]);
+  useEffect(() => setBirthdateError(''), [birthDate]);
+  useEffect(() => setCityError(''), [city]);
 
   return (
     <form

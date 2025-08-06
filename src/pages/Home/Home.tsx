@@ -31,7 +31,6 @@ export default function Home() {
 
   // Используем новый хук для управления фильтрами и сортировкой через URL
   const { filters, sortMode, updateFilters, updateSortMode } = useUrlFilters();
-  console.log(sortMode);
 
   // Используем селектор для получения отфильтрованных пользователей
   const filteredUsers = useSelector((state) =>
