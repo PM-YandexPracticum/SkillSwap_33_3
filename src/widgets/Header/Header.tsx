@@ -33,6 +33,7 @@ import {
   removeNotifications,
 } from '../../features/slices/authSlice';
 import { authApiClient } from '@/api/authClient';
+import { clearLocalItem } from '@/shared/lib/localStorageUtils';
 
 export const Header = () => {
   const [isSkillsMenuOpen, setIsSkillsMenuOpen] = useState(false);
@@ -116,6 +117,7 @@ export const Header = () => {
       dispatch(logout());
       navigate('/');
       setIsProfileMenuOpen(false);
+      clearLocalItem('user');
     } catch (error) {
       console.error('Ошибка при выходе из аккаунта:', error);
     }

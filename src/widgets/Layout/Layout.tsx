@@ -2,9 +2,7 @@ import { Outlet } from 'react-router-dom';
 import { Header } from '@/widgets/Header';
 import { Footer } from '@/widgets/Footer';
 import { Notifications } from '../Notifications';
-import { useEffect } from 'react';
 import {
-  fetchUser,
   markNotificationsAsRead,
   selectAuthUser,
   selectIsAuth,
@@ -25,11 +23,6 @@ function Layout() {
 
   const isAuthenticated = useSelector(selectIsAuth);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    // Вызываем проверку аутентификации при монтировании компонента
-    dispatch(fetchUser());
-  }, [dispatch]);
 
   return (
     <div className="flex flex-col min-h-screen">

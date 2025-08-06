@@ -17,6 +17,7 @@ import type { TSkillInfo } from '@/shared/lib/types';
 import { SkillInfo } from '@/shared/ui/SkillInfo';
 import { Gallery } from '@/widgets/Gallery';
 import EditIcon from '@/assets/svg/icons/edit.svg?react';
+import { fetchUser } from '@/features/slices/authSlice';
 
 const FormStepOne = lazy(
   () => import('@/features/registration/ui/FormStepOne')
@@ -84,9 +85,9 @@ function Registration() {
       subcategories: formData.subcategories,
     };
     const skillData = stepData;
-
     try {
       await authApiClient.register(userData);
+      dispatch(fetchUser());
 
       console.log(skillData);
 

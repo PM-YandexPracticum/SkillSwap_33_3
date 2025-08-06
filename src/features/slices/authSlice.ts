@@ -6,23 +6,26 @@ import {
 
 import type { RootState } from '../../app/store';
 import { authApiClient, type UserAuthResponse } from '../../api/authClient';
+import { getLocalItem, setLocalItem } from '@/shared/lib/localStorageUtils';
 
 interface AuthState {
-  user: UserAuthResponse | null;
+  user: UserAuthResponse | undefined;
   isAuth: boolean;
   loading: boolean;
   error: string | null;
 }
 
 const initialState: AuthState = {
-  user: null,
-  isAuth: true,
+  user: getLocalItem<UserAuthResponse>('user'),
+  isAuth: !!localStorage.getItem('refreshToken'),
   loading: false,
   error: null,
 };
 
 export const fetchUser = createAsyncThunk('auth/fetchUser', async () => {
-  return await authApiClient.checkAuth();
+  const user = await authApiClient.checkAuth();
+  setLocalItem('user', user);
+  return user;
 });
 
 export const authSlice = createSlice({
@@ -30,7 +33,7 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     logout(state) {
-      state.user = null;
+      state.user = undefined;
       state.isAuth = false;
     },
     markNotificationsAsRead(state, action: PayloadAction<string[]>) {

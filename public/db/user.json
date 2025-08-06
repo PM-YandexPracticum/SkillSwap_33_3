@@ -1,6 +1,6 @@
 {
   "email": "Mariia@gmail.com",
-  "avatar": "/src/assets/img/avatars/avatar-maria-profile.jpg",
+  "avatar": "https://i.imgur.com/zw0XvQy.jpeg",
   "name": "Мария",
   "birthDate": "1995-10-28",
   "gender": "female",
@@ -31,7 +31,7 @@
     }
   ],
   "likes": 0,
-  "id": 16,
+  "id": "16",
   "notifications": [
     {
       "id": "1",
