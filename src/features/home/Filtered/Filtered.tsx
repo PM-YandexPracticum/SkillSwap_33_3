@@ -15,6 +15,7 @@ import {
   fetchNewUsers,
   fetchPopularUsers,
   fetchRecentUsers,
+  selectUsers,
   selectUsersFiltered,
 } from '@/features/slices/usersSlice';
 import { useUrlFilters } from '@/pages/Home/hooks/useUrlFilters';
@@ -28,6 +29,7 @@ const Filtered: React.FC = () => {
   const filteredUsers = useSelector((state) =>
     selectUsersFiltered(state, filters)
   );
+  const users = useSelector(selectUsers);
 
   const sortedUsers = useMemo(
     () => sortUsers(filteredUsers, sortMode),
@@ -68,16 +70,17 @@ const Filtered: React.FC = () => {
           </Button>
         }
       >
-        {sortedUsers.map((user) => (
-          <Card
-            key={user.id}
-            user={user}
-            liked={false}
-            onLikeClick={() => {}}
-            onMoreClick={() => {}}
-            isProposed={false}
-          />
-        ))}
+        {users[0] &&
+          sortedUsers.map((user) => (
+            <Card
+              key={user.id}
+              user={user}
+              liked={false}
+              onLikeClick={() => {}}
+              onMoreClick={() => {}}
+              isProposed={false}
+            />
+          ))}
       </Section>
       <Section>
         <Button variant="tertiary" onClick={hadleAppendUsers}>

@@ -29,18 +29,19 @@ const DontFiltered: React.FC = () => {
           </Button>
         }
       >
-        {sortUsers(users, 'popular')
-          .slice(0, 3)
-          .map((user) => (
-            <Card
-              key={user.id}
-              user={user}
-              liked={false}
-              onLikeClick={() => {}}
-              onMoreClick={() => {}}
-              isProposed={false}
-            />
-          ))}
+        {users[0] &&
+          sortUsers(users, 'popular')
+            .slice(0, 3)
+            .map((user) => (
+              <Card
+                key={user.id}
+                user={user}
+                liked={false}
+                onLikeClick={() => {}}
+                onMoreClick={() => {}}
+                isProposed={false}
+              />
+            ))}
       </Section>
       <Section
         title="Новое"
@@ -50,32 +51,34 @@ const DontFiltered: React.FC = () => {
           </Button>
         }
       >
-        {sortUsers(users, 'new')
-          .slice(0, 3)
-          .map((user) => (
-            <Card
-              key={user.id}
-              user={user}
-              liked={false}
-              onLikeClick={() => {}}
-              onMoreClick={() => {}}
-              isProposed={false}
-            />
-          ))}
+        {users[0] &&
+          sortUsers(users, 'new')
+            .slice(0, 3)
+            .map((user) => (
+              <Card
+                key={user.id}
+                user={user}
+                liked={false}
+                onLikeClick={() => {}}
+                onMoreClick={() => {}}
+                isProposed={false}
+              />
+            ))}
       </Section>
       <Section title="Рекомендуем">
-        {sortUsers(users, 'recommended')
-          .slice(0, 9)
-          .map((user) => (
-            <Card
-              key={user.id}
-              user={user}
-              liked={false}
-              onLikeClick={() => {}}
-              onMoreClick={() => {}}
-              isProposed={false}
-            />
-          ))}
+        {users[0] &&
+          sortUsers(users, 'recommended')
+            .slice(0, 9)
+            .map((user) => (
+              <Card
+                key={user.id}
+                user={user}
+                liked={false}
+                onLikeClick={() => {}}
+                onMoreClick={() => {}}
+                isProposed={false}
+              />
+            ))}
       </Section>
     </>
   );
