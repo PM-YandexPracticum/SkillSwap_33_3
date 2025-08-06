@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './Info.module.css';
 import { Select } from '../../../shared/ui/Select';
 import { ComboInput } from '../../../shared/ui/ComboInput';
@@ -74,13 +74,11 @@ export default function Info() {
     setEdited(JSON.stringify(updated) !== JSON.stringify(initialData));
   };
 
-  const validator = () => {
+  const validate = () => {
     let succeded = true;
     if (formData.email.length === 0) {
       setEmailError(validation.eMessageFieldMustBeNotEmpty);
       succeded = false;
-    } else {
-      setEmailError('');
     }
 
     if (formData.name.length === 0) {
@@ -92,44 +90,26 @@ export default function Info() {
     ) {
       setNameError(validation.eMessageFieldMustBeShort);
       succeded = false;
-    } else {
-      setNameError('');
     }
 
     if (formData.birthdate === null) {
       setBirthdateError(validation.eMessageFieldMustBeNotEmpty);
       succeded = false;
-    } else {
-      setBirthdateError('');
     }
 
     if (formData.city.length === 0) {
       setCityError(validation.eMessageFieldMustBeNotEmpty);
       succeded = false;
-    } else {
-      setCityError('');
-    }
-
-    if (formData.about.length > validation.longFieldLengthMax) {
-      setAboutError(validation.eMessageFieldMustBeLong);
-      succeded = false;
-    } else {
-      setAboutError('');
     }
 
     return succeded;
   };
-  const validate = useCallback(validator, [formData]);
-
-  useEffect(() => {
-    validate();
-  }, [validate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user) return;
 
-    if (validator()) {
+    if (validate()) {
       try {
         await updateProfile(user.id, {
           name: formData.name,
@@ -144,6 +124,12 @@ export default function Info() {
       }
     }
   };
+
+  useEffect(() => setEmailError(''), [formData.email]);
+  useEffect(() => setNameError(''), [formData.name]);
+  useEffect(() => setBirthdateError(''), [formData.birthdate]);
+  useEffect(() => setCityError(''), [formData.city]);
+  useEffect(() => setAboutError(''), [formData.about]);
 
   return (
     <form onSubmit={handleSubmit} className={styles.container}>

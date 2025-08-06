@@ -54,9 +54,6 @@ export const FormStepOne: React.FC<FormProps> = ({
     }
   };
 
-  useEffect(() => setEmailError(''), [email]);
-  useEffect(() => setPasswordError(''), [password]);
-
   const handleReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onReset?.();
@@ -65,6 +62,9 @@ export const FormStepOne: React.FC<FormProps> = ({
     setEmailError('');
     setPasswordError('');
   };
+
+  useEffect(() => setEmailError(''), [email]);
+  useEffect(() => setPasswordError(''), [password]);
 
   return (
     <form
