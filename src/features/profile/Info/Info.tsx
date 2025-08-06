@@ -9,7 +9,7 @@ import EditIcon from '../../../assets/svg/icons/edit.svg?react';
 import GalleryEdit from '../../../assets/svg/icons/gallery-edit.svg?react';
 import { CustomDatePicker } from '../../../shared/ui/CustomDatePicker/CustomDatePicker';
 import { useSelector } from '@/app/store';
-import { selectAuthUser } from '@/features/slices/authSlice';
+import { selectAuthUser, selectIsAuth } from '@/features/slices/authSlice';
 import { authApiClient } from '@/api/authClient';
 import { useNavigate } from 'react-router-dom';
 import { useUpdateEffect } from '@/shared/hooks/useUpdateEffect';
@@ -70,6 +70,7 @@ function Info() {
   const [cityError, setCityError] = useState('');
   const [aboutError, setAboutError] = useState('');
   const user = useSelector(selectAuthUser);
+  const isAuth = useSelector(selectIsAuth);
 
   const handleChange = (key: keyof FormData, value: string | Date | null) => {
     const updated = { ...formData, [key]: value };
@@ -129,7 +130,7 @@ function Info() {
   };
 
   useUpdateEffect(() => {
-    if (!user) navigate('/');
+    if (!isAuth) navigate('/');
     else
       setFormData((state) => ({
         ...state,
@@ -204,9 +205,11 @@ function Info() {
 
         {/* Город */}
         <div className={styles.field}>
-          <label>Город</label>
           <ComboInput
-            defaultValue={formData.city}
+            label="Город"
+            defaultValue={citiesOptions.find(
+              (item) => item.value === formData.city
+            )}
             onChange={(val) => handleChange('city', val)}
             options={citiesOptions}
             error={cityError}

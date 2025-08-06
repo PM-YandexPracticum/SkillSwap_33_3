@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import clsx from 'clsx';
 import styles from './ComboInput.module.css';
 import ArrowIcon from '../../../assets/svg/icons/chevron-down.svg?react';
@@ -16,7 +16,7 @@ interface ComboInputProps {
   label?: string;
   placeholder?: string;
   options: Option[];
-  defaultValue?: string;
+  defaultValue?: Option;
   onChange?: (value: string) => void;
   error?: string;
 }
@@ -25,11 +25,11 @@ export function ComboInput({
   label,
   placeholder,
   options,
-  defaultValue = '',
+  defaultValue = { label: '', value: '' },
   onChange,
   error,
 }: ComboInputProps) {
-  const [query, setQuery] = useState(defaultValue);
+  const [query, setQuery] = useState(defaultValue.label);
   const [isOpen, setIsOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -62,6 +62,10 @@ export function ComboInput({
     setIsOpen((open) => !open);
     inputRef.current?.focus();
   };
+
+  useEffect(() => {
+    setQuery(defaultValue.label);
+  }, [defaultValue.label]);
 
   return (
     <div

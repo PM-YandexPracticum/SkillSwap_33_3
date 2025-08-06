@@ -1,124 +1,29 @@
-import { useEffect, useMemo } from 'react';
-import { useDispatch, useSelector } from '@/app/store';
-import {
-  fetchUsers,
-  fetchPopularUsers,
-  fetchRecentUsers,
-  fetchNewUsers,
-  selectUsers,
-  selectUsersFiltered,
-} from '@/features/slices/usersSlice';
-import { Card } from '@/shared/ui/Card';
+import { lazy, Suspense, useEffect } from 'react';
+import { useDispatch } from '@/app/store';
+import { fetchUsers } from '@/features/slices/usersSlice';
+
 import { FilterSidebar } from '@/widgets/FilterSidebar';
 import styles from './Home.module.css';
-import { Button } from '@/shared/ui/Button';
-import { Section } from '@/shared/ui/Section';
-import SortIcon from '@/assets/svg/icons/sort.svg?react';
-import ChevronRightIcon from '@/assets/svg/icons/chevron-right.svg?react';
-import ChevronDownIcon from '@/assets/svg/icons/chevron-down.svg?react';
 import { useUrlFilters } from './hooks/useUrlFilters';
-import { ActiveFilters } from './components/ActiveFilters';
-import {
-  sortUsers,
-  hasActiveFiltersOrSort,
-  getSortButtonText,
-  getNextSortMode,
-} from './utils/filterUtils';
+import { hasActiveFiltersOrSort } from './utils/filterUtils';
+import { Loader } from '@/shared/ui/Loader/Loader';
+
+const DontFiltered = lazy(
+  () => import('../../features/home/DontFiltered/DontFiltered')
+);
+const Filtered = lazy(() => import('@/features/home/Filtered/Filtered'));
 
 function Home() {
   const dispatch = useDispatch();
-  const users = useSelector(selectUsers);
 
   // Используем новый хук для управления фильтрами и сортировкой через URL
-  const { filters, sortMode, updateFilters, updateSortMode } = useUrlFilters();
-
-  // Используем селектор для получения отфильтрованных пользователей
-  const filteredUsers = useSelector((state) =>
-    selectUsersFiltered(state, filters)
-  );
-
-  useEffect(() => {
-    dispatch(fetchUsers());
-  }, [dispatch]);
-
-  // Применяем только сортировку (фильтрация теперь через селектор)
-  const sortedUsers = useMemo(
-    () => sortUsers(filteredUsers, sortMode),
-    [filteredUsers, sortMode]
-  );
+  const { filters, sortMode, updateFilters } = useUrlFilters();
 
   // Проверяем есть ли активные фильтры или сортировка
   const hasActiveState = hasActiveFiltersOrSort(filters, sortMode);
-
-  // Обработчик переключения сортировки
-  const handleSortToggle = () => {
-    const nextMode = getNextSortMode(sortMode);
-    updateSortMode(nextMode);
-  };
-
-  // Обработчики для кнопок "Смотреть все" в дефолтных секциях
-  const handleShowAllPopular = () => {
-    updateSortMode('popular');
-  };
-
-  const handleShowAllNew = () => {
-    updateSortMode('new');
-  };
-
-  const hadleAppendUsers = () => {
-    switch (sortMode) {
-      case 'new':
-        dispatch(fetchNewUsers());
-        break;
-      case 'popular':
-        dispatch(fetchPopularUsers());
-        break;
-      case 'recommended':
-        dispatch(fetchRecentUsers());
-        break;
-    }
-  };
-
-  // Если есть активные фильтры или сортировка - показываем результаты фильтрации
-  if (hasActiveState) {
-    return (
-      <main className={styles.page}>
-        <div className={styles.container}>
-          <aside className={styles.sidebar}>
-            <FilterSidebar filters={filters} onFiltersChange={updateFilters} />
-          </aside>
-          <div className={styles.content}>
-            <ActiveFilters filters={filters} onFiltersChange={updateFilters} />
-            <Section
-              title={`Найдено ${sortedUsers.length} предложений`}
-              button={
-                <Button variant="tertiary" onClick={handleSortToggle}>
-                  <SortIcon />
-                  {getSortButtonText(sortMode)}
-                </Button>
-              }
-            >
-              {sortedUsers.map((user) => (
-                <Card
-                  key={user.id}
-                  user={user}
-                  liked={false}
-                  onLikeClick={() => {}}
-                  onMoreClick={() => {}}
-                  isProposed={false}
-                />
-              ))}
-            </Section>
-            <Section>
-              <Button variant="tertiary" onClick={hadleAppendUsers}>
-                Показать больше <ChevronDownIcon />
-              </Button>
-            </Section>
-          </div>
-        </div>
-      </main>
-    );
-  }
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, [dispatch]);
 
   // Дефолтный рендер с тремя секциями
   return (
@@ -128,62 +33,9 @@ function Home() {
           <FilterSidebar filters={filters} onFiltersChange={updateFilters} />
         </aside>
         <div className={styles.content}>
-          <Section
-            title="Популярное"
-            button={
-              <Button variant="tertiary" onClick={handleShowAllPopular}>
-                Смотреть все <ChevronRightIcon />
-              </Button>
-            }
-          >
-            {sortUsers(users, 'popular')
-              .slice(0, 3)
-              .map((user) => (
-                <Card
-                  key={user.id}
-                  user={user}
-                  liked={false}
-                  onLikeClick={() => {}}
-                  onMoreClick={() => {}}
-                  isProposed={false}
-                />
-              ))}
-          </Section>
-          <Section
-            title="Новое"
-            button={
-              <Button variant="tertiary" onClick={handleShowAllNew}>
-                Смотреть все <ChevronRightIcon />
-              </Button>
-            }
-          >
-            {sortUsers(users, 'new')
-              .slice(0, 3)
-              .map((user) => (
-                <Card
-                  key={user.id}
-                  user={user}
-                  liked={false}
-                  onLikeClick={() => {}}
-                  onMoreClick={() => {}}
-                  isProposed={false}
-                />
-              ))}
-          </Section>
-          <Section title="Рекомендуем">
-            {sortUsers(users, 'recommended')
-              .slice(0, 9)
-              .map((user) => (
-                <Card
-                  key={user.id}
-                  user={user}
-                  liked={false}
-                  onLikeClick={() => {}}
-                  onMoreClick={() => {}}
-                  isProposed={false}
-                />
-              ))}
-          </Section>
+          <Suspense fallback={<Loader />}>
+            {hasActiveState ? <Filtered /> : <DontFiltered />}
+          </Suspense>
         </div>
       </div>
     </main>
