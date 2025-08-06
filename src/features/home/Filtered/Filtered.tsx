@@ -79,6 +79,7 @@ const Filtered: React.FC = () => {
               onLikeClick={() => {}}
               onMoreClick={() => {}}
               isProposed={false}
+              filter={filters}
             />
           ))}
       </Section>

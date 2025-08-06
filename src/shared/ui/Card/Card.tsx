@@ -8,6 +8,7 @@ import type { UserResponse } from '../../../api/client';
 import { ageString } from '../../lib/utils';
 import { getLearningSkills, getTeachingSkills } from '../../lib/utils';
 import { AdaptiveSkillsList } from '../AdaptiveSkillsList';
+import type { Filters } from '@/shared/lib/types';
 
 type CardProps = {
   user: UserResponse;
@@ -16,7 +17,7 @@ type CardProps = {
   onMoreClick?: () => void;
   isProposed?: boolean;
   variant?: 'default' | 'skillPage';
-  filter?: string[];
+  filter?: Filters;
 };
 
 export const Card: React.FC<CardProps> = ({
@@ -26,11 +27,18 @@ export const Card: React.FC<CardProps> = ({
   onMoreClick,
   isProposed,
   variant = 'default',
+  filter,
 }) => {
   const navigate = useNavigate();
   const age = ageString(user.birthDate);
-  const teachingSkills = getTeachingSkills(user);
-  const learningSkills = getLearningSkills(user);
+  const teachingSkills = getTeachingSkills(
+    user,
+    filter?.mode === 'learn' ? filter?.subcategories : undefined
+  );
+  const learningSkills = getLearningSkills(
+    user,
+    filter?.mode === 'teach' ? filter?.subcategories : undefined
+  );
 
   const handleMoreClick = () => {
     if (teachingSkills.length > 0) {
