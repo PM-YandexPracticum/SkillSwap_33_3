@@ -1,5 +1,6 @@
 import type { FC, InputHTMLAttributes } from 'react';
 import styles from './FormInput.module.css';
+import { ValidationMessage } from '../ValidationMessage/ValidationMessage';
 
 interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
   title: string;
@@ -33,7 +34,7 @@ export const FormInput: FC<FormInputProps> = ({
           {svg}
         </div>
       )}
-      {error && <span className={styles.errorMessage}>{error}</span>}
+      <ValidationMessage error={error} />
     </label>
   );
 };

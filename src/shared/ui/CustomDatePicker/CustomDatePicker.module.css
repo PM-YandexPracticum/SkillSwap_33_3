@@ -102,6 +102,10 @@
   line-height: 1.5;
 }
 
+.input.error {
+    border-color: var(--status-error);
+}
+
 .input:focus,
 .input:focus-visible {
   outline: none;

@@ -44,7 +44,7 @@ const mockUser = {
     },
   ],
   likes: 31,
-  id: '1',
+  id: 1,
 };
 
 import img1 from '../../assets/img/skills/drums-1.jpg';

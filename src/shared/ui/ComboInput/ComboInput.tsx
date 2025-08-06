@@ -4,6 +4,8 @@ import styles from './ComboInput.module.css';
 import ArrowIcon from '../../../assets/svg/icons/chevron-down.svg?react';
 import CloseIcon from '../../../assets/svg/icons/cross.svg?react';
 import { useClickOutside } from '../../hooks/useClickOutside';
+import { ValidationMessage } from '../ValidationMessage/ValidationMessage';
+import { SelectOption } from '../SelectOption';
 
 interface Option {
   label: string;
@@ -16,6 +18,7 @@ interface ComboInputProps {
   options: Option[];
   defaultValue?: string;
   onChange?: (value: string) => void;
+  error?: string;
 }
 
 export function ComboInput({
@@ -24,6 +27,7 @@ export function ComboInput({
   options,
   defaultValue = '',
   onChange,
+  error,
 }: ComboInputProps) {
   const [query, setQuery] = useState(defaultValue);
   const [isOpen, setIsOpen] = useState(false);
@@ -68,7 +72,11 @@ export function ComboInput({
       <div className={styles.inputWrapper}>
         <input
           ref={inputRef}
-          className={clsx(styles.input, isOpen && styles.input_open)}
+          className={clsx(
+            styles.input,
+            isOpen && styles.input_open,
+            error && styles.error
+          )}
           placeholder={placeholder}
           value={query}
           onChange={handleInputChange}
@@ -99,12 +107,10 @@ export function ComboInput({
       >
         {filtered.length > 0 ? (
           filtered.map((opt) => (
-            <li
-              key={opt.value}
-              className={styles.option}
-              onClick={() => handleSelect(opt)}
-            >
-              {opt.label}
+            <li key={opt.value}>
+              <SelectOption value={opt.value} onClick={() => handleSelect(opt)}>
+                {opt.label}
+              </SelectOption>
             </li>
           ))
         ) : (
@@ -113,6 +119,7 @@ export function ComboInput({
           </li>
         )}
       </ul>
+      <ValidationMessage error={error} />
     </div>
   );
 }

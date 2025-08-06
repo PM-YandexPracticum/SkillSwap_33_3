@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/shared/ui/Button';
 import { FormInput } from '@/shared/ui/FormInput';
 import GoogleIcon from '@/assets/svg/icons/Google.svg?react';
@@ -6,6 +6,7 @@ import AppleIcon from '@/assets/svg/icons/Apple.svg?react';
 import EyeIcon from '@/assets/svg/icons/eye.svg?react';
 import EyeSlashIcon from '@/assets/svg/icons/eye-slash.svg?react';
 import styles from './FormStepOne.module.css';
+import * as validation from '@/shared/constants/validation';
 
 interface FormStepOneData {
   email: string;
@@ -27,10 +28,30 @@ export const FormStepOne: React.FC<FormProps> = ({
   const [email, setEmail] = useState(defaultValues?.email || '');
   const [password, setPassword] = useState(defaultValues?.password || '');
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+
+  const validate = () => {
+    let succeded = true;
+    if (email.length === 0) {
+      setEmailError(validation.eMessageFieldMustBeNotEmpty);
+      succeded = false;
+    }
+
+    if (password.length === 0) {
+      setPasswordError(validation.eMessageFieldMustBeNotEmpty);
+      succeded = false;
+    }
+
+    return succeded;
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onFormSubmit({ email, password });
+
+    if (validate()) {
+      onFormSubmit({ email, password });
+    }
   };
 
   const handleReset = (e: React.FormEvent<HTMLFormElement>) => {
@@ -38,7 +59,12 @@ export const FormStepOne: React.FC<FormProps> = ({
     onReset?.();
     setEmail('');
     setPassword('');
+    setEmailError('');
+    setPasswordError('');
   };
+
+  useEffect(() => setEmailError(''), [email]);
+  useEffect(() => setPasswordError(''), [password]);
 
   return (
     <form
@@ -67,7 +93,7 @@ export const FormStepOne: React.FC<FormProps> = ({
           placeholder="Введите email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          required
+          error={emailError}
         />
 
         <FormInput
@@ -83,6 +109,7 @@ export const FormStepOne: React.FC<FormProps> = ({
               <EyeIcon onClick={() => setIsPasswordVisible(true)} />
             )
           }
+          error={passwordError}
         />
       </div>
 
