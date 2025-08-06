@@ -25,10 +25,10 @@ function Layout() {
   const dispatch = useDispatch();
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <>
       <Header />
 
-      <div className="flex-grow">
+      <div style={{ maxWidth: 1440, margin: '0 auto' }}>
         <Outlet />
       </div>
 
@@ -38,7 +38,7 @@ function Layout() {
       )}
 
       <Footer />
-    </div>
+    </>
   );
 }
 

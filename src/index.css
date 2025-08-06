@@ -22,12 +22,6 @@ body {
   box-sizing: border-box;
 }
 
-#root {
-  height: 100vh;
-  max-width: 1440px;
-  margin: 0 auto;
-}
-
 :root {
   /* Шрифтовые решения */
   --typeface-headings: 'Jost', sans-serif; /* Доминирующий шрифт для заголовков и акцентов */
