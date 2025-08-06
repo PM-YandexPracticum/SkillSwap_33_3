@@ -7,17 +7,22 @@ import './DatePickerOverrides.css';
 import ru from 'date-fns/locale/ru';
 import { Button } from '../Button';
 import { Select } from '../Select';
+import { ValidationMessage } from '../ValidationMessage/ValidationMessage';
 
 interface CustomDatePickerProps {
   selected: Date | null;
   onChange: (date: Date | null) => void;
   label?: string;
+  error?: string;
 }
 
 const InputWithIcon = React.forwardRef<
   HTMLInputElement,
-  React.InputHTMLAttributes<HTMLInputElement> & { displayedValue?: string }
->(({ onClick, placeholder, displayedValue }, ref) => (
+  React.InputHTMLAttributes<HTMLInputElement> & {
+    displayedValue?: string;
+    error?: string;
+  }
+>(({ onClick, placeholder, displayedValue, error }, ref) => (
   <div className={styles.inputWrapper} onClick={onClick}>
     <input
       type="text"
@@ -25,7 +30,7 @@ const InputWithIcon = React.forwardRef<
       onChange={() => {}}
       placeholder={placeholder}
       ref={ref}
-      className={styles.input}
+      className={`${styles.input} ${error ? styles.error : ''}`}
       readOnly
     />
     <CalendarIcon className={styles.icon} />
@@ -36,6 +41,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
   selected,
   onChange,
   label,
+  error,
 }) => {
   const [tempDate, setTempDate] = useState<Date | null>(selected);
   const formattedValue = selected ? selected.toLocaleDateString('ru-RU') : '';
@@ -88,7 +94,16 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
         onClickOutside={() => setIsOpen(false)}
         dateFormat="dd.MM.yyyy"
         placeholderText="дд.мм.гггг"
-        customInput={<InputWithIcon displayedValue={formattedValue} />}
+        customInput={
+          <div>
+            <InputWithIcon
+              placeholder="дд.мм.гггг"
+              displayedValue={formattedValue}
+              error={error}
+            />
+            <ValidationMessage error={error} />
+          </div>
+        }
         calendarClassName={styles.calendar}
         wrapperClassName={styles.wrapper}
         popperClassName={styles.popper}

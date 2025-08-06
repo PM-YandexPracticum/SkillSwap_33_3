@@ -3,7 +3,7 @@ import type { LearningSkill, TeachingSkill } from '../shared/lib/types';
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export interface UserResponse {
-  id: string;
+  id: number;
   email: string;
   avatar: string;
   name: string;

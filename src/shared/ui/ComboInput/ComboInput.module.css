@@ -39,7 +39,10 @@
   background-color: white;
   color: var(--text-secondary);
   cursor: text;
-  z-index: 10;
+}
+
+.input.error {
+    border-color: var(--status-error);
 }
 
 .input:focus {
@@ -75,7 +78,6 @@
   background: transparent;
   color: var(--text-secondary);
   cursor: pointer;
-  z-index: 40;
   width: 20px;
   height: 20px;
   display: flex;

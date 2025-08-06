@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/shared/ui/Button';
 import { FormInput } from '@/shared/ui/FormInput';
 import { Select } from '@/shared/ui/Select';
@@ -10,6 +10,8 @@ import { useSelector } from '@/app/store';
 import { selectAllSkills } from '@/features/slices/skillsSlice';
 import { Checkbox } from '@/shared/ui/Checkbox';
 import { ComboInput } from '@/shared/ui/ComboInput';
+import * as validation from '@/shared/constants/validation';
+import { SelectOption } from '@/shared/ui/SelectOption';
 
 interface FormStepTwoData {
   avatar: File | null;
@@ -34,6 +36,9 @@ export const FormStepTwo: React.FC<FormStepTwoProps> = ({
   ...rest
 }) => {
   const skills = useSelector(selectAllSkills);
+  const [nameError, setNameError] = useState('');
+  const [birthdateError, setBirthdateError] = useState('');
+  const [cityError, setCityError] = useState('');
 
   const cities = [
     'Москва',
@@ -102,23 +107,64 @@ export const FormStepTwo: React.FC<FormStepTwoProps> = ({
     else setSubcategories((state) => state.filter((item) => item !== value));
   };
 
+  const validate = () => {
+    let succeded = true;
+
+    if (name.length === 0) {
+      setNameError(validation.eMessageFieldMustBeNotEmpty);
+      succeded = false;
+    } else if (
+      name.length < validation.shortFieldLengthMin ||
+      name.length > validation.shortFieldLengthMax
+    ) {
+      setNameError(validation.eMessageFieldMustBeShort);
+      succeded = false;
+    }
+
+    if (birthDate === null) {
+      setBirthdateError(validation.eMessageFieldMustBeNotEmpty);
+      succeded = false;
+    }
+
+    if (city.length === 0) {
+      setCityError(validation.eMessageFieldMustBeNotEmpty);
+      succeded = false;
+    }
+
+    return succeded;
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onFormSubmit({
-      avatar,
-      name,
-      birthDate,
-      gender,
-      city,
-      categories,
-      subcategories,
-    });
+
+    if (validate()) {
+      onFormSubmit({
+        avatar,
+        name,
+        birthDate,
+        gender,
+        city,
+        categories,
+        subcategories,
+      });
+    }
   };
 
   const handleReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setAvatar(null);
+    setName('');
+    setBirthDate(null);
+    setGender('unknown');
+    setGenderLabel('Не указан');
+    setCity('');
+    setSubcategories([]);
     onReset?.();
   };
+
+  useEffect(() => setNameError(''), [name]);
+  useEffect(() => setBirthdateError(''), [birthDate]);
+  useEffect(() => setCityError(''), [city]);
 
   return (
     <form
@@ -134,6 +180,8 @@ export const FormStepTwo: React.FC<FormStepTwoProps> = ({
         placeholder="Введите ваше имя"
         value={name}
         onChange={(e) => setName(e.target.value)}
+        maxLength={validation.shortFieldLengthMax}
+        error={nameError}
       />
 
       <div className={styles.row}>
@@ -142,19 +190,22 @@ export const FormStepTwo: React.FC<FormStepTwoProps> = ({
             label="Дата рождения"
             selected={birthDate}
             onChange={setBirthDate}
+            error={birthdateError}
           />
         </div>
         <div className={styles.half}>
           <Select label="Пол" value={genderLabel}>
             {genders.map((item) => (
-              <div
-                onClick={() => {
-                  setGender(item.value);
+              <SelectOption
+                key={item.value}
+                value={item.value}
+                onClick={(value: string) => {
+                  setGender(value);
                   setGenderLabel(item.label);
                 }}
               >
                 {item.label}
-              </div>
+              </SelectOption>
             ))}
           </Select>
         </div>
@@ -165,17 +216,20 @@ export const FormStepTwo: React.FC<FormStepTwoProps> = ({
         placeholder="Не указан"
         options={citiesOptions}
         onChange={setCity}
+        error={cityError}
       />
 
       <Select label="Категория навыка, которому хотите научиться">
         {skills.map((item) => (
-          <Checkbox
-            key={item.name}
-            value={item.name}
-            onChange={handleCategoriesChange}
-          >
-            {item.name}
-          </Checkbox>
+          <div style={{ paddingLeft: 12 }}>
+            <Checkbox
+              key={item.name}
+              value={item.name}
+              onChange={handleCategoriesChange}
+            >
+              {item.name}
+            </Checkbox>
+          </div>
         ))}
       </Select>
 
@@ -184,13 +238,15 @@ export const FormStepTwo: React.FC<FormStepTwoProps> = ({
         disabled={!categories[0]}
       >
         {visibleSubategories.map((item) => (
-          <Checkbox
-            key={item.name}
-            value={item.name}
-            onChange={handleSubcategoriesChange}
-          >
-            {item.name}
-          </Checkbox>
+          <div style={{ paddingLeft: 12 }}>
+            <Checkbox
+              key={item.name}
+              value={item.name}
+              onChange={handleSubcategoriesChange}
+            >
+              {item.name}
+            </Checkbox>
+          </div>
         ))}
       </Select>
 

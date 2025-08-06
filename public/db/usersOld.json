@@ -36,7 +36,7 @@
       }
     ],
     "likes": 31,
-    "id": "-1"
+    "id": -1
   },
   {
     "email": "anna@yandex.ru",
@@ -71,7 +71,7 @@
       }
     ],
     "likes": 29,
-    "id": "-1"
+    "id": -1
   },
   {
     "email": "max@yandex.ru",
@@ -108,7 +108,7 @@
       }
     ],
     "likes": 55,
-    "id": "-1"
+    "id": -1
   },
   {
     "email": "ilona@yandex.ru",
@@ -137,7 +137,7 @@
       }
     ],
     "likes": 44,
-    "id": "-1"
+    "id": -1
   },
   {
     "email": "mixail@yandex.ru",
@@ -172,7 +172,7 @@
       }
     ],
     "likes": 76,
-    "id": "-1"
+    "id": -1
   },
   {
     "email": "maria@yandex.ru",
@@ -205,7 +205,7 @@
       }
     ],
     "likes": 35,
-    "id": "-1"
+    "id": -1
   },
   {
     "email": "viktoria@yandex.ru",
@@ -240,7 +240,7 @@
       }
     ],
     "likes": 91,
-    "id": "-1"
+    "id": -1
   },
   {
     "email": "elizaveta@yandex.ru",
@@ -273,7 +273,7 @@
       }
     ],
     "likes": 68,
-    "id": "-1"
+    "id": -1
   },
   {
     "email": "viktoria2@yandex.ru",
@@ -308,7 +308,7 @@
       }
     ],
     "likes": 34,
-    "id": "-1"
+    "id": -1
   },
   {
     "email": "elena@yandex.ru",
@@ -341,7 +341,7 @@
       }
     ],
     "likes": 52,
-    "id": "-1"
+    "id": -1
   },
   {
     "email": "konstantin@yandex.ru",
@@ -370,7 +370,7 @@
       }
     ],
     "likes": 41,
-    "id": "-1"
+    "id": -1
   },
   {
     "email": "sofia@yandex.ru",
@@ -409,7 +409,7 @@
       }
     ],
     "likes": 84,
-    "id": "-1"
+    "id": -1
   },
   {
     "email": "ekaterina@yandex.ru",
@@ -442,7 +442,7 @@
       }
     ],
     "likes": 89,
-    "id": "-1"
+    "id": -1
   },
   {
     "email": "daria@yandex.ru",
@@ -471,7 +471,7 @@
       }
     ],
     "likes": 63,
-    "id": "-1"
+    "id": -1
   },
   {
     "email": "alla@yandex.ru",
@@ -510,6 +510,6 @@
       }
     ],
     "likes": 73,
-    "id": "-1"
+    "id": -1
   }
 ]
