@@ -12,7 +12,7 @@ import { useDispatch } from '@/app/store';
 import { fetchSkills } from '@/features/slices/skillsSlice';
 import { authApiClient } from '@/api/authClient';
 import { createSkill } from '@/api/authClient';
-import { Loader } from '@/shared/ui/Loader/Loader';
+import { Loader } from '@/shared/ui/Loader';
 
 const FormStepOne = lazy(
   () => import('@/features/registration/ui/FormStepOne')

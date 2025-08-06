@@ -6,7 +6,7 @@ import { FilterSidebar } from '@/widgets/FilterSidebar';
 import styles from './Home.module.css';
 import { useUrlFilters } from './hooks/useUrlFilters';
 import { hasActiveFiltersOrSort } from './utils/filterUtils';
-import { Loader } from '@/shared/ui/Loader/Loader';
+import { Loader } from '@/shared/ui/Loader';
 
 const DontFiltered = lazy(
   () => import('../../features/home/DontFiltered/DontFiltered')
