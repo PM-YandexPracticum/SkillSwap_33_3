@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styles from './SkillsMenu.module.css';
+import type { Category } from '../../shared/lib/types';
 
 // Импорт иконок категорий
 import BusinessIcon from '../../assets/svg/SkillsMenu/business-career.svg';
@@ -8,7 +9,6 @@ import LanguagesIcon from '../../assets/svg/SkillsMenu/foreign-languages.svg';
 import EducationIcon from '../../assets/svg/SkillsMenu/education-development.svg';
 import HomeIcon from '../../assets/svg/SkillsMenu/home-comfort.svg';
 import HealthIcon from '../../assets/svg/SkillsMenu/health-lifestyle.svg';
-import type { Category } from '../../shared/lib/types';
 
 interface SkillsMenuProps {
   skillsData?: Category[];
@@ -31,6 +31,18 @@ export const SkillsMenu: React.FC<SkillsMenuProps> = ({ skillsData }) => {
       </div>
     );
 
+  const createSearchString = (subcategories: { name: string }[]) => {
+    const params = new URLSearchParams();
+    params.set('mode', 'learn');
+    params.set('sort', 'popular');
+
+    if (subcategories.length > 0) {
+      params.set('subcategories', subcategories.map((s) => s.name).join('|'));
+    }
+
+    return params.toString();
+  };
+
   return (
     <nav className={styles.menu}>
       {skillsData.map((category) => (
@@ -48,12 +60,26 @@ export const SkillsMenu: React.FC<SkillsMenuProps> = ({ skillsData }) => {
             className={styles.icon}
           />
           <div className={styles.categoryContent}>
-            <Link to="/" className={styles.categoryLink}>
+            {/* Ссылка на категорию включает все её подкатегории */}
+            <Link
+              to={{
+                pathname: '/',
+                search: createSearchString(category.subcategories),
+              }}
+              className={styles.categoryLink}
+            >
               <span className={styles.categoryTitle}>{category.name}</span>
             </Link>
             <div className={styles.subcategories}>
               {category.subcategories.map((sub) => (
-                <Link to="/" key={sub.name} className={styles.subcategoryLink}>
+                <Link
+                  to={{
+                    pathname: '/',
+                    search: createSearchString([sub]),
+                  }}
+                  key={sub.name}
+                  className={styles.subcategoryLink}
+                >
                   {sub.name}
                 </Link>
               ))}

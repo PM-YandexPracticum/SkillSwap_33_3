@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { useNavigate } from 'react-router-dom';
 import styles from './Card.module.css';
 import { Button } from '../Button';
 import LikeIcon from '../../../assets/svg/icons/likeIcon.svg?react';
@@ -26,9 +27,18 @@ export const Card: React.FC<CardProps> = ({
   isProposed,
   variant = 'default',
 }) => {
+  const navigate = useNavigate();
   const age = ageString(user.birthDate);
   const teachingSkills = getTeachingSkills(user);
   const learningSkills = getLearningSkills(user);
+
+  const handleMoreClick = () => {
+    if (teachingSkills.length > 0) {
+      navigate(`/skills/${teachingSkills[0].id}`);
+    } else if (onMoreClick) {
+      onMoreClick();
+    }
+  };
 
   return (
     <div
@@ -86,7 +96,7 @@ export const Card: React.FC<CardProps> = ({
 
       {variant !== 'skillPage' &&
         (!isProposed ? (
-          <Button variant="primary" onClick={onMoreClick}>
+          <Button variant="primary" onClick={handleMoreClick}>
             Подробнее
           </Button>
         ) : (
