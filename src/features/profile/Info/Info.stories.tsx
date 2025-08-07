@@ -1,4 +1,4 @@
-import Info from './Info';
+import { Component as Info } from './Info';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import '../../../index.css';
 
