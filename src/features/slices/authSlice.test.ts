@@ -70,7 +70,7 @@ describe('тестируем редьюсер авторизации', () => {
       },
       logout()
     );
-    expect(state.user).toBeNull();
+    expect(state.user).toBeUndefined();
     expect(state.isAuth).toBe(false);
     expect(state.loading).toBe(false);
     expect(state.error).toBeNull();

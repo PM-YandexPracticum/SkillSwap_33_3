@@ -4,7 +4,7 @@ import type {
   TSkillInfo,
 } from '../shared/lib/types';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_BASE_URL = 'https://exquisitely-commending-rattler.cloudpub.ru/';
 
 export interface UserResponse {
   id: number;

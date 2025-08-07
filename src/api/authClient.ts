@@ -3,7 +3,7 @@ import { getCookie, setCookie, deleteCookie } from '../shared/lib/cookie';
 import type { UserResponse } from './client';
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_BASE_URL = 'https://exquisitely-commending-rattler.cloudpub.ru/';
 const ACCESS_TOKEN_COOKIE = 'accessToken';
 const REFRESH_TOKEN_KEY = 'refreshToken';
 
@@ -62,7 +62,6 @@ class AuthApiClient {
   private saveTokens(accessToken: string, refreshToken?: string): void {
     setCookie(ACCESS_TOKEN_COOKIE, accessToken, {
       expires: 7,
-      secure: import.meta.env.PROD,
       sameSite: 'lax',
     });
 
