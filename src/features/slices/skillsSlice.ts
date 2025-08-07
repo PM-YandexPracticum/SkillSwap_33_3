@@ -7,7 +7,7 @@ import {
 import type { RootState } from '../../app/store';
 import { skillsApi, type SkillResponse } from '../../api/client';
 
-interface SkillsState {
+export interface SkillsState {
   list: SkillResponse[];
   loading: boolean;
   error: string | null;

@@ -13,7 +13,7 @@ import mockUsersUnpopular from '../../../public/db/usersUnpopular.json';
 import mockUsers from '../../../public/db/users.json';
 import mockUsersOld from '../../../public/db/usersOld.json';
 
-interface UsersState {
+export interface UsersState {
   list: UserResponse[];
   loading: boolean;
   error: string | null;
