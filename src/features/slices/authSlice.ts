@@ -8,7 +8,7 @@ import type { RootState } from '../../app/store';
 import { authApiClient, type UserAuthResponse } from '../../api/authClient';
 import { getLocalItem, setLocalItem } from '@/shared/lib/localStorageUtils';
 
-interface AuthState {
+export interface AuthState {
   user: UserAuthResponse | undefined;
   isAuth: boolean;
   loading: boolean;

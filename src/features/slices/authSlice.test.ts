@@ -15,14 +15,14 @@ describe('тестируем редьюсер авторизации', () => {
   const reducer = authSlice.reducer;
 
   const mockStateAuth: AuthState = {
-    user: null,
+    user: undefined,
     isAuth: false,
     loading: false,
     error: null,
   };
 
   const mockUserAuthResponse: UserAuthResponse = {
-    ...mockUser,
+    ...(mockUser as unknown as UserAuthResponse),
     isEmailVerified: true,
     createdAt: 'some time',
     updatedAt: 'some time',
@@ -30,7 +30,7 @@ describe('тестируем редьюсер авторизации', () => {
 
   test('запрос авторизации', () => {
     const state = reducer(mockStateAuth, fetchUser.pending(''));
-    expect(state.user).toBeNull();
+    expect(state.user).toBeUndefined();
     expect(state.isAuth).toBe(false);
     expect(state.loading).toBe(true);
     expect(state.error).toBeNull();
@@ -44,7 +44,7 @@ describe('тестируем редьюсер авторизации', () => {
       },
       fetchUser.rejected(new Error(testing.errorMessage), '')
     );
-    expect(state.user).toBeNull();
+    expect(state.user).toBeUndefined();
     expect(state.isAuth).toBe(false);
     expect(state.loading).toBe(false);
     expect(state.error).toEqual(testing.errorMessage);
