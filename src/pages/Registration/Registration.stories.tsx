@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Registration } from './Registration';
+import { Component as Registration } from './Registration';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { store } from '@/app/store';
+import { store } from '../../app/store';
 
 const meta: Meta<typeof Registration> = {
   title: 'Pages/Registration',
