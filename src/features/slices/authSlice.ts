@@ -11,7 +11,7 @@ import mockUser from '../../../public/db/user.json';
 import type { RootState } from '../../app/store';
 import type { UserAuthResponse } from '../../api/authClient';
 
-interface AuthState {
+export interface AuthState {
   user: UserAuthResponse | null;
   isAuth: boolean;
   loading: boolean;

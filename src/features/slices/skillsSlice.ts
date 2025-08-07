@@ -11,7 +11,7 @@ import mockSkills from '../../../public/db/skills.json';
 import type { RootState } from '../../app/store';
 import type { SkillResponse } from '../../api/client';
 
-interface SkillsState {
+export interface SkillsState {
   list: SkillResponse[];
   loading: boolean;
   error: string | null;
