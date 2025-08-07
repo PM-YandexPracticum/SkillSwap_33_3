@@ -1,6 +1,7 @@
 import React from 'react';
 
 import styles from './Section.module.css';
+import { Loader } from '../Loader';
 
 interface SectionProps {
   title?: string;
@@ -23,7 +24,7 @@ export const Section: React.FC<SectionProps> = ({
           {button}
         </div>
       )}
-      {children && <div className={styles['card-wrapper']}>{children}</div>}
+      {<div className={styles['card-wrapper']}>{children || <Loader />}</div>}
     </section>
   );
 };

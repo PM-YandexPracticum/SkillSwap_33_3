@@ -7,19 +7,15 @@ import EyeIcon from '@/assets/svg/icons/eye.svg?react';
 import EyeSlashIcon from '@/assets/svg/icons/eye-slash.svg?react';
 import styles from './FormStepOne.module.css';
 import * as validation from '@/shared/constants/validation';
-
-interface FormStepOneData {
-  email: string;
-  password: string;
-}
+import type { StepOneData } from '@/pages/Registration/Registration';
 
 interface FormProps extends React.FormHTMLAttributes<HTMLFormElement> {
-  onFormSubmit: (data: Partial<FormStepOneData>) => void;
+  onFormSubmit: (data: StepOneData) => void;
   onReset?: () => void;
-  defaultValues?: Partial<FormStepOneData>;
+  defaultValues?: Partial<StepOneData>;
 }
 
-export const FormStepOne: React.FC<FormProps> = ({
+const FormStepOne: React.FC<FormProps> = ({
   onFormSubmit,
   onReset,
   defaultValues,
@@ -119,3 +115,5 @@ export const FormStepOne: React.FC<FormProps> = ({
     </form>
   );
 };
+
+export default FormStepOne;

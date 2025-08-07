@@ -1,7 +1,7 @@
 [
   {
     "email": "ivan@yandex.ru",
-    "avatar": "/src/assets/img/avatars/avatar-ivan.jpg",
+    "avatar": "https://i.imgur.com/3mHr9FH.jpeg",
     "name": "Иван",
     "birthDate": "1991-01-01",
     "gender": "male",
@@ -40,7 +40,7 @@
   },
   {
     "email": "anna@yandex.ru",
-    "avatar": "/src/assets/img/avatars/avatar-anna.jpg",
+    "avatar": "https://i.imgur.com/06fkbao.jpeg",
     "name": "Анна",
     "birthDate": "1999-01-01",
     "gender": "female",
@@ -75,7 +75,7 @@
   },
   {
     "email": "max@yandex.ru",
-    "avatar": "/src/assets/img/avatars/avatar-maksim.jpg",
+    "avatar": "https://i.imgur.com/Gyw4gwV.jpeg",
     "name": "Максим",
     "birthDate": "2002-01-01",
     "gender": "male",
@@ -112,7 +112,7 @@
   },
   {
     "email": "ilona@yandex.ru",
-    "avatar": "/src/assets/img/avatars/avatar-ilona.jpg",
+    "avatar": "https://i.imgur.com/nGrYrMK.jpeg",
     "name": "Илона",
     "birthDate": "1992-01-01",
     "gender": "female",
@@ -141,7 +141,7 @@
   },
   {
     "email": "mixail@yandex.ru",
-    "avatar": "/src/assets/img/avatars/avatar-mihail.jpg",
+    "avatar": "https://i.imgur.com/rIhs3id.jpeg",
     "name": "Михаил",
     "birthDate": "1996-01-01",
     "gender": "male",
@@ -176,7 +176,7 @@
   },
   {
     "email": "maria@yandex.ru",
-    "avatar": "/src/assets/img/avatars/avatar-maria.jpg",
+    "avatar": "https://i.imgur.com/J9gbqu9.jpeg",
     "name": "Мария",
     "birthDate": "2003-01-01",
     "gender": "female",
@@ -209,7 +209,7 @@
   },
   {
     "email": "viktoria@yandex.ru",
-    "avatar": "/src/assets/img/avatars/avatar-victoria.jpg",
+    "avatar": "https://i.imgur.com/aecxate.jpeg",
     "name": "Виктория",
     "birthDate": "1995-01-01",
     "gender": "female",
@@ -244,7 +244,7 @@
   },
   {
     "email": "elizaveta@yandex.ru",
-    "avatar": "/src/assets/img/avatars/avatar-elizaveta.jpg",
+    "avatar": "https://i.imgur.com/A21DveJ.jpeg",
     "name": "Елизавета",
     "birthDate": "2000-01-01",
     "gender": "female",
@@ -277,7 +277,7 @@
   },
   {
     "email": "viktoria2@yandex.ru",
-    "avatar": "/src/assets/img/avatars/avatar-victoria-2.jpg",
+    "avatar": "https://i.imgur.com/slID5P9.jpeg",
     "name": "Виктория",
     "birthDate": "1994-01-01",
     "gender": "female",
@@ -312,7 +312,7 @@
   },
   {
     "email": "elena@yandex.ru",
-    "avatar": "/src/assets/img/avatars/avatar-elena.jpg",
+    "avatar": "https://i.imgur.com/O9UNYXv.jpeg",
     "name": "Елена",
     "birthDate": "1997-01-01",
     "gender": "female",
@@ -345,7 +345,7 @@
   },
   {
     "email": "konstantin@yandex.ru",
-    "avatar": "/src/assets/img/avatars/avatar-konstantin.jpg",
+    "avatar": "https://i.imgur.com/n0AIPDR.jpeg",
     "name": "Константин",
     "birthDate": "1989-01-01",
     "gender": "male",
@@ -374,7 +374,7 @@
   },
   {
     "email": "sofia@yandex.ru",
-    "avatar": "/src/assets/img/avatars/avatar-sofia.jpg",
+    "avatar": "https://i.imgur.com/trLtNsY.jpeg",
     "name": "София",
     "birthDate": "2001-01-01",
     "gender": "female",
@@ -413,7 +413,7 @@
   },
   {
     "email": "ekaterina@yandex.ru",
-    "avatar": "/src/assets/img/avatars/avatar-ekaterina.jpg",
+    "avatar": "https://i.imgur.com/uyX4bbC.jpeg",
     "name": "Екатерина",
     "birthDate": "1992-01-01",
     "gender": "female",
@@ -446,7 +446,7 @@
   },
   {
     "email": "daria@yandex.ru",
-    "avatar": "/src/assets/img/avatars/avatar-darya.jpg",
+    "avatar": "https://i.imgur.com/iPaflil.jpeg",
     "name": "Дарья",
     "birthDate": "1999-01-01",
     "gender": "female",
@@ -475,7 +475,7 @@
   },
   {
     "email": "alla@yandex.ru",
-    "avatar": "/src/assets/img/avatars/avatar-alla.jpg",
+    "avatar": "https://i.imgur.com/apJYsdv.jpeg",
     "name": "Алла",
     "birthDate": "2003-01-01",
     "gender": "female",

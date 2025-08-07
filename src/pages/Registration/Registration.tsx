@@ -1,47 +1,106 @@
-import React, { useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './Registration.module.css';
 import logoIcon from '@/assets/svg/logo.svg';
 import { Button } from '@/shared/ui/Button';
 import CrossIcon from '@/assets/svg/icons/cross.svg?react';
-import { FormStepOne } from '@/features/registration/ui/FormStepOne';
-import { FormStepTwo } from '@/features/registration/ui/FormStepTwo';
-import { FormStepThree } from '@/features/registration/ui/FormStepThree';
 import { WelcomeSection } from '@/features/registration/ui/WelcomeSection';
 import iconStep1 from '@/assets/svg/light-bulb.svg';
 import iconStep2 from '@/assets/svg/user-info.svg';
 import iconStep3 from '@/assets/svg/school-board.svg';
 import { useDispatch } from '@/app/store';
 import { fetchSkills } from '@/features/slices/skillsSlice';
-import { register } from '@/api/authClient';
+import { authApiClient } from '@/api/authClient';
 import { createSkill } from '@/api/authClient';
+import { Loader } from '@/shared/ui/Loader';
+import type { TSkillInfo } from '@/shared/lib/types';
+import { SkillInfo } from '@/shared/ui/SkillInfo';
+import { Gallery } from '@/widgets/Gallery';
+import EditIcon from '@/assets/svg/icons/edit.svg?react';
+import { fetchUser } from '@/features/slices/authSlice';
 
-export interface RegistrationData {
+const FormStepOne = lazy(
+  () => import('@/features/registration/ui/FormStepOne')
+);
+const FormStepTwo = lazy(
+  () => import('@/features/registration/ui/FormStepTwo')
+);
+const FormStepThree = lazy(
+  () => import('@/features/registration/ui/FormStepThree')
+);
+const Modal = lazy(() => import('@/shared/ui/Modal/Modal'));
+
+export interface StepOneData {
   email: string;
   password: string;
-  avatar: File | null;
+}
+export interface StepTwoData {
+  avatar?: File | null;
   name: string;
   birthDate: Date | null;
-  gender: string;
+  gender?: string;
   city: string;
-  category: string;
-  subcategory: string;
-  title: string;
-  description: string;
-  images: File[];
+  categories?: string[];
+  subcategories?: string[];
 }
 
-export const Registration: React.FC = () => {
+export interface SkillRegistrationData {
+  title: string;
+  category: string;
+  subcategory: string;
+  description?: string;
+  images?: File[];
+}
+
+function Registration() {
   const dispatch = useDispatch();
-  dispatch(fetchSkills());
-
   const navigate = useNavigate();
-  const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState<Partial<RegistrationData>>({});
 
-  const handleNext = (data: Partial<RegistrationData>) => {
+  useEffect(() => {
+    dispatch(fetchSkills());
+  }, [dispatch]);
+
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState<Partial<StepOneData & StepTwoData>>(
+    {}
+  );
+
+  const handleNext = (data: StepOneData | StepTwoData) => {
     setFormData((prev) => ({ ...prev, ...data }));
     setStep((prev) => prev + 1);
+  };
+
+  const handleRegistrationSubmit = async (
+    stepData: SkillRegistrationData | null
+  ) => {
+    const userData: StepOneData & StepTwoData = {
+      email: formData.email!,
+      password: formData.password!,
+      avatar: formData.avatar,
+      name: formData.name!,
+      birthDate: formData.birthDate!,
+      gender: formData.gender,
+      city: formData.city!,
+      categories: formData.categories,
+      subcategories: formData.subcategories,
+    };
+    const skillData = stepData;
+    try {
+      await authApiClient.register(userData);
+      dispatch(fetchUser());
+
+      console.log(skillData);
+
+      if (skillData) {
+        openModal();
+        const newSkill = await createSkill(skillData);
+        setSkillInfo(newSkill);
+      } else {
+        navigate('/');
+      }
+    } catch (err) {
+      console.error('Ошибка регистрации или создания навыка:', err);
+    }
   };
 
   const handleReset = () => {
@@ -53,12 +112,8 @@ export const Registration: React.FC = () => {
         delete updated.birthDate;
         delete updated.gender;
         delete updated.city;
-        delete updated.category;
-        delete updated.subcategory;
-      } else if (step === 3) {
-        delete updated.title;
-        delete updated.description;
-        delete updated.images;
+        delete updated.categories;
+        delete updated.subcategories;
       }
 
       return updated;
@@ -68,6 +123,18 @@ export const Registration: React.FC = () => {
   };
   const handleClose = () => {
     navigate('/');
+  };
+
+  const [skillInfo, setSkillInfo] = useState<TSkillInfo>();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   const rightSideContent = () => {
@@ -140,54 +207,30 @@ export const Registration: React.FC = () => {
           {/* Левая часть - Форма */}
           <div className={styles.formSection}>
             {step === 1 && (
-              <FormStepOne onFormSubmit={handleNext} defaultValues={formData} />
+              <Suspense fallback={<Loader />}>
+                <FormStepOne
+                  onFormSubmit={handleNext}
+                  defaultValues={formData}
+                />
+              </Suspense>
             )}
             {step === 2 && (
-              <FormStepTwo
-                onFormSubmit={handleNext}
-                onReset={handleReset}
-                defaultValues={formData}
-              />
+              <Suspense fallback={<Loader />}>
+                <FormStepTwo
+                  onFormSubmit={handleNext}
+                  onReset={handleReset}
+                  defaultValues={formData}
+                />
+              </Suspense>
             )}
 
             {step === 3 && (
-              <FormStepThree
-                onFormSubmit={async (stepData) => {
-                  const combined = {
-                    ...formData,
-                    ...stepData,
-                  };
-
-                  const payload = {
-                    email: combined.email!,
-                    password: combined.password!,
-                    name: combined.name!,
-                    birthDate: combined.birthDate!.toISOString(),
-                    gender: combined.gender!,
-                    city: combined.city!,
-                  };
-
-                  try {
-                    await register(payload);
-
-                    await createSkill({
-                      title: combined.title!,
-                      category: combined.category!,
-                      subcategory: combined.subcategory!,
-                      description: combined.description!,
-                      images: combined.images!,
-                    });
-
-                    navigate('/');
-                  } catch (err) {
-                    console.error(
-                      'Ошибка регистрации или создания навыка:',
-                      err
-                    );
-                  }
-                }}
-                onReset={handleReset}
-              />
+              <Suspense fallback={<Loader />}>
+                <FormStepThree
+                  onFormSubmit={handleRegistrationSubmit}
+                  onReset={handleReset}
+                />
+              </Suspense>
             )}
           </div>
 
@@ -195,6 +238,51 @@ export const Registration: React.FC = () => {
           <div className={styles.imageSection}>{rightSideContent()}</div>
         </div>
       </div>
+      <Suspense fallback={<Loader />}>
+        {isModalOpen && (
+          <Modal isOpen={isModalOpen} onClose={closeModal}>
+            {skillInfo ? (
+              <>
+                <div className={styles.headerModal}>
+                  <h2 className={styles.title}>Ваше предложение</h2>
+                  <p className={styles.description}>
+                    {' '}
+                    Пожалуйста, проверьте и подтвердите правильность данных
+                  </p>
+                </div>
+                <div className={styles.content}>
+                  <div className={styles.descriptionContainer}>
+                    <SkillInfo skill={skillInfo} />
+                    <div className={styles.buttonsContainer}>
+                      <Button variant="secondary" onClick={closeModal}>
+                        Редактировать
+                        <EditIcon />
+                      </Button>
+                      <Button variant="primary" onClick={() => navigate('/')}>
+                        Готово
+                      </Button>
+                    </div>
+                  </div>
+                  <Gallery images={skillInfo.images} />
+                </div>
+              </>
+            ) : (
+              <div
+                style={{
+                  minHeight: 532,
+                  minWidth: 1024,
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+                <Loader />
+              </div>
+            )}
+          </Modal>
+        )}
+      </Suspense>
     </div>
   );
-};
+}
+
+export const Component = Registration;

@@ -17,7 +17,6 @@ import {
   selectAllSkills,
 } from '../../features/slices/skillsSlice';
 import {
-  fetchUser,
   logout,
   selectAuthUser,
   selectIsAuth,
@@ -33,7 +32,8 @@ import {
   markNotificationsAsRead,
   removeNotifications,
 } from '../../features/slices/authSlice';
-import { logout as apiLogout } from '@/api/authClient';
+import { authApiClient } from '@/api/authClient';
+import { clearLocalItem } from '@/shared/lib/localStorageUtils';
 
 export const Header = () => {
   const [isSkillsMenuOpen, setIsSkillsMenuOpen] = useState(false);
@@ -113,18 +113,15 @@ export const Header = () => {
 
   const handleLogout = async () => {
     try {
-      await apiLogout();
+      await authApiClient.logout();
       dispatch(logout());
       navigate('/');
       setIsProfileMenuOpen(false);
+      clearLocalItem('user');
     } catch (error) {
       console.error('Ошибка при выходе из аккаунта:', error);
     }
   };
-
-  useEffect(() => {
-    dispatch(fetchUser());
-  }, [dispatch]);
 
   // Обработка клика вне компонента
   useEffect(() => {

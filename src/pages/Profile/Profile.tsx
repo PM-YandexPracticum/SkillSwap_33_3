@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 import { ProfileNavigation } from '../../widgets/ProfileNavigation';
 import styles from './Profile.module.css';
 
-export default function ProfilePage() {
+function ProfilePage() {
   return (
     <>
       <div className={styles.wrapper}>
@@ -14,3 +14,5 @@ export default function ProfilePage() {
     </>
   );
 }
+
+export const Component = ProfilePage;

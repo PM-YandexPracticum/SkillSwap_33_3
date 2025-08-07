@@ -1,8 +1,9 @@
+import type { TSkillInfo } from '@/shared/lib/types';
 import { getCookie, setCookie, deleteCookie } from '../shared/lib/cookie';
 import type { UserResponse } from './client';
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_BASE_URL = 'https://exquisitely-commending-rattler.cloudpub.ru/';
 const ACCESS_TOKEN_COOKIE = 'accessToken';
 const REFRESH_TOKEN_KEY = 'refreshToken';
 
@@ -39,8 +40,8 @@ interface CreateSkillPayload {
   title: string;
   category: string;
   subcategory: string;
-  description: string;
-  images: File[];
+  description?: string;
+  images?: File[];
 }
 
 class AuthApiClient {
@@ -61,7 +62,6 @@ class AuthApiClient {
   private saveTokens(accessToken: string, refreshToken?: string): void {
     setCookie(ACCESS_TOKEN_COOKIE, accessToken, {
       expires: 7,
-      secure: import.meta.env.PROD,
       sameSite: 'lax',
     });
 
@@ -221,10 +221,13 @@ class AuthApiClient {
   async register(data: {
     email: string;
     password: string;
+    avatar?: File | null;
     name: string;
-    birthDate: string;
-    gender: string;
+    birthDate: Date | null;
+    gender?: string;
     city: string;
+    categories?: string[];
+    subcategories?: string[];
   }): Promise<LoginResponse> {
     const response = await fetch(`${this.baseURL}/api/auth/register`, {
       method: 'POST',
@@ -290,39 +293,25 @@ class AuthApiClient {
     return response.json();
   }
 }
-//Создаем навык
 export const createSkill = async (data: CreateSkillPayload) => {
   const formData = new FormData();
 
   formData.append('title', data.title);
   formData.append('category', data.category);
   formData.append('subcategory', data.subcategory);
-  formData.append('description', data.description);
+  formData.append('description', data.description || '');
 
-  data.images.forEach((file) => {
-    formData.append('images', file); // или 'images[]', если сервер требует массив
+  data.images?.forEach((file) => {
+    formData.append('images', file);
   });
-
-  const response = await axios.post('/skills', formData, {
+  const response = await axios.post(`${API_BASE_URL}/api/skills`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
   });
 
-  return response.data;
+  return response.data as TSkillInfo;
 };
 
 // Экспортируем единственный экземпляр
 export const authApiClient = new AuthApiClient();
-
-// Экспортируем методы для удобства
-export const {
-  authenticatedRequest,
-  checkAuth,
-  logout,
-  saveAuthTokens,
-  isAuthenticated,
-  register,
-  login,
-  updateProfile,
-} = authApiClient;

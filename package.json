@@ -14,7 +14,7 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "test": "jest",
+    "test": "jest --coverage",
     "prepare": "husky",
     "husky-script": "npm run fixAll && git add ."
   },

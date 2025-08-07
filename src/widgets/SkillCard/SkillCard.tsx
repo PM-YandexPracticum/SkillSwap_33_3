@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { lazy, useState } from 'react';
 import type { TSkillInfo } from '../../shared/lib/types';
 import { SkillInfo } from '../../shared/ui/SkillInfo';
 import { Gallery } from '../Gallery';
@@ -14,7 +14,8 @@ import styles from './SkillCard.module.css';
 import { selectIsAuth } from '@/features/slices/authSlice';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Modal } from '@/shared/ui/Modal';
+
+const Modal = lazy(() => import('@/shared/ui/Modal/Modal'));
 
 interface SkillCardProps {
   skill: TSkillInfo;
@@ -31,7 +32,7 @@ export const SkillCard: React.FC<SkillCardProps> = ({ skill, onClick }) => {
 
   const handleExchange = () => {
     if (!isAuth) {
-      navigate('/register');
+      navigate('/registration');
       return;
     }
 

@@ -5,16 +5,13 @@ import {
   type PayloadAction,
 } from '@reduxjs/toolkit';
 
-// TODO: Убрать мок api юзеров, заменить на реальный сервер в проде
-// import { usersApi } from '../../api/client';
-import mockUsers from '../../../public/db/users.json';
-import mockUsersUnpopular from '../../../public/db/usersUnpopular.json';
-import mockUsersOld from '../../../public/db/usersOld.json';
-
 import type { RootState } from '../../app/store';
-import type { UserResponse } from '../../api/client';
+import { usersApi, type UserResponse } from '../../api/client';
 import type { Filters } from '../../shared/lib/types';
 import { getLearningSkills, getTeachingSkills } from '../../shared/lib/utils';
+import mockUsersUnpopular from '../../../public/db/usersUnpopular.json';
+import mockUsers from '../../../public/db/users.json';
+import mockUsersOld from '../../../public/db/usersOld.json';
 
 export interface UsersState {
   list: UserResponse[];
@@ -28,17 +25,8 @@ const initialState: UsersState = {
   error: null,
 };
 
-function delay() {
-  return new Promise((resolve) => setTimeout(resolve, 300)); // Задержка 0.3 секунды
-}
-
-// TODO: Убрать мок api юзеров, заменить на реальный сервер в проде
-// export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
-//     return await usersApi.getAll();
-// });
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
-  await delay();
-  return mockUsers;
+  return await usersApi.getAll();
 });
 
 // Для генерации идентификаторов пользователей используем линейный конгруентный
@@ -56,19 +44,19 @@ function patchUsers(users: UserResponse[]) {
 export const fetchPopularUsers = createAsyncThunk(
   'users/fetchPopularUsers',
   () => {
-    return delay().then(() => patchUsers(mockUsersUnpopular));
+    return patchUsers(mockUsersUnpopular);
   }
 );
 
 export const fetchRecentUsers = createAsyncThunk(
   'users/fetchRecentUsers',
   () => {
-    return delay().then(() => patchUsers(mockUsers));
+    return patchUsers(mockUsers);
   }
 );
 
 export const fetchNewUsers = createAsyncThunk('users/fetchNewUsers', () => {
-  return delay().then(() => patchUsers(mockUsersOld));
+  return patchUsers(mockUsersOld);
 });
 
 export const usersSlice = createSlice({
@@ -154,9 +142,9 @@ export const selectUsersFiltered = createSelector(
       let matchesMode = true;
 
       if (filters.mode === 'learn') {
-        matchesMode = getLearningSkills(user, filters.subcategories).length > 0;
-      } else if (filters.mode === 'teach') {
         matchesMode = getTeachingSkills(user, filters.subcategories).length > 0;
+      } else if (filters.mode === 'teach') {
+        matchesMode = getLearningSkills(user, filters.subcategories).length > 0;
       } else if (filters.mode === 'all') {
         matchesMode =
           getLearningSkills(user, filters.subcategories).length > 0 ||

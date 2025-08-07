@@ -7,11 +7,11 @@ import { Button } from '../../../shared/ui/Button';
 import { FormInput } from '../../../shared/ui/FormInput/FormInput';
 import EditIcon from '../../../assets/svg/icons/edit.svg?react';
 import GalleryEdit from '../../../assets/svg/icons/gallery-edit.svg?react';
-import ProfileAvatar from '../../../assets/img/avatars/avatar-maria-profile.jpg';
 import { CustomDatePicker } from '../../../shared/ui/CustomDatePicker/CustomDatePicker';
 import { useSelector } from '@/app/store';
-import { selectAuthUser } from '@/features/slices/authSlice';
-import { updateProfile } from '@/api/authClient';
+import { selectAuthUser, selectIsAuth } from '@/features/slices/authSlice';
+import { authApiClient } from '@/api/authClient';
+import { useNavigate } from 'react-router-dom';
 import * as validation from '../../../shared/constants/validation';
 import { SelectOption } from '@/shared/ui/SelectOption';
 
@@ -22,42 +22,46 @@ interface FormData {
   gender: string;
   city: string;
   about: string;
+  image: string;
 }
 
-const initialData: FormData = {
-  email: 'Mariia@gmail.com',
-  name: 'Мария',
-  birthdate: new Date(1995, 9, 28), // 28.10.1995
-  gender: 'Женский',
-  city: 'Москва',
-  about:
-    'Люблю учиться новому, особенно если это можно делать за чаем и в пижаме. Всегда готова пообщаться и обменяться чем-то интересным!',
-};
+const cities = [
+  'Москва',
+  'Санкт-Петербург',
+  'Новосибирск',
+  'Екатеринбург',
+  'Казань',
+  'Сочи',
+  'Краснодар',
+  'Кемерово',
+  'Владивосток',
+  'Красноярск',
+  'Иркутск',
+];
+const citiesOptions = cities.map((item) => ({
+  label: item,
+  value: item,
+}));
 
-export default function Info() {
-  const cities = [
-    'Москва',
-    'Санкт-Петербург',
-    'Новосибирск',
-    'Екатеринбург',
-    'Казань',
-    'Сочи',
-    'Краснодар',
-    'Кемерово',
-    'Владивосток',
-    'Красноярск',
-    'Иркутск',
-  ];
-  const citiesOptions = cities.map((item) => ({
-    label: item,
-    value: item,
-  }));
+const genders = [
+  { label: 'Мужской', value: 'male' },
+  { label: 'Женский', value: 'female' },
+  { label: 'Не указан', value: 'unknown' },
+];
 
-  const genders = [
-    { label: 'Мужской', value: 'male' },
-    { label: 'Женский', value: 'female' },
-    { label: 'Не указан', value: 'unknown' },
-  ];
+function Info() {
+  const navigate = useNavigate();
+  const user = useSelector(selectAuthUser);
+  const isAuth = useSelector(selectIsAuth);
+  const initialData: FormData = {
+    email: user?.email || '',
+    name: user?.name || '',
+    birthdate: new Date(user?.birthDate || ''),
+    gender: user?.gender || '',
+    city: user?.city || '',
+    about: user?.aboutMe || '',
+    image: user?.avatar || '',
+  };
 
   const [formData, setFormData] = useState<FormData>(initialData);
   const [edited, setEdited] = useState(false);
@@ -66,7 +70,6 @@ export default function Info() {
   const [birthdateError, setBirthdateError] = useState('');
   const [cityError, setCityError] = useState('');
   const [aboutError, setAboutError] = useState('');
-  const user = useSelector(selectAuthUser);
 
   const handleChange = (key: keyof FormData, value: string | Date | null) => {
     const updated = { ...formData, [key]: value };
@@ -111,7 +114,7 @@ export default function Info() {
 
     if (validate()) {
       try {
-        await updateProfile(`${user.id}`, {
+        await authApiClient.updateProfile(`${user.id}`, {
           name: formData.name,
           city: formData.city,
           gender: formData.gender,
@@ -125,6 +128,20 @@ export default function Info() {
     }
   };
 
+  useEffect(() => {
+    if (!isAuth) navigate('/');
+    else
+      setFormData((state) => ({
+        ...state,
+        email: user?.email || '',
+        name: user?.name || '',
+        birthdate: new Date(user?.birthDate || ''),
+        gender: user?.gender || '',
+        city: user?.city || '',
+        about: user?.aboutMe || '',
+        image: user?.avatar || '',
+      }));
+  }, [user, isAuth, navigate]);
   useEffect(() => setEmailError(''), [formData.email]);
   useEffect(() => setNameError(''), [formData.name]);
   useEffect(() => setBirthdateError(''), [formData.birthdate]);
@@ -161,39 +178,37 @@ export default function Info() {
 
         {/* Дата рождения + Пол */}
         <div className={styles.row}>
-          <div className={styles.halfField}>
-            <label>Дата рождения</label>
-            <CustomDatePicker
-              selected={formData.birthdate}
-              onChange={(date) => handleChange('birthdate', date)}
-              error={birthdateError}
-            />
-          </div>
-          <div className={styles.halfField}>
-            <label>Пол</label>
-            <Select
-              value={
-                genders.find((item) => item.value === formData.gender)?.label
-              }
-            >
-              {genders.map((option) => (
-                <SelectOption
-                  key={option.value}
-                  value={option.value}
-                  onClick={(value: string) => handleChange('gender', value)}
-                >
-                  {option.label}
-                </SelectOption>
-              ))}
-            </Select>
-          </div>
+          <CustomDatePicker
+            label="Дата рождения"
+            selected={formData.birthdate}
+            onChange={(date) => handleChange('birthdate', date)}
+            error={birthdateError}
+          />
+          <Select
+            label="Пол"
+            value={
+              genders.find((item) => item.value === formData.gender)?.label
+            }
+          >
+            {genders.map((option) => (
+              <SelectOption
+                key={option.value}
+                value={option.value}
+                onClick={(value: string) => handleChange('gender', value)}
+              >
+                {option.label}
+              </SelectOption>
+            ))}
+          </Select>
         </div>
 
         {/* Город */}
         <div className={styles.field}>
-          <label>Город</label>
           <ComboInput
-            defaultValue={formData.city}
+            label="Город"
+            defaultValue={citiesOptions.find(
+              (item) => item.value === formData.city
+            )}
             onChange={(val) => handleChange('city', val)}
             options={citiesOptions}
             error={cityError}
@@ -221,7 +236,7 @@ export default function Info() {
 
       {/* Аватар */}
       <div className={styles.avatarSection}>
-        <img className={styles.avatar} src={ProfileAvatar} alt="Аватарка" />
+        <img className={styles.avatar} src={formData.image} alt="Аватарка" />
         <button type="button" className={styles.avatarEdit}>
           <GalleryEdit />
         </button>
@@ -229,3 +244,5 @@ export default function Info() {
     </form>
   );
 }
+
+export const Component = Info;

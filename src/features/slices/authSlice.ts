@@ -4,34 +4,28 @@ import {
   type PayloadAction,
 } from '@reduxjs/toolkit';
 
-// TODO: Убрать мок api юзера, заменить на реальный сервер в проде
-// import { userApi } from '../../api/client';
-import mockUser from '../../../public/db/user.json';
-
 import type { RootState } from '../../app/store';
-import type { UserAuthResponse } from '../../api/authClient';
+import { authApiClient, type UserAuthResponse } from '../../api/authClient';
+import { getLocalItem, setLocalItem } from '@/shared/lib/localStorageUtils';
 
 export interface AuthState {
-  user: UserAuthResponse | null;
+  user: UserAuthResponse | undefined;
   isAuth: boolean;
   loading: boolean;
   error: string | null;
 }
 
 const initialState: AuthState = {
-  user: null,
-  isAuth: false,
+  user: getLocalItem<UserAuthResponse>('user'),
+  isAuth: !!localStorage.getItem('refreshToken'),
   loading: false,
   error: null,
 };
 
-// TODO: Убрать мок api юзера, заменить на реальный сервер в проде
-// export const fetchUsers = createAsyncThunk('auth/fetchUser', async () => {
-//     return await userApi.get();
-// });
 export const fetchUser = createAsyncThunk('auth/fetchUser', async () => {
-  await new Promise((resolve) => setTimeout(resolve, 300)); // Задержка 0.3 секунды
-  return mockUser as UserAuthResponse;
+  const user = await authApiClient.checkAuth();
+  setLocalItem('user', user);
+  return user;
 });
 
 export const authSlice = createSlice({
@@ -39,7 +33,7 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     logout(state) {
-      state.user = null;
+      state.user = undefined;
       state.isAuth = false;
     },
     markNotificationsAsRead(state, action: PayloadAction<string[]>) {
@@ -75,6 +69,7 @@ export const authSlice = createSlice({
         }
       )
       .addCase(fetchUser.rejected, (state, action) => {
+        state.isAuth = false;
         state.loading = false;
         state.error = action.error.message || 'Failed to fetch user';
       });

@@ -36,7 +36,7 @@ export const Default: Story = {
     label: 'Город',
     placeholder: 'Не указан',
     options,
-    defaultValue: '',
+    defaultValue: { label: '', value: '' },
   },
   render: (args) => (
     <div style={storyWrapper}>

@@ -34,7 +34,7 @@ export const Notifications: React.FC<NotificationProps> = ({
           >
             <div className="notification-content">
               <Lamp className="notification-icon" />
-              <span className="notification-text">{note.description}</span>
+              <span className="notification-text">{note.title}</span>
             </div>
             <div className="notification-go-container">
               <span className="notification-go-text">Перейти</span>

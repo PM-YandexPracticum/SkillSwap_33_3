@@ -12,24 +12,15 @@ import { Checkbox } from '@/shared/ui/Checkbox';
 import { ComboInput } from '@/shared/ui/ComboInput';
 import * as validation from '@/shared/constants/validation';
 import { SelectOption } from '@/shared/ui/SelectOption';
-
-interface FormStepTwoData {
-  avatar: File | null;
-  name: string;
-  birthDate: Date | null;
-  gender: string;
-  city: string;
-  categories: string[];
-  subcategories: string[];
-}
+import type { StepTwoData } from '@/pages/Registration/Registration';
 
 interface FormStepTwoProps extends React.FormHTMLAttributes<HTMLFormElement> {
-  onFormSubmit: (data: Partial<FormStepTwoData>) => void;
+  onFormSubmit: (data: StepTwoData) => void;
   onReset?: () => void;
-  defaultValues?: Partial<FormStepTwoData>;
+  defaultValues?: Partial<StepTwoData>;
 }
 
-export const FormStepTwo: React.FC<FormStepTwoProps> = ({
+const FormStepTwo: React.FC<FormStepTwoProps> = ({
   onFormSubmit,
   onReset,
   defaultValues,
@@ -261,3 +252,5 @@ export const FormStepTwo: React.FC<FormStepTwoProps> = ({
     </form>
   );
 };
+
+export default FormStepTwo;
